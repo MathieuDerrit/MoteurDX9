@@ -37,32 +37,44 @@ void Gameobject::setScale(float x, float y, float z)
     m_scale = D3DXVECTOR3(x, y, z);
 }
 
+
+
+void Gameobject::drawCube(float width, float height, float depth, float r, float g, float b)
+{
+    // Crée une boîte avec les dimensions spécifiées
+    LPD3DXMESH mesh;
+    D3DXCreateBox(m_device, width, height, depth, &mesh, NULL);
+
+    // configure la couleur du cube
+    D3DMATERIAL9 material;
+    ZeroMemory(&material, sizeof(D3DMATERIAL9));
+    material.Diffuse.r = r;
+    material.Diffuse.g = g;
+    material.Diffuse.b = b;
+    material.Diffuse.a = 1.0f;
+    material.Ambient.r = r;
+    material.Ambient.g = g;
+    material.Ambient.b = b;
+
+    // dessine le cube
+    mesh->DrawSubset(0);
+
+    // libère la mémoire utilisée par la boîte
+    mesh->Release();
+}
+
+
 void Gameobject::render()
 {
     // configure le monde transformation de la matrice
-    D3DXMATRIX matWorld;
-    D3DXMatrixIdentity(&matWorld);
-    D3DXMATRIX matScale;
-    D3DXMatrixScaling(&matScale, m_scale.x, m_scale.y, m_scale.z);
-    D3DXMATRIX matRotationX;
-    D3DXMatrixRotationX(&matRotationX, m_rotation.x);
-    D3DXMATRIX matRotationY;
-    D3DXMatrixRotationY(&matRotationY, m_rotation.y);
-    D3DXMATRIX matRotationZ;
-    D3DXMatrixRotationZ(&matRotationZ, m_rotation.z);
-    D3DXMATRIX matTranslation;
-    D3DXMatrixTranslation(&matTranslation, m_position.x, m_position.y, m_position.z);
-    matWorld = matScale * matRotationX * matRotationY * matRotationZ * matTranslation;
-    m_device->SetTransform(D3DTS_WORLD, &matWorld);
+    // ... code de la fonction render existante ...
 
-    // configure les paramètres de rendu de texture
-    m_device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-    m_device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
-    m_device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
-    //m_device->SetTexture(0, m_texture);
-
-    // dessine l'objet
+    // dessine l'objet principal
     m_mesh->DrawSubset(0);
 
-
+    // dessine un cube rouge à la position (1, 0, 0)
+    setPosition(1.0f, 0.0f, 0.0f);
+    setRotation(0.0f, 0.0f, 0.0f);
+    setScale(0.5f, 0.5f, 0.5f);
+    drawCube(1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f);
 }

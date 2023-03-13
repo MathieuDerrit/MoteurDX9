@@ -15,6 +15,7 @@ public:
     void setRotation(float x, float y, float z);
     void setScale(float x, float y, float z);
 
+    void drawCube(float width, float height, float depth, float r, float g, float b);
     void render();
 
 private:
