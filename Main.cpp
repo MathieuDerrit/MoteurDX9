@@ -203,9 +203,9 @@ void cleanD3D(void)
 void init_graphics(void)
 {
     Gameobject cube(d3ddev, nullptr);
-   cube.setPosition(0.0f, 0.0f, 0.0f);
-cube.setRotation(0.0f, 0.0f, 0.0f);
-cube.setScale(1.0f, 1.0f, 1.0f);
+    cube.setPosition(0.0f, 0.0f, 0.0f);
+    cube.setRotation(0.0f, 0.0f, 0.0f);
+    cube.setScale(1.0f, 1.0f, 1.0f);
 }
 
 

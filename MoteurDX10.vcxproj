@@ -132,11 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="C:\Users\lpham-vu\Desktop\dx_manager.cpp" />
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\lpham-vu\Desktop\dx_manager.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Transform.h" />
