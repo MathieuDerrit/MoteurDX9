@@ -1,0 +1,3 @@
+﻿  Main.cpp
+C:\Users\mderrit\source\repos\MoteurDX10\Main.cpp(88,15): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  MoteurDX10.vcxproj -> C:\Users\mderrit\source\repos\MoteurDX10\x64\Debug\MoteurDX10.exe
