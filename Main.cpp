@@ -3,6 +3,7 @@
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "Gameobject.h"
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
@@ -279,6 +280,8 @@ void init_graphics(void)
     i_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, indices, sizeof(indices));
     i_buffer->Unlock();
+
+    Gameobject a = Gameobject(d3ddev, nullptr);
 }
 
 
