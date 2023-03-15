@@ -17,3 +17,11 @@ Gameobject::~Gameobject()
     if (m_mesh != NULL)
         m_mesh->Release();
 }
+
+template<typename T>
+T* Gameobject::AddComponent() 
+{
+    T* c = new T(this);
+    m_components.push_back(c);
+    return c;
+}
