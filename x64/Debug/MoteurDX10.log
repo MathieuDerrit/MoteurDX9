@@ -1,8 +1,1 @@
-<<<<<<< Updated upstream
-﻿  Main.cpp
-C:\Users\twantiezfoucher\Documents\GitHub\MoteurDX10\Moteur\Main.cpp(86,15): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-  MoteurDX10.vcxproj -> C:\Users\twantiezfoucher\Documents\GitHub\MoteurDX10\x64\Debug\MoteurDX10.exe
-=======
-﻿  DXManager.cpp
-  MoteurDX10.vcxproj -> D:\GithubProject\MoteurDX10\x64\Debug\MoteurDX10.exe
->>>>>>> Stashed changes
+﻿  MoteurDX10.vcxproj -> C:\Users\amagnin\Documents\GitHub\MoteurDX10\x64\Debug\MoteurDX10.exe

@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>
+#include <d3dx9.h>
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
@@ -166,7 +167,7 @@ void cleanD3D(void)
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
-<<<<<<< Updated upstream
+
 }
 
 
@@ -189,7 +190,7 @@ void init_light(void)
     material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);    // set ambient color to white
 
     d3ddev->SetMaterial(&material);    // set the globably-used material to &material
-=======
+
     // create the vertices using the CUSTOMVERTEX struct
     CUSTOMVERTEX vertices[] =
     {
@@ -212,5 +213,5 @@ void init_light(void)
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
     v_buffer->Unlock();
->>>>>>> Stashed changes
+
 }
