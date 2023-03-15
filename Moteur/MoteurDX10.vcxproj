@@ -132,18 +132,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Moteur\Gameobject.cpp" />
-    <ClCompile Include="Moteur\Main.cpp" />
-    <ClCompile Include="Moteur\Transform.cpp" />
+    <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Moteur\CreateCube.h" />
-    <ClInclude Include="Moteur\Gameobject.h" />
-    <ClInclude Include="Moteur\resource.h" />
-    <ClInclude Include="Moteur\Transform.h" />
+    <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Moteur\MoteurDX10.rc" />
+    <ResourceCompile Include="MoteurDX10.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
