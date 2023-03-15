@@ -9,25 +9,33 @@ class Transform
 {
 public:
     Transform();
-    Transform(D3DXVECTOR3 position, D3DXVECTOR3 rotation, D3DXVECTOR3 scale);
     ~Transform();
 
-    D3DXVECTOR3 getPosition() const;
     void setPosition(D3DXVECTOR3 position);
 
-    D3DXVECTOR3 getRotation() const;
-    void setRotation(D3DXVECTOR3 rotation);
+    void rotate(float yaw, float pitch, float roll);
 
-    D3DXVECTOR3 getScale() const;
     void setScale(D3DXVECTOR3 scale);
 
-    D3DXMATRIX getWorldMatrix() const;
+    void updateMatrix();
 
-private:
     D3DXVECTOR3 m_position;
-    D3DXVECTOR3 m_rotation;
+    D3DXMATRIX m_mPos;
+
+    float yaw = 0;
+    float pitch = 0;
+    float roll = 0;
+
+    D3DXVECTOR3 m_dir;
+    D3DXVECTOR3 m_up;
+    D3DXVECTOR3 m_right;
+    D3DXQUATERNION m_quat;
+    D3DXMATRIX m_mRot;
+
     D3DXVECTOR3 m_scale;
+    D3DXMATRIX m_mSca;
+
+    D3DXMATRIX m_matrix;
 };
 
 #endif
-

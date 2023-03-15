@@ -4,63 +4,61 @@
 Transform::Transform()
 {
     m_position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    m_rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    m_quat = D3DXQUATERNION(0.0f, 0.0f, 0.0f, 0.0f);
     m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-}
-
-Transform::Transform(D3DXVECTOR3 position, D3DXVECTOR3 rotation, D3DXVECTOR3 scale)
-{
-    m_position = position;
-    m_rotation = rotation;
-    m_scale = scale;
 }
 
 Transform::~Transform()
 {
 }
 
-D3DXVECTOR3 Transform::getPosition() const
-{
-    return m_position;
-}
 
 void Transform::setPosition(D3DXVECTOR3 position)
 {
     m_position = position;
+    D3DXMatrixTranslation(&m_mPos, m_position.x, m_position.y, m_position.z);
+    updateMatrix();
 }
 
-D3DXVECTOR3 Transform::getRotation() const
+void Transform::rotate(float yaw, float pitch, float roll)
 {
-    return m_rotation;
-}
 
-void Transform::setRotation(D3DXVECTOR3 rotation)
-{
-    m_rotation = rotation;
-}
+    D3DXQUATERNION quat;
+    D3DXQUATERNION quatRot;
+    D3DXQuaternionRotationAxis(&quat, &m_dir, roll);
+    quatRot *= quat;
+    D3DXQuaternionRotationAxis(&quat, &m_right, pitch);
+    quatRot *= quat;
+    D3DXQuaternionRotationAxis(&quat, &m_up, yaw);
+    quatRot *= quat;
 
-D3DXVECTOR3 Transform::getScale() const
-{
-    return m_scale;
+    m_quat *= quatRot;
+
+    D3DXMatrixRotationQuaternion(&m_mRot, &m_quat);
+
+    m_right.x = m_mRot._11;
+    m_right.y = m_mRot._12;
+    m_right.z = m_mRot._13;
+    m_up.x = m_mRot._21;
+    m_up.y = m_mRot._22;
+    m_up.z = m_mRot._23;
+    m_dir.x = m_mRot._31;
+    m_dir.y = m_mRot._32;
+    m_dir.z = m_mRot._33;
+
+    updateMatrix();
 }
 
 void Transform::setScale(D3DXVECTOR3 scale)
 {
     m_scale = scale;
+    D3DXMatrixScaling(&m_mSca, m_scale.x, m_scale.y, m_scale.z);
+    updateMatrix();
 }
 
-D3DXMATRIX Transform::getWorldMatrix() const
+void Transform::updateMatrix()
 {
-    D3DXMATRIX worldMatrix;
-    D3DXMATRIX translationMatrix;
-    D3DXMATRIX rotationMatrix;
-    D3DXMATRIX scalingMatrix;
-
-    D3DXMatrixTranslation(&translationMatrix, m_position.x, m_position.y, m_position.z);
-    D3DXMatrixRotationYawPitchRoll(&rotationMatrix, m_rotation.y, m_rotation.x, m_rotation.z);
-    D3DXMatrixScaling(&scalingMatrix, m_scale.x, m_scale.y, m_scale.z);
-
-    worldMatrix = scalingMatrix * rotationMatrix * translationMatrix;
-
-    return worldMatrix;
+    m_matrix = m_mSca;
+    m_matrix *= m_mRot;
+    m_matrix *= m_mPos;
 }

@@ -4,6 +4,7 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "Transform.h"
 
 class Gameobject
 {
@@ -11,21 +12,13 @@ public:
     Gameobject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath);
     ~Gameobject();
 
-    void setPosition(float x, float y, float z);
-    void setRotation(float x, float y, float z);
-    void setScale(float x, float y, float z);
-
-    void drawCube(float width, float height, float depth, float r, float g, float b);
-    void render();
+    //Faire des component à ajouter (ex: mesh renderer, collider, etc...)
 
 private:
     LPDIRECT3DDEVICE9 m_device;
     LPDIRECT3DTEXTURE9 m_texture;
     LPD3DXMESH m_mesh;
-
-    D3DXVECTOR3 m_position;
-    D3DXVECTOR3 m_rotation;
-    D3DXVECTOR3 m_scale;
+    Transform m_transform;
 };
 
 #endif // GAMEOBJECT_H
