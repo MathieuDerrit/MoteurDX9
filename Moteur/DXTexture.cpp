@@ -1,6 +1,6 @@
 #include "DXTexture.h"
 
-void DXTexture::Texture()
+DXTexture::DXTexture()
 {
 	this->Texture_1 = 0;
 	this->Texture_2 = 0;

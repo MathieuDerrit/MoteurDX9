@@ -132,34 +132,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DXEngine.cpp" />
     <ClCompile Include="DXGraphics.cpp" />
+    <ClCompile Include="DXInput.cpp" />
+    <ClCompile Include="DXLights.cpp" />
+    <ClCompile Include="DXManager.cpp" />
     <ClCompile Include="DXModels.cpp" />
     <ClCompile Include="DXTexture.cpp" />
     <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
-    <ClCompile Include="Moteur\CameraManager.cpp" />
-    <ClCompile Include="Moteur\DXEngine.cpp" />
-    <ClCompile Include="Moteur\DXManager.cpp" />
-    <ClCompile Include="Moteur\Main.cpp" />
-    <ClCompile Include="Moteur\test.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DXCamera.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DXEngine.h" />
     <ClInclude Include="DXGraphics.h" />
+    <ClInclude Include="DXInput.h" />
+    <ClInclude Include="DXLights.h" />
+    <ClInclude Include="DXManager.h" />
     <ClInclude Include="DXModels.h" />
     <ClInclude Include="DXTexture.h" />
+    <ClInclude Include="DXWin.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="MeshRenderer.h" />
-    <ClInclude Include="Moteur\CameraManager.h" />
-    <ClInclude Include="Moteur\DXEngine.h" />
-    <ClInclude Include="Moteur\DXManager.h" />
-    <ClInclude Include="Moteur\resource.h" />
-    <ClInclude Include="Moteur\test.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

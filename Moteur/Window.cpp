@@ -1,6 +1,7 @@
 #include "Window.h"
-#include <sstream>
 #include "resource.h"
+#include <sstream>
+#include <wtypes.h>
 
 
 // Window Class Stuff
@@ -18,15 +19,15 @@ Window::Windowclass::Windowclass() noexcept
 	wc.cbWndExtra = 0;
 	wc.hInstance = GetInstance();
 	wc.hIcon = static_cast<HICON>(LoadImage(
-		GetInstance(), MAKEINTRESOURCE(IDI_ICON1),
+		GetInstance(), MAKEINTRESOURCE(IDI_APPLICATION),
 		IMAGE_ICON, 32, 32, 0
 	));
-	wc.hCursor = nullptr;
-	wc.hbrBackground = nullptr;
-	wc.lpszMenuName = nullptr;
-	wc.lpszClassName = GetName();
+	wc.hCursor = LoadCursor(0, IDC_ARROW);
+	wc.hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));;
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = TEXT("DirectX_Template");
 	wc.hIconSm = static_cast<HICON>(LoadImage(
-		GetInstance(), MAKEINTRESOURCE(IDI_ICON1),
+		GetInstance(), MAKEINTRESOURCE(IDI_APPLICATION),
 		IMAGE_ICON, 16, 16, 0
 	));
 	RegisterClassEx(&wc);
@@ -267,7 +268,9 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
 		}
 		break;
+
 	case WM_KEYUP:
+
 	case WM_SYSKEYUP:
 		// stifle this keyboard message if imgui wants to capture
 		if (imio.WantCaptureKeyboard)
@@ -276,6 +279,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		}
 		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
+
 	case WM_CHAR:
 		// stifle this keyboard message if imgui wants to capture
 		if (imio.WantCaptureKeyboard)
@@ -288,7 +292,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 
 		/************* MOUSE MESSAGES ****************/
 	case WM_MOUSEMOVE:
-	{
+	
 		const POINTS pt = MAKEPOINTS(lParam);
 		// cursorless exclusive gets first dibs
 		if (!cursorEnabled)
@@ -331,9 +335,9 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			}
 		}
 		break;
-	}
+
 	case WM_LBUTTONDOWN:
-	{
+	
 		SetForegroundWindow(hWnd);
 		if (!cursorEnabled)
 		{
@@ -348,7 +352,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnLeftPressed(pt.x, pt.y);
 		break;
-	}
+	
 	case WM_RBUTTONDOWN:
 	{
 		// stifle this mouse message if imgui wants to capture

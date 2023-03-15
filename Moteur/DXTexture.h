@@ -6,7 +6,7 @@
 class DXTexture
 {
 public:
-	void Texture();
+	DXTexture();
 
 	bool CreateTextures(LPDIRECT3DDEVICE9 devcon);
 
@@ -18,7 +18,4 @@ public:
 		DWORD color;
 		FLOAT tx, ty;
 	};
-
-
 };
-

@@ -1,8 +1,9 @@
 #pragma once
-#include "DXWin.h"
-#include <optional>
-#include "Mouse.h"
 #include <WinUser.h>
+#include <optional>
+
+#include "DXWin.h"
+#include "Mouse.h"
 
 class Window
 {

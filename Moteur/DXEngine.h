@@ -3,13 +3,14 @@
 
 #include <Windows.h>
 #include "DXGraphics.h"
+#include "DXInput.h"
 #pragma comment (lib, "d3dx9.lib")
 
 class DXEngine
 {
 public:
-	void Engine();
-	void Engine(int width, int height);
+	DXEngine();
+	DXEngine(int width, int height);
 
 	bool Initialize();
 	void Run();
@@ -23,10 +24,10 @@ private:
 	bool ShutdownWindow();
 
 	DXGraphics* Graphics;
-	//EngineInput* Input;
+	DXInput* Input;
 
-	HWND m_hwnd;
-	HINSTANCE m_hinstance;
+	HWND _hwnd;
+	HINSTANCE _hinstance;
 	int windowWidth, windowHeight;
 };
 
