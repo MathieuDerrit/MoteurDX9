@@ -132,15 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Moteur\Gameobject.cpp" />
     <ClCompile Include="Moteur\Main.cpp" />
     <ClCompile Include="Moteur\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Moteur\CreateCube.h" />
     <ClInclude Include="Moteur\Gameobject.h" />
     <ClInclude Include="Moteur\resource.h" />
