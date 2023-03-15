@@ -21,13 +21,16 @@
     <ClCompile Include="Moteur\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Moteur\Gameobject.cpp">
+    <ClCompile Include="Moteur\CameraManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
+    <ClCompile Include="Moteur\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
+    <ClCompile Include="Moteur\DXManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Moteur\DXEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +47,16 @@
     <ClInclude Include="Moteur\CreateCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
+    <ClInclude Include="Moteur\CameraManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
+    <ClInclude Include="Moteur\test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Moteur\DXManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Moteur\DXEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

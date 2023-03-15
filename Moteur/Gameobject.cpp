@@ -1,6 +1,6 @@
-#include "Gameobject.h"
+#include "GameObject.h"
 
-Gameobject::Gameobject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath)
+GameObject::GameObject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath)
 {
     m_device = device;
 
@@ -9,7 +9,7 @@ Gameobject::Gameobject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath)
     // remplacez D3DXCreateTeapot par D3DXLoadMeshFromX pour charger un modèle 3D à partir d'un fichier
 }
 
-Gameobject::~Gameobject()
+GameObject::~GameObject()
 {
     if (m_texture != NULL)
         m_texture->Release();
@@ -19,7 +19,7 @@ Gameobject::~Gameobject()
 }
 
 template<typename T>
-T* Gameobject::AddComponent() 
+T* GameObject::AddComponent() 
 {
     T* c = new T(this);
     m_components.push_back(c);

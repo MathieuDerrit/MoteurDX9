@@ -1,3 +1,2 @@
-D:\GithubProject\MoteurDX10\x64\Debug\MoteurDX10.exe
 C:\Users\twantiezfoucher\Documents\GitHub\MoteurDX10\x64\Debug\MoteurDX10.exe
 C:\Users\amagnin\Documents\GitHub\MoteurDX10\x64\Debug\MoteurDX10.exe

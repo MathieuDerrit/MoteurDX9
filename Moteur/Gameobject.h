@@ -11,11 +11,11 @@
 
 using namespace std;
 
-class Gameobject
+class GameObject
 {
 public:
-    Gameobject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath);
-    ~Gameobject();
+    GameObject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath);
+    ~GameObject();
 
     //Faire des component à ajouter (ex: mesh renderer, collider, etc...)
     template<typename T>
@@ -29,4 +29,4 @@ private:
     list<Component*> m_components;
 };
 
-#endif // GAMEOBJECT_H
+#endif // GameObject_H

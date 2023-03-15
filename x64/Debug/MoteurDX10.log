@@ -1,6 +1,9 @@
-﻿  Component.cpp
-  Gameobject.cpp
-C:\Users\twantiezfoucher\Documents\GitHub\MoteurDX10\Moteur\Gameobject.h(10,10): fatal  error C1083: Cannot open include file: 'component.h': No such file or directory
+﻿  CameraManager.cpp
+  DXEngine.cpp
+c1xx : fatal  error C1083: Cannot open source file: 'Moteur\DXEngine.cpp': No such file or directory
+  DXManager.cpp
   Main.cpp
-C:\Users\twantiezfoucher\Documents\GitHub\MoteurDX10\Moteur\Gameobject.h(10,10): fatal  error C1083: Cannot open include file: 'component.h': No such file or directory
+D:\GithubProject\MoteurDX10\Moteur\Main.cpp(89,15): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  test.cpp
+  Transform.cpp
   Generating Code...
