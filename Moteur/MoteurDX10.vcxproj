@@ -132,14 +132,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DXGraphics.cpp" />
+    <ClCompile Include="DXModels.cpp" />
+    <ClCompile Include="DXTexture.cpp" />
+    <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Moteur\CameraManager.cpp" />
     <ClCompile Include="Moteur\DXEngine.cpp" />
     <ClCompile Include="Moteur\DXManager.cpp" />
     <ClCompile Include="Moteur\Main.cpp" />
     <ClCompile Include="Moteur\test.cpp" />
     <ClCompile Include="Moteur\Transform.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="DXGraphics.h" />
+    <ClInclude Include="DXModels.h" />
+    <ClInclude Include="DXTexture.h" />
+    <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Moteur\CameraManager.h" />
     <ClInclude Include="Moteur\CreateCube.h" />
     <ClInclude Include="Moteur\DXEngine.h" />
@@ -148,6 +162,8 @@
     <ClInclude Include="Moteur\resource.h" />
     <ClInclude Include="Moteur\test.h" />
     <ClInclude Include="Moteur\Transform.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Moteur\MoteurDX10.rc" />

@@ -9,7 +9,7 @@
 #define SCREEN_HEIGHT 600
 
 // include the Direct3D Library file
-#pragma comment (lib, "d3d9.lib")
+#pragma comment (lib, "d3dx9.lib")
 
 // global declarations
 LPDIRECT3D9 d3d;    // the pointer to our Direct3D interface
@@ -167,7 +167,6 @@ void cleanD3D(void)
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
-
 }
 
 
@@ -213,5 +212,4 @@ void init_light(void)
     v_buffer->Lock(0, 0, (void**)&pVoid, 0);
     memcpy(pVoid, vertices, sizeof(vertices));
     v_buffer->Unlock();
-
 }

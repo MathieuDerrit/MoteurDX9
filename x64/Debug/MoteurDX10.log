@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  CameraManager.cpp
   DXEngine.cpp
 c1xx : fatal  error C1083: Cannot open source file: 'Moteur\DXEngine.cpp': No such file or directory
@@ -7,3 +8,8 @@ D:\GithubProject\MoteurDX10\Moteur\Main.cpp(89,15): warning C4244: 'return': con
   test.cpp
   Transform.cpp
   Generating Code...
+=======
+﻿  DXManager.cpp
+Main.obj : error LNK2019: unresolved external symbol Direct3DCreate9 referenced in function "void __cdecl initD3D(struct HWND__ *)" (?initD3D@@YAXPEAUHWND__@@@Z)
+D:\GithubProject\MoteurDX10\x64\Debug\MoteurDX10.exe : fatal error LNK1120: 1 unresolved externals
+>>>>>>> Stashed changes
