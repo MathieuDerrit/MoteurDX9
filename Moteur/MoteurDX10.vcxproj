@@ -143,8 +143,8 @@
     <ClCompile Include="Moteur\DXManager.cpp" />
     <ClCompile Include="Moteur\Main.cpp" />
     <ClCompile Include="Moteur\test.cpp" />
-    <ClCompile Include="Moteur\Transform.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,13 +155,10 @@
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Moteur\CameraManager.h" />
-    <ClInclude Include="Moteur\CreateCube.h" />
     <ClInclude Include="Moteur\DXEngine.h" />
     <ClInclude Include="Moteur\DXManager.h" />
-    <ClInclude Include="Moteur\Gameobject.h" />
     <ClInclude Include="Moteur\resource.h" />
     <ClInclude Include="Moteur\test.h" />
-    <ClInclude Include="Moteur\Transform.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
