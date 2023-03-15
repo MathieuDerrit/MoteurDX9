@@ -2,32 +2,27 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>
-#include <d3dx9.h>
-#include "Gameobject.h"
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-// include the Direct3D Library files
+// include the Direct3D Library file
 #pragma comment (lib, "d3d9.lib")
-#pragma comment (lib, "d3dx9.lib")
 
 // global declarations
-LPDIRECT3D9 d3d;
-LPDIRECT3DDEVICE9 d3ddev;
-LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
-LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
+LPDIRECT3D9 d3d;    // the pointer to our Direct3D interface
+LPDIRECT3DDEVICE9 d3ddev;    // the pointer to the device class
+LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;    // the pointer to the vertex buffer
 
 // function prototypes
-void initD3D(HWND hWnd);
-void render_frame(void);
-void cleanD3D(void);
-void init_graphics(void);
-void init_light(void);    // sets up the light and the material
+void initD3D(HWND hWnd);    // sets up and initializes Direct3D
+void render_frame(void);    // renders a single frame
+void cleanD3D(void);    // closes Direct3D and releases memory
+void init_graphics(void);    // 3D declarations
 
-struct CUSTOMVERTEX { FLOAT X, Y, Z; D3DVECTOR NORMAL; };
-#define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
+struct CUSTOMVERTEX { FLOAT X, Y, Z, RHW; DWORD COLOR; };
+#define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 
 // the WindowProc function prototype
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -53,9 +48,16 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     RegisterClassEx(&wc);
 
-    hWnd = CreateWindowEx(NULL, L"WindowClass", L"Our Direct3D Program",
-        WS_OVERLAPPEDWINDOW, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-        NULL, NULL, hInstance, NULL);
+    hWnd = CreateWindowEx(NULL,
+        L"WindowClass",
+        L"Our Direct3D Program",
+        WS_OVERLAPPEDWINDOW,
+        0, 0,
+        SCREEN_WIDTH, SCREEN_HEIGHT,
+        NULL,
+        NULL,
+        hInstance,
+        NULL);
 
     ShowWindow(hWnd, nCmdShow);
 
@@ -117,8 +119,6 @@ void initD3D(HWND hWnd)
     d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
     d3dpp.BackBufferWidth = SCREEN_WIDTH;
     d3dpp.BackBufferHeight = SCREEN_HEIGHT;
-    d3dpp.EnableAutoDepthStencil = TRUE;
-    d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
     // create a device class using this information and the info from the d3dpp stuct
     d3d->CreateDevice(D3DADAPTER_DEFAULT,
@@ -128,12 +128,7 @@ void initD3D(HWND hWnd)
         &d3dpp,
         &d3ddev);
 
-    init_graphics();    // call the function to initialize the cube
-    init_light();    // call the function to initialize the light and material
-
-    d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);    // turn on the 3D lighting
-    d3ddev->SetRenderState(D3DRS_ZENABLE, TRUE);    // turn on the z-buffer
-    d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));    // ambient light
+    init_graphics();    // call the function to initialize the triangle
 }
 
 
@@ -141,47 +136,17 @@ void initD3D(HWND hWnd)
 void render_frame(void)
 {
     d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-    d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
     d3ddev->BeginScene();
 
     // select which vertex format we are using
     d3ddev->SetFVF(CUSTOMFVF);
 
-    // set the view transform
-    D3DXMATRIX matView;
-
-    D3DXVECTOR3 dxdCamPos(0.0f, 8.0f, 25.0f);
-    D3DXVECTOR3 dxdLookAtPos(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 dxdUpDir(0.0f, 1.0f, 0.0f);
-
-    D3DXMatrixLookAtLH(&matView,
-        &dxdCamPos,    // the camera position
-        &dxdLookAtPos,      // the look-at position
-        &dxdUpDir);    // the up direction
-    d3ddev->SetTransform(D3DTS_VIEW, &matView);
-
-    // set the projection transform
-    D3DXMATRIX matProjection;
-    D3DXMatrixPerspectiveFovLH(&matProjection,
-        D3DXToRadian(45),
-        (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
-        1.0f,    // the near view-plane
-        100.0f);    // the far view-plane
-    d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
-
-    // set the world transform
-    static float index = 0.0f; index += 1.0f;
-    D3DXMATRIX matRotateY;
-    D3DXMatrixRotationY(&matRotateY, index);
-    d3ddev->SetTransform(D3DTS_WORLD, &(matRotateY));
-
-    // select the vertex and index buffers to use
+    // select the vertex buffer to display
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
-    d3ddev->SetIndices(i_buffer);
 
-    // draw the cube
-    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+    // copy the vertex buffer to the back buffer
+    d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
 
     d3ddev->EndScene();
 
@@ -192,16 +157,16 @@ void render_frame(void)
 // this is the function that cleans up Direct3D and COM
 void cleanD3D(void)
 {
-    v_buffer->Release();
-    i_buffer->Release();
-    d3ddev->Release();
-    d3d->Release();
+    v_buffer->Release();    // close and release the vertex buffer
+    d3ddev->Release();    // close and release the 3D device
+    d3d->Release();    // close and release Direct3D
 }
 
 
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
+<<<<<<< Updated upstream
 }
 
 
@@ -224,4 +189,28 @@ void init_light(void)
     material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);    // set ambient color to white
 
     d3ddev->SetMaterial(&material);    // set the globably-used material to &material
+=======
+    // create the vertices using the CUSTOMVERTEX struct
+    CUSTOMVERTEX vertices[] =
+    {
+        { 400.0f, 62.5f, 0.5f, 1.0f, D3DCOLOR_XRGB(0, 0, 255), },
+        { 650.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(0, 255, 0), },
+        { 150.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(255, 0, 0), },
+    };
+
+    // create a vertex buffer interface called v_buffer
+    d3ddev->CreateVertexBuffer(3 * sizeof(CUSTOMVERTEX),
+        0,
+        CUSTOMFVF,
+        D3DPOOL_MANAGED,
+        &v_buffer,
+        NULL);
+
+    VOID* pVoid;    // a void pointer
+
+    // lock v_buffer and load the vertices into it
+    v_buffer->Lock(0, 0, (void**)&pVoid, 0);
+    memcpy(pVoid, vertices, sizeof(vertices));
+    v_buffer->Unlock();
+>>>>>>> Stashed changes
 }
