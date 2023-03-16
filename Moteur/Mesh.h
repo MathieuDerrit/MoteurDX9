@@ -3,6 +3,9 @@
 
 #include <d3dx9.h>
 #include <string>
+#include "Component.h"
+
+
 
 typedef enum
 {
@@ -15,11 +18,13 @@ typedef enum
 	Torus
 }EMesh;
 
-class Mesh
+class Mesh : public Component
 {
 public:
-	Mesh(IDirect3DDevice9* device, EMesh mesh);
+	Mesh();
 	~Mesh();
+
+	void Init(IDirect3DDevice9* device, EMesh mesh);
 
 	bool draw();
 private:

@@ -4,8 +4,10 @@ class GameObject;
 
 class Component {
 public:
-    Component(GameObject* gameObject);
+    Component();
+    //Component(GameObject* gameObject);
     virtual ~Component();
+    void SetGO(GameObject* gameObject);
     virtual void Start();
     virtual void Update();
 protected:

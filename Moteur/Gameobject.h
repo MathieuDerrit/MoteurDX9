@@ -22,10 +22,8 @@ public:
     T* AddComponent();
 
     Transform m_transform;
-private:
+
     LPDIRECT3DDEVICE9 m_device;
-    LPDIRECT3DTEXTURE9 m_texture;
-    LPD3DXMESH m_mesh;
     vector<Component*> m_components;
 };
 

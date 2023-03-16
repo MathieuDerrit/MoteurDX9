@@ -3,7 +3,8 @@
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "mesh.h"
+#include "Gameobject.h"
+#include "Mesh.h"
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
@@ -18,6 +19,9 @@ LPDIRECT3D9 d3d;
 LPDIRECT3DDEVICE9 d3ddev;
 LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
+
+GameObject* player;
+
 
 // function prototypes
 void initD3D(HWND hWnd);
@@ -124,7 +128,7 @@ void initD3D(HWND hWnd)
     d3d->CreateDevice(D3DADAPTER_DEFAULT,
         D3DDEVTYPE_HAL,
         hWnd,
-        D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE,
         &d3dpp,
         &d3ddev);
 
@@ -145,17 +149,10 @@ void render_frame(void)
 
     d3ddev->BeginScene();
 
-
-/*
-    Mesh cube = Mesh(d3ddev, Box);
-    cube.draw();
-*/
-    Mesh cylindre = Mesh(d3ddev, Cylinder);
-    cylindre.draw();
-
     // select which vertex format we are using
     d3ddev->SetFVF(CUSTOMFVF);
 
+    // set the view transform
     // set the view transform
     D3DXMATRIX matView;
     D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f);    // the camera position
@@ -188,7 +185,13 @@ void render_frame(void)
     d3ddev->SetIndices(i_buffer);
 
     // draw the cube
-    //d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+    d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
+
+    /*if (player->m_mesh)
+    {
+        player->m_mesh->DrawSubset(0);
+        player->m_transform.setScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+    }*/
 
     d3ddev->EndScene();
 
@@ -209,84 +212,14 @@ void cleanD3D(void)
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
-    // create the vertices using the CUSTOMVERTEX struct
-    CUSTOMVERTEX vertices[] =
-    {
-        { -3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },    // side 1
-        { 3.0f, -3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
-        { -3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
-        { 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 1.0f, },
+    player = new GameObject(d3ddev, nullptr);
+    player->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
+    
+    Mesh* mesh = player->AddComponent<Mesh>();
+    mesh->Init(d3ddev, Box);
 
-        { -3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },    // side 2
-        { -3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
-        { 3.0f, -3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
-        { 3.0f, 3.0f, -3.0f, 0.0f, 0.0f, -1.0f, },
-
-        { -3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },    // side 3
-        { -3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
-        { 3.0f, 3.0f, -3.0f, 0.0f, 1.0f, 0.0f, },
-        { 3.0f, 3.0f, 3.0f, 0.0f, 1.0f, 0.0f, },
-
-        { -3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },    // side 4
-        { 3.0f, -3.0f, -3.0f, 0.0f, -1.0f, 0.0f, },
-        { -3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
-        { 3.0f, -3.0f, 3.0f, 0.0f, -1.0f, 0.0f, },
-
-        { 3.0f, -3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },    // side 5
-        { 3.0f, 3.0f, -3.0f, 1.0f, 0.0f, 0.0f, },
-        { 3.0f, -3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
-        { 3.0f, 3.0f, 3.0f, 1.0f, 0.0f, 0.0f, },
-
-        { -3.0f, -3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },    // side 6
-        { -3.0f, -3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
-        { -3.0f, 3.0f, -3.0f, -1.0f, 0.0f, 0.0f, },
-        { -3.0f, 3.0f, 3.0f, -1.0f, 0.0f, 0.0f, },
-    };
-
-    // create a vertex buffer interface called v_buffer
-    d3ddev->CreateVertexBuffer(24 * sizeof(CUSTOMVERTEX),
-        0,
-        CUSTOMFVF,
-        D3DPOOL_MANAGED,
-        &v_buffer,
-        NULL);
-
-    VOID* pVoid;    // a void pointer
-
-    // lock v_buffer and load the vertices into it
-    v_buffer->Lock(0, 0, (void**)&pVoid, 0);
-    memcpy(pVoid, vertices, sizeof(vertices));
-    v_buffer->Unlock();
-
-    // create the indices using an int array
-    short indices[] =
-    {
-        0, 1, 2,    // side 1
-        2, 1, 3,
-        4, 5, 6,    // side 2
-        6, 5, 7,
-        8, 9, 10,    // side 3
-        10, 9, 11,
-        12, 13, 14,    // side 4
-        14, 13, 15,
-        16, 17, 18,    // side 5
-        18, 17, 19,
-        20, 21, 22,    // side 6
-        22, 21, 23,
-    };
-
-    // create an index buffer interface called i_buffer
-    d3ddev->CreateIndexBuffer(36 * sizeof(short),
-        0,
-        D3DFMT_INDEX16,
-        D3DPOOL_MANAGED,
-        &i_buffer,
-        NULL);
-
-    // lock i_buffer and load the indices into it
-    i_buffer->Lock(0, 0, (void**)&pVoid, 0);
-    memcpy(pVoid, indices, sizeof(indices));
-    i_buffer->Unlock();
+    /*D3DXCreateBox(d3ddev, player->m_transform.m_scale.x, player->m_transform.m_scale.y, player->m_transform.m_scale.z, &mesh, 0);*/
+   /* player->m_mesh = mesh;*/
 }
 
 

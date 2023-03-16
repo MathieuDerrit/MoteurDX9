@@ -1,6 +1,19 @@
 #include "mesh.h"
 
-Mesh::Mesh(IDirect3DDevice9* device, EMesh mesh)
+Mesh::Mesh()
+{
+    m_mesh = nullptr;
+}
+
+Mesh::~Mesh()
+{
+    if (m_mesh)
+    {
+        m_mesh->Release();
+    }
+}
+
+void Mesh::Init(IDirect3DDevice9* device, EMesh mesh)
 {
     switch (mesh) {
     case Box:
@@ -79,12 +92,6 @@ Mesh::Mesh(IDirect3DDevice9* device, EMesh mesh)
             0);
     }
 }
-
-Mesh::~Mesh()
-{
-
-}
-
 bool Mesh::draw()
 {
     m_mesh->DrawSubset(0);
