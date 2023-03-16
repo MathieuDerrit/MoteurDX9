@@ -5,7 +5,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <memory>
-#include <list>
+#include <vector>
 #include "Transform.h"
 #include "Component.h"
 
@@ -26,7 +26,7 @@ private:
     LPDIRECT3DTEXTURE9 m_texture;
     LPD3DXMESH m_mesh;
     Transform m_transform;
-    list<Component*> m_components;
+    vector<Component*> m_components;
 };
 
 #endif // GameObject_H

@@ -1,9 +1,9 @@
-#pragma once // Pour éviter des inclusions multiples du fichier
-#include "GameObject.h"
+#pragma once
+class GameObject;
 
 class Component {
 public:
-    Component(GameObject* GameObject);
+    Component(GameObject* gameObject);
     virtual ~Component();
     virtual void Update();
 protected:
