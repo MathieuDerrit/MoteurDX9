@@ -1,5 +1,4 @@
 #include "mesh.h"
-#include "vertex.h"
 
 Mesh::Mesh(IDirect3DDevice9* device, EMesh mesh)
 {
