@@ -9,6 +9,11 @@ Component::~Component()
 {
 }
 
+void Component::Start()
+{
+
+}
+
 void Component::Update() {
     // TODO
 }
