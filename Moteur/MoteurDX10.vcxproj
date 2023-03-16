@@ -138,6 +138,7 @@
     <ClCompile Include="DXGraphics.cpp" />
     <ClCompile Include="DXInput.cpp" />
     <ClCompile Include="DXLights.cpp" />
+    <ClCompile Include="DXMain.cpp" />
     <ClCompile Include="DXManager.cpp" />
     <ClCompile Include="DXModels.cpp" />
     <ClCompile Include="DXTexture.cpp" />
@@ -158,11 +159,9 @@
     <ClInclude Include="DXManager.h" />
     <ClInclude Include="DXModels.h" />
     <ClInclude Include="DXTexture.h" />
-    <ClInclude Include="DXWin.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshRenderer.h" />
-    <ClInclude Include="Mouse.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="Window.h" />

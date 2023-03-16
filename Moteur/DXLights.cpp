@@ -16,6 +16,7 @@ void DXLights::InitLights(LPDIRECT3DDEVICE9 dev)
 	light1.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);    //Set color
 	light1.Direction = D3DXVECTOR3(1.0f, -.3f, -1.0f);
 	ZeroMemory(&light1, sizeof(D3DLIGHT9));
+
 	light2.Type = D3DLIGHT_POINT;
 	light2.Diffuse = D3DXCOLOR(1.f, 0.f, .5f, 1.f);    //Set color
 	light2.Position = D3DXVECTOR3(20.0f, 5.0f, -1.0f);

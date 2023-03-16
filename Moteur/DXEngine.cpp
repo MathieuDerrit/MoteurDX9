@@ -68,17 +68,58 @@ void DXEngine::Run()
 
 bool DXEngine::Frame()
 {
-	return false;
+	if (Input->isKeyDown(VK_ESCAPE))
+		return false;
+	if (Input->isKeyDown(0x51))
+		Graphics->Camera->camX -= 1.f;
+	if (Input->isKeyDown(0x44))
+		Graphics->Camera->camX += 1.f;
+
+	if (Input->isKeyDown(0x5A))
+		Graphics->Camera->camZ -= 1.f;
+	if (Input->isKeyDown(0x53))
+		Graphics->Camera->camZ += 1.f;
+
+	if (Input->isKeyDown(VK_SPACE))
+		Graphics->Camera->camY += 1.f;
+	if (Input->isKeyDown(VK_CONTROL))
+		Graphics->Camera->camY -= 1.f;
+
+	Graphics->Render();
+	return true;
 }
 
 bool DXEngine::Shutdown()
 {
-	return false;
+	this->Graphics->Shutdown();
+	delete Graphics;
+	this->Graphics = 0;
+
+	this->Input->Cleanup();
+	delete Input;
+	this->Input = 0;
+
+	this->ShutdownWindow();
+
+	return true;
 }
 
-LRESULT DXEngine::MessageHandler(HWND, UINT, WPARAM, LPARAM)
+LRESULT DXEngine::MessageHandler(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	switch (message)
+	{
+	case WM_KEYDOWN:
+	{
+		this->Input->keyDown((unsigned int)wParam);
+		return 0;
+	}
+	case WM_KEYUP:
+	{
+		this->Input->keyUp((unsigned int)wParam);
+		return 0;
+	}
+	}
+	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
 bool DXEngine::InitializeWindow(HWND hwnd, int& screenWidth, int& screenHeight)
