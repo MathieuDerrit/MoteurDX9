@@ -10,7 +10,6 @@ public:
     void SetGO(GameObject* gameObject);
     virtual void Start();
     virtual void Update();
-protected:
     GameObject* m_gameObject;
 };
 

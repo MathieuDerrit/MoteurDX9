@@ -15,6 +15,7 @@ Mesh::~Mesh()
 
 void Mesh::Init(IDirect3DDevice9* device, EMesh mesh)
 {
+    GameObject* go = m_gameObject;
     switch (mesh) {
     case Box:
         D3DXCreateBox(

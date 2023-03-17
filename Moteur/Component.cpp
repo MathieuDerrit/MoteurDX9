@@ -7,7 +7,7 @@ Component::Component()
 
 void Component::SetGO(GameObject* gameObject)
 {
-m_gameObject = gameObject;
+    m_gameObject = gameObject;
 }
 
 Component::~Component() 

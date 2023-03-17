@@ -6,6 +6,7 @@
 #include "Component.h"
 
 
+class Component;
 
 typedef enum
 {

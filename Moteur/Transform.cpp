@@ -51,9 +51,12 @@ void Transform::rotate(float yaw, float pitch, float roll)
 
 void Transform::setScale(D3DXVECTOR3 scale)
 {
-    m_scale = scale;
-    D3DXMatrixScaling(&m_mSca, m_scale.x, m_scale.y, m_scale.z);
-    updateMatrix();
+    if (m_scale != scale) 
+    {
+        m_scale = scale;
+        D3DXMatrixScaling(&m_mSca, m_scale.x, m_scale.y, m_scale.z);
+        updateMatrix();
+    }
 }
 
 void Transform::updateMatrix()

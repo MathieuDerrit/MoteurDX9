@@ -20,7 +20,8 @@ LPDIRECT3DDEVICE9 d3ddev;
 LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
 
-GameObject* player;
+GameObject* go;
+Mesh* mesh;
 
 
 // function prototypes
@@ -187,11 +188,11 @@ void render_frame(void)
     // draw the cube
     d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 
-    /*if (player->m_mesh)
+    if (go->GetComponent<Mesh>())
     {
-        player->m_mesh->DrawSubset(0);
-        player->m_transform.setScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-    }*/
+        go->GetComponent<Mesh>()->draw();
+        go->m_transform.setScale(D3DXVECTOR3(go->m_transform.m_scale.x + 0.1f, go->m_transform.m_scale.x + 0.1f, go->m_transform.m_scale.x + 0.1f));
+    }
 
     d3ddev->EndScene();
 
@@ -212,11 +213,11 @@ void cleanD3D(void)
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
-    player = new GameObject(d3ddev, nullptr);
-    player->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
+    go = new GameObject(d3ddev, nullptr);
+    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
     
-    Mesh* mesh = player->AddComponent<Mesh>();
-    mesh->Init(d3ddev, Box);
+    Mesh* mesh = go->AddComponent<Mesh>();
+    mesh->Init(d3ddev, Teapot);
 
     /*D3DXCreateBox(d3ddev, player->m_transform.m_scale.x, player->m_transform.m_scale.y, player->m_transform.m_scale.z, &mesh, 0);*/
    /* player->m_mesh = mesh;*/
