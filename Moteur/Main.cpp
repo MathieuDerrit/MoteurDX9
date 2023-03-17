@@ -1,18 +1,13 @@
 // include the basic windows header files and the Direct3D header file
-#include <windows.h>
-#include <windowsx.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-#include "Gameobject.h"
-#include "Mesh.h"
+#include "framework.h"
+
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
 // include the Direct3D Library files
-#pragma comment (lib, "d3d9.lib")
-#pragma comment (lib, "d3dx9.lib")
+
 
 // global declarations
 LPDIRECT3D9 d3d;
@@ -213,11 +208,11 @@ void cleanD3D(void)
 // this is the function that puts the 3D models into video RAM
 void init_graphics(void)
 {
-    go = new GameObject(d3ddev, nullptr);
+    go = new GameObject();
     go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    
+    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
     Mesh* mesh = go->AddComponent<Mesh>();
-    mesh->Init(d3ddev, Teapot);
+    mesh->Init(d3ddev, Box);
 
     /*D3DXCreateBox(d3ddev, player->m_transform.m_scale.x, player->m_transform.m_scale.y, player->m_transform.m_scale.z, &mesh, 0);*/
    /* player->m_mesh = mesh;*/

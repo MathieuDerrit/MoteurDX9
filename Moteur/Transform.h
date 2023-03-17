@@ -1,9 +1,6 @@
 #pragma once
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
-#include <d3dx9.h>
-#include <d3d9.h>
-#include <D3D9Types.h>
 
 class Transform
 {

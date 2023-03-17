@@ -1,5 +1,4 @@
-#include "component.h"
-#include "gameobject.h"
+#include "framework.h"
 
 Component::Component()
 {

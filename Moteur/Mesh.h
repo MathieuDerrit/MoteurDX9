@@ -1,13 +1,6 @@
 #ifndef __meshH__
 #define __meshH__
 
-#include <d3dx9.h>
-#include <string>
-#include "Component.h"
-
-
-class Component;
-
 typedef enum
 {
 	Box,

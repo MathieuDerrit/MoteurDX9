@@ -159,11 +159,13 @@
     <ClInclude Include="DXManager.h" />
     <ClInclude Include="DXModels.h" />
     <ClInclude Include="DXTexture.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

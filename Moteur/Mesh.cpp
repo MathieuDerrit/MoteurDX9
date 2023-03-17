@@ -1,4 +1,4 @@
-#include "mesh.h"
+#include "framework.h"
 
 Mesh::Mesh()
 {
@@ -15,14 +15,13 @@ Mesh::~Mesh()
 
 void Mesh::Init(IDirect3DDevice9* device, EMesh mesh)
 {
-    GameObject* go = m_gameObject;
     switch (mesh) {
     case Box:
         D3DXCreateBox(
             device,
-            2.0f, // width
-            2.0f, // height
-            2.0f, // depth
+            1.0f * m_gameObject->m_transform.m_scale.x, // width
+            1.0f * m_gameObject->m_transform.m_scale.y, // height
+            1.0f * m_gameObject->m_transform.m_scale.z, // depth
             &m_mesh,
             0);
         break;
@@ -31,7 +30,7 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh)
             device,
             1.0f, // radius at negative z end
             1.0f, // radius at positive z end
-            3.0f, // length of cylinder
+            1.0f, // length of cylinder
             10,   // slices
             10,   // stacks
             &m_mesh,

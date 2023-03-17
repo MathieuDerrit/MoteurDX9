@@ -2,20 +2,11 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <memory>
-#include <list>
-#include <vector>
-#include "Transform.h"
-#include "Component.h"
-
-using namespace std;
 
 class GameObject
 {
 public:
-    GameObject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath);
+    GameObject();
     ~GameObject();
 
     //Faire des component à ajouter (ex: mesh renderer, collider, etc...)

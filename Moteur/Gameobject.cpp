@@ -1,8 +1,7 @@
-#include "GameObject.h"
+#include "framework.h"
 
-GameObject::GameObject(LPDIRECT3DDEVICE9 device, const WCHAR* texturePath)
+GameObject::GameObject()
 {
-    m_device = device;
 }
 
 GameObject::~GameObject()
