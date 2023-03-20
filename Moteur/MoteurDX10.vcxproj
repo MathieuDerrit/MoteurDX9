@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DXEngine.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="DXCamera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DXEngine.h" />

@@ -1,10 +1,10 @@
 #include "DXEngine.h"
 
 
-int WINAPI WinMain2(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR nCmdLine, int nCmdShow)
+int WINAPI DXWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR nCmdLine, int nCmdShow)
 {
 	//Credit our game engine with window size, default is 800 by 600 pixels through default constructor
-	DXEngine* Engine = new DXEngine(800, 700);
+	DXEngine* Engine = new DXEngine(1200, 900);
 	if (!Engine)
 		return 0;
 
