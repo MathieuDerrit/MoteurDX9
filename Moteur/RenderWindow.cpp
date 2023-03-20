@@ -12,10 +12,10 @@ bool RenderWindow::Initialize(WindowContainer* pWindowContainer, HINSTANCE hInst
 
 	this->RegisterWindowClass();
 
-	this->handle = CreateWindowEx(0, //Extended Windows style - we are using the default. For other options, see: https://msdn.microsoft.com/en-us/library/windows/desktop/ff700543(v=vs.85).aspx
+	this->handle = CreateWindowEx(0, //Extended Windows style - we are using the default. For other options
 		this->window_class_wide.c_str(), //Window class name
 		this->window_title_wide.c_str(), //Window Title
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, //Windows style - See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms632600(v=vs.85).aspx
+		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, //Windows style
 		0, //Window X Position
 		0, //Window Y Position
 		this->width, //Window Width
