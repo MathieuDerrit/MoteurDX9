@@ -15,14 +15,18 @@ Transform::~Transform()
 
 void Transform::setPosition(D3DXVECTOR3 position)
 {
-    m_position = position;
-    D3DXMatrixTranslation(&m_mPos, m_position.x, m_position.y, m_position.z);
-    updateMatrix();
+    if (m_position != position)
+    {
+        m_position = position;
+        D3DXMatrixTranslation(&m_mPos, m_position.x, m_position.y, m_position.z);
+        updateMatrix();
+    }
 }
 
 void Transform::rotate(float yaw, float pitch, float roll)
 {
-
+    if (pitch == m_quat.x && yaw == m_quat.y && roll == m_quat.z)
+        return;
     D3DXQUATERNION quat;
     D3DXQUATERNION quatRot;
     D3DXQuaternionRotationAxis(&quat, &m_dir, roll);

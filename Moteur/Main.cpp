@@ -21,6 +21,7 @@ Mesh* mesh;
 
 // function prototypes
 void initD3D(HWND hWnd);
+void update_frame(void);
 void render_frame(void);
 void cleanD3D(void);
 void init_graphics(void);
@@ -76,7 +77,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
         if (msg.message == WM_QUIT)
             break;
-
+        update_frame();
         render_frame();
     }
 
@@ -137,6 +138,15 @@ void initD3D(HWND hWnd)
 }
 
 
+void update_frame(void)
+{
+    if (go->GetComponent<Mesh>()) {
+        go->m_transform.setScale(D3DXVECTOR3(go->m_transform.m_scale.x, go->m_transform.m_scale.y, go->m_transform.m_scale.z));
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z));
+        go->m_transform.rotate(0,0,0);
+    }
+}
+
 // this is the function used to render a single frame
 void render_frame(void)
 {
@@ -171,10 +181,12 @@ void render_frame(void)
     d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
 
     // set the world transform
-    static float index = 0.0f; index += 0.03f;
+    /*static float index = 0.0f; index += 0.03f;
     D3DXMATRIX matRotateY;
     D3DXMatrixRotationY(&matRotateY, index);
-    d3ddev->SetTransform(D3DTS_WORLD, &(matRotateY));
+    d3ddev->SetTransform(D3DTS_WORLD, &(matRotateY));*/
+
+    go->GetComponent<Mesh>()->Update(d3ddev);
 
     // select the vertex and index buffers to use
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
@@ -184,9 +196,8 @@ void render_frame(void)
     d3ddev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 24, 0, 12);
 
     if (go->GetComponent<Mesh>())
-    {
+    {   
         go->GetComponent<Mesh>()->draw();
-        go->m_transform.setScale(D3DXVECTOR3(go->m_transform.m_scale.x + 0.1f, go->m_transform.m_scale.x + 0.1f, go->m_transform.m_scale.x + 0.1f));
     }
 
     d3ddev->EndScene();
@@ -213,9 +224,6 @@ void init_graphics(void)
     go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
     Mesh* mesh = go->AddComponent<Mesh>();
     mesh->Init(d3ddev, Box);
-
-    /*D3DXCreateBox(d3ddev, player->m_transform.m_scale.x, player->m_transform.m_scale.y, player->m_transform.m_scale.z, &mesh, 0);*/
-   /* player->m_mesh = mesh;*/
 }
 
 

@@ -19,9 +19,9 @@ public:
     D3DXVECTOR3 m_position;
     D3DXMATRIX m_mPos;
 
-    float yaw = 0;
-    float pitch = 0;
-    float roll = 0;
+    float yaw;
+    float pitch;
+    float roll;
 
     D3DXVECTOR3 m_dir;
     D3DXVECTOR3 m_up;
@@ -31,7 +31,6 @@ public:
 
     D3DXVECTOR3 m_scale;
     D3DXMATRIX m_mSca;
-
     D3DXMATRIX m_matrix;
 };
 

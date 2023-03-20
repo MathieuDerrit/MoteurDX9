@@ -19,9 +19,10 @@ public:
 	~Mesh();
 
 	void Init(IDirect3DDevice9* device, EMesh mesh);
-
+	void Update(IDirect3DDevice9* device);
 	bool draw();
-private:
+
+	Transform meshTransform;
 	ID3DXMesh* m_mesh;
 };
 #endif

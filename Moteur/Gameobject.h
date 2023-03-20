@@ -15,7 +15,7 @@ public:
     template<typename T>
     T* GetComponent();
     template<typename T>
-    list<T*> GetComponents();
+    list<T*>& GetComponents();
 
     Transform m_transform;
 
@@ -45,7 +45,7 @@ T* GameObject::GetComponent()
 }
 
 template <typename T>
-list<T*> GameObject::GetComponents()
+list<T*>& GameObject::GetComponents()
 {
     std::list<T*> components;
     for (int i = 0; i < m_components.size(); i++)
