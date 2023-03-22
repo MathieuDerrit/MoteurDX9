@@ -1,70 +1,29 @@
 #pragma once
-#include <algorithm>
+#include <d3dx9.h>
+
 class AABB
 {
-private:
-	float calculateSurfaceArea() const { return 2.0f * (getWidth() * getHeight() + getWidth() * getDepth() + getHeight() * getDepth()); }
-
 public:
-	float minX,minY,minZ,maxX,maxY,maxZ,surfaceArea;
+    AABB() : 
+        m_min(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+        m_max(D3DXVECTOR3(0.0f, 0.0f, 0.0f)) {}
 
-	AABB() : minX(0.0f), minY(0.0f), minZ(0.0f), maxX(0.0f), maxY(0.0f), maxZ(0.0f), surfaceArea(0.0f) { }
-	AABB(unsigned minX,
-		unsigned minY,
-		unsigned minZ, 
-		unsigned maxX, 
-		unsigned maxY, 
-		unsigned maxZ) :
-		AABB(static_cast<float>(minX),
-			static_cast<float>(minY), 
-			static_cast<float>(minZ), 
-			static_cast<float>(maxX),
-			static_cast<float>(maxY), 
-			static_cast<float>(maxZ)) { }
-	AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) :
-		minX(minX), minY(minY), minZ(minZ), maxX(maxX), maxY(maxY), maxZ(maxZ)
-	{
-		surfaceArea = calculateSurfaceArea();
-	}
+    AABB(D3DXVECTOR3 min, D3DXVECTOR3 max) : 
+        m_min(min), 
+        m_max(max) {}
 
-	bool Overlaps(const AABB& other) const
-	{
-		return maxX > other.minX &&
-			minX < other.maxX &&
-			maxY > other.minY &&
-			minY < other.maxY &&
-			maxZ > other.minZ &&
-			minZ < other.maxZ;
-	}
+    D3DXVECTOR3 GetMin() const { return m_min; }
+    D3DXVECTOR3 GetMax() const { return m_max; }
 
-	bool Contains(const AABB& other) const
-	{
-		return other.minX >= minX &&
-			other.maxX <= maxX &&
-			other.minY >= minY &&
-			other.maxY <= maxY &&
-			other.minZ >= minZ &&
-			other.maxZ <= maxZ;
-	}
+    bool Intersects(const AABB& other) const
+    {
+        if (m_min.x > other.m_max.x || m_max.x < other.m_min.x) return false; // Check x-axis overlap
+        if (m_min.y > other.m_max.y || m_max.y < other.m_min.y) return false; // Check y-axis overlap
+        if (m_min.z > other.m_max.z || m_max.z < other.m_min.z) return false; // Check z-axis overlap
 
-	AABB Merge(const AABB& other) const
-	{
-		return AABB(
-			std::min(minX, other.minX), std::min(minY, other.minY), std::min(minZ, other.minZ),
-			std::max(maxX, other.maxX), std::max(maxY, other.maxY), std::max(maxZ, other.maxZ)
-		);
-	}
+        return true; // Boxes overlap
+    }
 
-	AABB Intersection(const AABB& other) const
-	{
-		return AABB(
-			std::max(minX, other.minX), std::max(minY, other.minY), std::max(minZ, other.minZ),
-			std::min(maxX, other.maxX), std::min(maxY, other.maxY), std::min(maxZ, other.maxZ)
-		);
-	}
-
-	float getWidth() const { return maxX - minX; }
-	float getHeight() const { return maxY - minY; }
-	float getDepth() const { return maxZ - minZ; }
+    D3DXVECTOR3 m_min;
+    D3DXVECTOR3 m_max;
 };
-
