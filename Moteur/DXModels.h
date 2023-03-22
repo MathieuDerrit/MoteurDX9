@@ -1,12 +1,4 @@
 #pragma once
-#include <d3d9.h>
-#include <d3dx9.h>
-
-//Define Flexible Vertex Formats
-#define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
-#define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
-
-#include "DXTexture.h"
 
 class DXModels
 {

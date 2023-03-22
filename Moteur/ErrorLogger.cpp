@@ -1,5 +1,4 @@
-#include "ErrorLogger.h"
-#include <comdef.h>
+#include "moteur.h"
 
 void ErrorLogger::Log(std::string message)
 {
@@ -9,7 +8,8 @@ void ErrorLogger::Log(std::string message)
 
 void ErrorLogger::Log(HRESULT hr, std::string message)
 {
+	/*
 	_com_error error(hr);
 	std::wstring error_message = L"Error: " + StringConverter::StringToWide(message) + L"\n" + error.ErrorMessage();
-	MessageBoxW(NULL, error_message.c_str(), L"Error", MB_ICONERROR);
+	MessageBoxW(NULL, error_message.c_str(), L"Error", MB_ICONERROR);*/
 }
