@@ -1,6 +1,4 @@
 #pragma once
-#ifndef TRANSFORM_H
-#define TRANSFORM_H
 
 class Transform
 {
@@ -33,5 +31,3 @@ public:
     D3DXMATRIX m_mSca;
     D3DXMATRIX m_matrix;
 };
-
-#endif

@@ -1,4 +1,5 @@
-#include "KeyboardEvent.h"
+#include "../framework.h"
+
 KeyboardEvent::KeyboardEvent()
 	:
 	type(EventType::Invalid),
