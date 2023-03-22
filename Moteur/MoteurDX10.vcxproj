@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DXEngine.cpp" />
@@ -156,8 +157,11 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StringConverter.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="WindowContrainer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
+    <ClInclude Include="CreateCube.h" />
     <ClInclude Include="DXCamera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DXEngine.h" />
@@ -169,15 +173,21 @@
     <ClInclude Include="DXTexture.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="ErrorLogger.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IAABB.h" />
     <ClInclude Include="Keyboard\KeyboardClass.h" />
     <ClInclude Include="Keyboard\KeyboardEvent.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="moteur.h" />
     <ClInclude Include="Mouse\MouseClass.h" />
     <ClInclude Include="Mouse\MouseEvent.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="StringConverter.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="WindowContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MoteurDX10.rc" />
