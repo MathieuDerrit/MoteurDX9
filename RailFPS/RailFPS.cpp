@@ -1,6 +1,6 @@
 // include the basic windows header files and the Direct3D header file
 #include "framework.h"
-//#include "RailFPS.h"
+
 
 // define the screen resolution
 #define SCREEN_WIDTH 800
@@ -16,7 +16,6 @@ LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
 
 GameObject* go;
-GameObject* go2;
 Mesh* mesh;
 
 
@@ -142,17 +141,10 @@ void initD3D(HWND hWnd)
 void update_frame(void)
 {
     if (go->GetComponent<Mesh>()) {
-        go->m_transform.setScale(D3DXVECTOR3(go->m_transform.m_scale.x * 0, go->m_transform.m_scale.y, go->m_transform.m_scale.z));
+        go->m_transform.setScale(D3DXVECTOR3(go->m_transform.m_scale.x, go->m_transform.m_scale.y, go->m_transform.m_scale.z));
         go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z));
-        go->m_transform.rotate(go->m_transform.yaw + 0.01f, go->m_transform.pitch + 0.01f, go->m_transform.roll + 0.01f);
+        go->m_transform.rotate(0, 0, 0);
     }
-    if (go2->GetComponent<Mesh>())
-    {
-        go2->m_transform.setScale(D3DXVECTOR3(1,1,1));
-        go2->m_transform.setPosition(D3DXVECTOR3(0,0,0));
-        go2->m_transform.rotate(0,0,0);
-    }
-
 }
 
 // this is the function used to render a single frame
@@ -188,6 +180,14 @@ void render_frame(void)
         100.0f);    // the far view-plane
     d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
 
+    // set the world transform
+    /*static float index = 0.0f; index += 0.03f;
+    D3DXMATRIX matRotateY;
+    D3DXMatrixRotationY(&matRotateY, index);
+    d3ddev->SetTransform(D3DTS_WORLD, &(matRotateY));*/
+
+    go->GetComponent<Mesh>()->Update(d3ddev);
+
     // select the vertex and index buffers to use
     d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
     d3ddev->SetIndices(i_buffer);
@@ -197,14 +197,7 @@ void render_frame(void)
 
     if (go->GetComponent<Mesh>())
     {
-        go->GetComponent<Mesh>()->Update(d3ddev);
-        go->GetComponent<Mesh>()->draw();
-    }
-
-    if (go2->GetComponent<Mesh>())
-    {
-        go2->GetComponent<Mesh>()->Update(d3ddev);
-        go2->GetComponent<Mesh>()->draw();
+        go->GetComponent<Mesh>()->draw(d3ddev);
     }
 
     d3ddev->EndScene();
@@ -216,14 +209,10 @@ void render_frame(void)
 // this is the function that cleans up Direct3D and COM
 void cleanD3D(void)
 {
-    if(v_buffer)
-        v_buffer->Release();
-    if (i_buffer)
-        i_buffer->Release();
-    if (d3ddev)
-        d3ddev->Release();
-    if (d3d)
-        d3d->Release();
+    v_buffer->Release();
+    i_buffer->Release();
+    d3ddev->Release();
+    d3d->Release();
 }
 
 
@@ -231,18 +220,11 @@ void cleanD3D(void)
 void init_graphics(void)
 {
     go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
-
-    go2 = new GameObject();
-    go2->m_transform.setPosition(D3DXVECTOR3(-6.0f, 2.0f, 4.0f));
-    go2->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
-
     Mesh* mesh = go->AddComponent<Mesh>();
-    Mesh* mesh2 = go2->AddComponent<Mesh>();
-
-    mesh->Init(d3ddev, Teapot);
-    mesh2->Init(d3ddev, Box);
+    //mesh->Init(d3ddev, Box);
+    mesh->Init(d3ddev, Custom, "rail.x");
+    go->m_transform.setPosition(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+    go->m_transform.setScale(D3DXVECTOR3(5, 1, 1));
 }
 
 

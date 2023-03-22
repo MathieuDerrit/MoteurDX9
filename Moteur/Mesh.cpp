@@ -13,7 +13,7 @@ Mesh::~Mesh()
     }
 }
 
-void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath)
+void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string texturePath)
 {
     switch (mesh) {
     case Box:
@@ -51,10 +51,26 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath)
             NULL,    // we aren't using adjacency
             &bufShipMaterial,    // put the materials here
             NULL,    // we aren't using effect instances
-            NULL,    // the number of materials in this model
+            &m_numMaterials,    // the number of materials in this model
             &m_mesh);    // put the mesh here
-        
-        //device->GetTransform(D3DTS_WORLD, &(m_gameObject->m_transform.m_matrix));
+
+        D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)bufShipMaterial->GetBufferPointer();
+        m_material = new D3DMATERIAL9[m_numMaterials];
+        m_texture = new LPDIRECT3DTEXTURE9[m_numMaterials];
+
+        for (DWORD index = 0; index < m_numMaterials; index++)
+        {
+            m_material[index] = tempMaterials[index].MatD3D;
+            m_material[index].Ambient = m_material[index].Diffuse;
+
+            if (texturePath == "")
+                texturePath = tempMaterials[index].pTextureFilename;
+
+            // if there is a texture to load, load it 
+            if (FAILED(D3DXCreateTextureFromFileA(device, texturePath.c_str(), &m_texture[index])))
+                m_texture[index] = NULL;    // if there is no texture, set the texture to NULL 
+        }
+
         break;
     }
     default:
@@ -69,8 +85,18 @@ void Mesh::Update(IDirect3DDevice9* device)
     device->SetTransform(D3DTS_WORLD, &(meshTransform.m_matrix));
 }
 
-bool Mesh::draw()
+bool Mesh::draw(IDirect3DDevice9* device)
 {
-    m_mesh->DrawSubset(0);
+    for (DWORD i = 0; i < m_numMaterials; i++)
+    {
+        device->SetMaterial(&m_material[i]);
+        device->SetTexture(0, m_texture[i]);
+        // Draw the mesh subset
+        m_mesh->DrawSubset(i);
+    }
+
+    if (m_numMaterials == 0)
+        m_mesh->DrawSubset(0);
+    //m_mesh->DrawSubset(0);
     return true;
 }
