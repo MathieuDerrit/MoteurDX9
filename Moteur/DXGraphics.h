@@ -1,8 +1,4 @@
 #pragma once
-#include "DXManager.h"
-#include "DXLights.h"
-#include "DXModels.h"
-#include "DXCamera.h"
 
 
 //Tout ce qui est visuel, c'est ici ça gère

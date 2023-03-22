@@ -1,4 +1,4 @@
-#include "DXInput.h"
+#include "moteur.h"
 
 DXInput::DXInput()
 {

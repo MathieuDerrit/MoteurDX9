@@ -1,4 +1,4 @@
-#include "DXGraphics.h"
+#include "moteur.h"
 
 DXGraphics::DXGraphics()
 {

@@ -1,4 +1,4 @@
-#include "DXTexture.h"
+#include "moteur.h"
 
 DXTexture::DXTexture()
 {

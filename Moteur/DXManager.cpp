@@ -1,4 +1,4 @@
-#include "DXManager.h"
+#include "moteur.h"
 
 DXManager::DXManager()
 {
