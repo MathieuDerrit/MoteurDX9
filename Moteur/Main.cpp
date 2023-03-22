@@ -220,10 +220,11 @@ void cleanD3D(void)
 void init_graphics(void)
 {
     go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
     Mesh* mesh = go->AddComponent<Mesh>();
-    mesh->Init(d3ddev, Box);
+    //mesh->Init(d3ddev, Box);
+    mesh->Init(d3ddev, Custom, "minecart.x");
+    go->m_transform.setPosition(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+    go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
 }
 
 

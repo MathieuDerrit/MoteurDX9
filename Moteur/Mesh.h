@@ -9,7 +9,8 @@ typedef enum
 	Sphere,
 	Teapot,
 	Text,
-	Torus
+	Torus,
+	Custom
 }EMesh;
 
 class Mesh : public Component
@@ -18,7 +19,7 @@ public:
 	Mesh();
 	~Mesh();
 
-	void Init(IDirect3DDevice9* device, EMesh mesh);
+	void Init(IDirect3DDevice9* device, EMesh mesh, string customPath = "");
 	void Update(IDirect3DDevice9* device);
 	bool draw();
 
