@@ -1,4 +1,4 @@
-#include "DXEngine.h"
+#include "framework.h"
 
 
 int WINAPI DXWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR nCmdLine, int nCmdShow)

@@ -1,4 +1,4 @@
-#include "DXCamera.h"
+#include "framework.h"
 
 DXCamera::DXCamera()
 {

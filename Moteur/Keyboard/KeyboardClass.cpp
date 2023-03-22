@@ -1,4 +1,5 @@
-#include "KeyboardClass.h"
+#include "../framework.h"
+
 KeyboardClass::KeyboardClass()
 {
 	for (int i = 0; i < 256; i++)

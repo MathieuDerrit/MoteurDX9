@@ -1,5 +1,4 @@
-#ifndef __meshH__
-#define __meshH__
+#pragma once
 
 typedef enum
 {
@@ -25,4 +24,3 @@ public:
 	Transform meshTransform;
 	ID3DXMesh* m_mesh;
 };
-#endif

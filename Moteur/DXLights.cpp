@@ -1,4 +1,4 @@
-#include "DXLights.h"
+#include "framework.h"
 
 DXLights::DXLights()
 {
