@@ -10,4 +10,3 @@ public:
     virtual void Update();
     GameObject* m_gameObject;
 };
-

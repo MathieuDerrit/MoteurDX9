@@ -4,6 +4,7 @@
 GameObject* go;
 GameObject* go2;
 Mesh* mesh;
+Mesh* mesh2;
 
 int WINAPI WinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
@@ -16,14 +17,23 @@ int WINAPI WinMain(HINSTANCE hInstance,
         hPrevInstance,
         lpCmdLine,
         nCmdShow);
-
-    go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
-    go->AddComponent<Mesh>();
-    Mesh* mesh = go->GetComponent<Mesh>();
-    mesh->Init(Eng->d3ddev, Box);
-    Eng->gameobjectlist.push_back(go);
+    for (int i = 0; i < 2; i++) {
+        go = new GameObject();
+        go->m_transform.setPosition(D3DXVECTOR3(6.0f - 1*i, 2.0f, 4.0f));
+        go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+        go->AddComponent<Mesh>();
+        go->AddComponent<Collider>();
+        Mesh* mesh = go->GetComponent<Mesh>();
+        if (i == 1) {
+            mesh->Init(Eng->d3ddev, Box);
+        }
+        else
+        {
+            mesh->Init(Eng->d3ddev, Cylinder);
+        }
+        
+        Eng->gameobjectlist.push_back(go);
+    }
 
     MSG msg;
 

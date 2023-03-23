@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DXEngine.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CreateCube.h" />
     <ClInclude Include="DXCamera.h" />
     <ClInclude Include="Component.h" />
