@@ -77,6 +77,8 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string 
         //D3DXCreateBox(device, 2.0f, 2.0f, 2.0f, &m_mesh, 0);
         break;
     }
+
+    
 }
 
 void Mesh::Update()
