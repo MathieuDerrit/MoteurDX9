@@ -6,12 +6,21 @@ GameObject* go2;
 Target* target;
 Mesh* mesh;
 
+int railCount = 30;
+int railWidth = 3;
+int goOutScreen = 14;
+float cameraSpeed = 0.1f;
+
 Engine* Eng;
 
 void Update() {
-    //target->GetComponent<Mesh>()->Update(Eng->d3ddev);
-    //target->Draw(Eng->d3ddev);
-    //OutputDebugStringA("enter");
+    for (auto go : Eng->gameobjectlist) 
+    {
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
+        if (go->m_transform.m_position.z > goOutScreen + railWidth) {
+            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z - railWidth * (railCount-1)));
+        }
+    }
 }
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -26,22 +35,22 @@ int WINAPI WinMain(HINSTANCE hInstance,
         lpCmdLine,
         nCmdShow);
 
-    go = new GameObject();
+    /*go = new GameObject();
     go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
     go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
     go->AddComponent<Mesh>();
     Mesh* mesh = go->GetComponent<Mesh>();
-    mesh->Init(Eng->d3ddev, Box);
+    mesh->Init(Eng->d3ddev, Box);*/
 
-    target = new Target();
+    /*target = new Target();
     target->Init(Eng->d3ddev);
-    //target->Draw(Eng->d3ddev);
-    Eng->gameobjectlist.push_back(target);
+    target->Draw(Eng->d3ddev);
+    Eng->gameobjectlist.push_back(target);*/
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < railCount; i++)
     {
         go = new GameObject();
-        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + 14 - 3 * i));
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + goOutScreen - railWidth * i));
         go->AddComponent<Mesh>();
         mesh = go->GetComponent<Mesh>();
         mesh->Init(Eng->d3ddev, Custom, "rail.x");

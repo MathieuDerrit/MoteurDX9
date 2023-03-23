@@ -190,7 +190,7 @@ void Engine::render_frame(void)
 		{
 			if (go->GetComponent<Mesh>()) 
 			{
-				go->GetComponent<Mesh>()->Update(d3ddev);
+				go->GetComponent<Mesh>()->Update();
 				go->GetComponent<Mesh>()->draw(d3ddev);
 			}
 		}
