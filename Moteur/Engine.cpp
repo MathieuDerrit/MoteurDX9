@@ -134,11 +134,11 @@ void Engine::Update()
 
 	if (gameobjectlist.size() > 0)
 	{
-		for (GameObject* go : gameobjectlist)
+		for (auto go : gameobjectlist)
 		{
 			if (go->GetComponent<Mesh>())
 			{
-				go->GetComponent<Mesh>()->Update(d3ddev);
+				go->GetComponent<Mesh>()->Update();
 			}
 		}
 	}
@@ -185,11 +185,11 @@ void Engine::render_frame(void)
 
 	if (gameobjectlist.size() > 0)
 	{
-		for (GameObject* go : gameobjectlist)
+		for (auto go : gameobjectlist)
 		{
 			if (go->GetComponent<Mesh>()) 
 			{
-				go->GetComponent<Mesh>()->draw();
+				go->GetComponent<Mesh>()->draw(d3ddev);
 			}
 		}
 	}

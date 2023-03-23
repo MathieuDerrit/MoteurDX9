@@ -19,7 +19,7 @@ public:
 	~Mesh();
 
 	void Init(IDirect3DDevice9* device, EMesh mesh, string customPath = "", string texturePath = "");
-	void Update(IDirect3DDevice9* device);
+	void Update();
 	bool draw(IDirect3DDevice9* device = NULL);
 
 	Transform meshTransform;

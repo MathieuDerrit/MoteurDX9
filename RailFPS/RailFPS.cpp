@@ -1,9 +1,18 @@
 #include "../Moteur/moteur.h"
-
+#include "Game.h"
 
 GameObject* go;
 GameObject* go2;
+Target* target;
 Mesh* mesh;
+
+Engine* Eng;
+
+void Update() {
+    //target->GetComponent<Mesh>()->Update(Eng->d3ddev);
+    //target->Draw(Eng->d3ddev);
+    //OutputDebugStringA("enter");
+}
 
 int WINAPI WinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
@@ -11,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     int nCmdShow)
 {
 
-    Engine* Eng = new Engine();
+    Eng = new Engine();
     Eng->Init(hInstance,
         hPrevInstance,
         lpCmdLine,
@@ -23,7 +32,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
     go->AddComponent<Mesh>();
     Mesh* mesh = go->GetComponent<Mesh>();
     mesh->Init(Eng->d3ddev, Box);
-    Eng->gameobjectlist.push_back(go);
+
+    target = new Target();
+    target->Init(Eng->d3ddev);
+    //target->Draw(Eng->d3ddev);
+    Eng->gameobjectlist.push_back(target);
+
 
     MSG msg;
 
@@ -39,6 +53,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
             break;
         Eng->Update();
         Eng->render_frame();
+
+        Update();
     }
 
     Eng->cleanD3D();
