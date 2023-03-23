@@ -107,6 +107,8 @@ void Engine::init_light(void)
 
 void Engine::Update()
 {
+	render_frame();
+
 	while (!keyboard.CharBufferIsEmpty())
 	{
 		unsigned char ch = keyboard.ReadChar();		
@@ -190,7 +192,7 @@ void Engine::render_frame(void)
 		{
 			if (go->GetComponent<Mesh>()) 
 			{
-				go->GetComponent<Mesh>()->Update(d3ddev);
+				go->GetComponent<Mesh>()->Update();
 				go->GetComponent<Mesh>()->draw(d3ddev);
 			}
 		}

@@ -27,17 +27,21 @@ int WINAPI WinMain(HINSTANCE hInstance,
         nCmdShow);
 
     go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
+    go->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+    go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+    go->m_transform.rotate(90.0f, 0.0f, 0.0f);
     go->AddComponent<Mesh>();
     Mesh* mesh = go->GetComponent<Mesh>();
     mesh->Init(Eng->d3ddev, Box);
 
     target = new Target();
     target->Init(Eng->d3ddev);
+    target->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+    target->m_transform.setScale(D3DXVECTOR3(0.05f, 0.05f, 0.05f));
+    target->m_transform.rotate(30.0f, 30.0f, 30.0f);
     //target->Draw(Eng->d3ddev);
     Eng->gameobjectlist.push_back(target);
-
+/*
     for (int i = 0; i < 50; i++)
     {
         go = new GameObject();
@@ -47,7 +51,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         mesh->Init(Eng->d3ddev, Custom, "rail.x");
         Eng->gameobjectlist.push_back(go);
     }
-
+*/
     MSG msg;
 
     while (TRUE)
@@ -61,8 +65,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
         if (msg.message == WM_QUIT)
             break;
         Eng->Update();
-        Eng->render_frame();
-
         Update();
     }
 
