@@ -16,7 +16,6 @@ public:
 
     Transform m_transform;
 
-    LPDIRECT3DDEVICE9 m_device;
     vector<Component*> m_components;
 };
 

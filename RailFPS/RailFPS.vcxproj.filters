@@ -27,9 +27,18 @@
     <ClInclude Include="RailFPS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Target.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RailFPS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Target.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

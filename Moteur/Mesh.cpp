@@ -79,14 +79,15 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string 
     }
 }
 
-void Mesh::Update(IDirect3DDevice9* device)
+void Mesh::Update()
 {
     meshTransform = m_gameObject->m_transform;
-    device->SetTransform(D3DTS_WORLD, &(meshTransform.m_matrix));
 }
 
 bool Mesh::draw(IDirect3DDevice9* device)
 {
+    device->SetTransform(D3DTS_WORLD, &(meshTransform.m_matrix));
+
     for (DWORD i = 0; i < m_numMaterials; i++)
     {
         device->SetMaterial(&m_material[i]);

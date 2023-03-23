@@ -15,14 +15,10 @@ private:
 public:
 	Engine() {}
 
-	void Init(HINSTANCE hInstance,
-		HINSTANCE hPrevInstance,
-		LPSTR lpCmdLine,
-		int nCmdShow);
+	void Init(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow);
 	void initD3D(HWND* hWnd);
 	void initInput();
 	void init_light(void);
-
 
 
 	void Update();
@@ -31,8 +27,8 @@ public:
 	//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 
 	void cleanD3D(void);
-	LPDIRECT3DDEVICE9 d3ddev;
 	list<GameObject*> gameobjectlist;
+	LPDIRECT3DDEVICE9 d3ddev;
 };
 
 
