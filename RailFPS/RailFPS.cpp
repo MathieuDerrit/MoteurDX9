@@ -38,6 +38,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
     //target->Draw(Eng->d3ddev);
     Eng->gameobjectlist.push_back(target);
 
+    for (int i = 0; i < 50; i++)
+    {
+        go = new GameObject();
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + 14 - 3 * i));
+        go->AddComponent<Mesh>();
+        mesh = go->GetComponent<Mesh>();
+        mesh->Init(Eng->d3ddev, Custom, "rail.x");
+        Eng->gameobjectlist.push_back(go);
+    }
 
     MSG msg;
 
@@ -56,6 +65,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
         Update();
     }
+
+
+
 
     Eng->cleanD3D();
 

@@ -1,5 +1,7 @@
 /*
+#pragma comment(lib, "winmm.lib")
 #include "Engine.h"
+
 #pragma comment(lib,"MoteurDX10.lib")
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -7,12 +9,24 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	Engine engine;
-	engine.Initialize(hInstance, "Title", "MyWindowClass", 800, 600);
-	while (engine.ProcessMessages() == true)
+	HRESULT hr = CoInitialize(NULL);
+	if (FAILED(hr))
 	{
-		engine.Update();
+		ErrorLogger::Log(hr, "Failed to call CoInitialize.");
+		return -1;
+	}
+
+	Engine engine;
+	if (engine.Initialize(hInstance, "Title", "MyWindowClass", 800, 600))
+	{
+		while (engine.ProcessMessages() == true)
+		{
+			engine.Update();
+			engine.RenderFrame();
+		}
 	}
 	return 0;
 }
 */
+
+

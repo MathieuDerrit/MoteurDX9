@@ -6,10 +6,12 @@ Transform::Transform()
     m_position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
-
     D3DXQuaternionIdentity(&m_quat);
+    D3DXMatrixIdentity(&m_mPos);
     D3DXMatrixIdentity(&m_mSca);
     D3DXMatrixIdentity(&m_mRot);
+
+    updateMatrix();
 }
 
 Transform::~Transform()
@@ -19,12 +21,9 @@ Transform::~Transform()
 
 void Transform::setPosition(D3DXVECTOR3 position)
 {
-    if (m_position != position)
-    {
-        m_position = position;
-        D3DXMatrixTranslation(&m_mPos, m_position.x, m_position.y, m_position.z);
-        updateMatrix();
-    }
+    m_position = position;
+    D3DXMatrixTranslation(&m_mPos, m_position.x, m_position.y, m_position.z);
+    updateMatrix();
 }
 
 void Transform::rotate(float yaw, float pitch, float roll)
@@ -57,12 +56,9 @@ void Transform::rotate(float yaw, float pitch, float roll)
 
 void Transform::setScale(D3DXVECTOR3 scale)
 {
-    if (m_scale != scale) 
-    {
-        m_scale = scale;
-        D3DXMatrixScaling(&m_mSca, m_scale.x, m_scale.y, m_scale.z);
-        updateMatrix();
-    }
+    m_scale = scale;
+    D3DXMatrixScaling(&m_mSca, m_scale.x, m_scale.y, m_scale.z);
+    updateMatrix();
 }
 
 void Transform::updateMatrix()

@@ -1,5 +1,6 @@
 #include "moteur.h"
 
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -89,15 +90,15 @@ void Engine::init_light(void)
 
 	ZeroMemory(&light, sizeof(light));
 	light.Type = D3DLIGHT_DIRECTIONAL;
-	light.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);
+	light.Diffuse = D3DXCOLOR(5,5, 5, 5);
 	light.Direction = D3DXVECTOR3(-1.0f, -0.3f, -1.0f);
 
 	d3ddev->SetLight(0, &light);
 	d3ddev->LightEnable(0, TRUE);
 
 	ZeroMemory(&material, sizeof(D3DMATERIAL9));
-	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	material.Diffuse = D3DXCOLOR(5.0f, 5.0f, 5.0f, 5.0f);
+	material.Ambient = D3DXCOLOR(5.0f, 5.0f, 5.0f, 5.0f);
 
 	d3ddev->SetMaterial(&material);
 }
@@ -148,7 +149,7 @@ void Engine::Update()
 
 void Engine::render_frame(void)
 {
-	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(200, 200, 200), 1.0f, 0);
 	d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	d3ddev->BeginScene();
@@ -189,6 +190,7 @@ void Engine::render_frame(void)
 		{
 			if (go->GetComponent<Mesh>()) 
 			{
+				go->GetComponent<Mesh>()->Update(d3ddev);
 				go->GetComponent<Mesh>()->draw(d3ddev);
 			}
 		}
