@@ -17,3 +17,11 @@ void Collider::Init()
 void Collider::Update()
 {
 }
+
+bool Collider::IsColliding()
+{
+
+
+
+	return false;
+}
