@@ -40,6 +40,8 @@ class StringConverter;
 class MouseEvent;
 class MouseClass;
 class Mesh;
+class Collider;
+class BoxCollider;
 class KeyboardEvent;
 class KeyboardClass;
 class GameObject;
@@ -53,13 +55,11 @@ class DXInput;
 class DXGraphics;
 class DXEngine;
 class DXCamera;
-class AABB;
 
 
 #include "Component.h"
 #include "Transform.h"
 #include "StringConverter.h"
-#include "AABB.h"
 #include "Mesh.h"
 #include "Collider.h"
 #include "Mouse/MouseEvent.h"

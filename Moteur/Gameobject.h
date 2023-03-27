@@ -4,6 +4,7 @@ class GameObject
 {
 public:
     GameObject();
+
     ~GameObject();
 
     //Faire des component à ajouter (ex: mesh renderer, collider, etc...)
@@ -15,6 +16,8 @@ public:
     list<T*>& GetComponents();
 
     Transform m_transform;
+    
+    
 
     vector<Component*> m_components;
 };

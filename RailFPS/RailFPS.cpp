@@ -3,9 +3,9 @@
 
 GameObject* go;
 GameObject* go2;
+
 Target* target;
 Mesh* mesh;
-Collider* collider;
 
 int railCount = 30;
 int railWidth = 3;
@@ -21,6 +21,16 @@ void Update() {
         if (go->m_transform.m_position.z > goOutScreen + railWidth) {
             go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z - railWidth * (railCount-1)));
         }
+
+
+    }
+
+    Collider* collider = go->GetComponent<BoxCollider>();
+    Collider* collider2 = go2->GetComponent<BoxCollider>();
+
+    if (collider->IsCollidingWith(collider2))  {
+        go->GetComponent<Mesh>()->m_material->Diffuse.r = 10.f;
+        printf("EXPLOSION");
     }
 }
 
@@ -55,15 +65,43 @@ int WINAPI WinMain(HINSTANCE hInstance,
     target->Draw(Eng->d3ddev);
     Eng->gameobjectlist.push_back(target);*/
 
-    for (int i = 0; i < railCount; i++)
-    {
-        go = new GameObject();
-        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + goOutScreen - railWidth * i));
-        go->AddComponent<Mesh>();
-        mesh = go->GetComponent<Mesh>();
-        mesh->Init(Eng->d3ddev, Custom, "rail.x");
-        Eng->gameobjectlist.push_back(go);
-    }
+    go = new GameObject();
+    go->m_transform.setPosition(D3DXVECTOR3(0.5f, 1.0f, 0.0f));
+    go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+    go->AddComponent<Mesh>();
+
+    BoxCollider* collider = go->AddComponent<BoxCollider>();
+
+    Mesh* mesh = go->GetComponent<Mesh>();
+    mesh->Init(Eng->d3ddev, Box);
+
+    collider->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+    Eng->gameobjectlist.push_back(go);
+
+    go2 = new GameObject();
+    go2->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.5f, 0.0f));
+    go2->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+    go2->AddComponent<Mesh>();
+
+    BoxCollider* collider2 = go2->AddComponent<BoxCollider>();
+
+    Mesh* mesh2 = go2->GetComponent<Mesh>();
+    mesh2->Init(Eng->d3ddev, Box);
+
+    collider2->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+    Eng->gameobjectlist.push_back(go2);
+    
+
+
+    //for (int i = 0; i < railCount; i++)
+    //{
+    //    go = new GameObject();
+    //    go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + goOutScreen - railWidth * i));
+    //    go->AddComponent<Mesh>();
+    //    mesh = go->GetComponent<Mesh>();
+    //    mesh->Init(Eng->d3ddev, Custom, "rail.x");
+    //    Eng->gameobjectlist.push_back(go);
+    //}
 
     MSG msg;
 

@@ -98,7 +98,7 @@ bool Mesh::draw(IDirect3DDevice9* device)
         m_mesh->DrawSubset(i);
     }
 
-    if (m_numMaterials == 0)
+    if (m_numMaterials == 0 && m_mesh != nullptr)
         m_mesh->DrawSubset(0);
     //m_mesh->DrawSubset(0);
     return true;
