@@ -62,13 +62,16 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string 
         {
             m_material[index] = tempMaterials[index].MatD3D;
             m_material[index].Ambient = m_material[index].Diffuse;
-
-            if (texturePath == "")
+            
+            if (tempMaterials[index].pTextureFilename != NULL) 
+            {
                 texturePath = tempMaterials[index].pTextureFilename;
+                // if there is a texture to load, load it 
 
-            // if there is a texture to load, load it 
-            if (FAILED(D3DXCreateTextureFromFileA(device, texturePath.c_str(), &m_texture[index])))
-                m_texture[index] = NULL;    // if there is no texture, set the texture to NULL 
+                if (FAILED(D3DXCreateTextureFromFileA(device, texturePath.c_str(), &m_texture[index])))
+                    m_texture[index] = NULL;    // if there is no texture, set the texture to NULL 
+            }else
+                m_texture[index] = NULL;
         }
 
         break;
@@ -93,7 +96,8 @@ bool Mesh::draw(IDirect3DDevice9* device)
     for (DWORD i = 0; i < m_numMaterials; i++)
     {
         device->SetMaterial(&m_material[i]);
-        device->SetTexture(0, m_texture[i]);
+        if (m_texture[i] != NULL)
+            device->SetTexture(0, m_texture[i]);
         // Draw the mesh subset
         m_mesh->DrawSubset(i);
     }
