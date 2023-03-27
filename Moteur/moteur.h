@@ -53,6 +53,7 @@ class DXInput;
 class DXGraphics;
 class DXEngine;
 class DXCamera;
+class AABB;
 
 
 #include "Component.h"

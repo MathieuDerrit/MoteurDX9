@@ -10,8 +10,6 @@ public:
 	void Init();
 	void Update();
 
-	AABB aabb;
-	Transform colliderTransform;
 
 	bool IsColliding();
 
