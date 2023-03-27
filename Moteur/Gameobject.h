@@ -17,6 +17,8 @@ public:
     Transform m_transform;
 
     vector<Component*> m_components;
+
+    string m_tag = "default";
 };
 
 template<typename T>

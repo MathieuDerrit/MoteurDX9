@@ -92,6 +92,8 @@ void Mesh::Update()
 bool Mesh::draw(IDirect3DDevice9* device)
 {
     device->SetTransform(D3DTS_WORLD, &(meshTransform.m_matrix));
+    device->SetTexture(0, NULL);
+
 
     for (DWORD i = 0; i < m_numMaterials; i++)
     {
@@ -102,8 +104,10 @@ bool Mesh::draw(IDirect3DDevice9* device)
         m_mesh->DrawSubset(i);
     }
 
-    if (m_numMaterials == 0)
+    if (m_numMaterials == 0) {
         m_mesh->DrawSubset(0);
+    }
+
     //m_mesh->DrawSubset(0);
     return true;
 }
