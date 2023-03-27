@@ -16,7 +16,43 @@ float cameraSpeed = 0.1f;
 boolean goTop = true;
 
 Engine* Eng;
-float i = 0.0f;
+float xRotate = 0.0f;
+
+void railsForward() {
+
+    for (auto go : Eng->gameobjectlist)
+    {
+        if (go->m_tag != "weapon") {
+            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
+            if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
+                go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z - railWidth * (railCount - 1)));
+                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
+                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
+            }
+        }
+    }
+}
+
+void railsTurn() {
+    int u = 0;
+    for (auto go : Eng->gameobjectlist)
+    {
+        u++;
+        if (go->m_tag != "weapon") {
+            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
+            if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
+                go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x - (u * xRotate), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - ( xRotate)));
+                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
+                go->m_transform.rotate(xRotate, 0.0f, 0.0f);
+                xRotate += 0.05f;
+            }
+        }
+    }
+    if (xRotate >= 15.0f)
+        xRotate = 0.0f;
+}
+
+
 void Update() {
     //weapon->m_transform.rotate(.01f, 0.0f, 0.0f);
     D3DXVECTOR3 pos = target->m_transform.m_position;
@@ -39,31 +75,8 @@ void Update() {
 
     target->m_transform.setPosition(pos);
 
-    for (auto go : Eng->gameobjectlist) 
-    {
-        
-        if (go->m_tag != "weapon") {
-            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
-            if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
-                go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z - railWidth * (railCount - 1)));
-                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
-                go->m_transform.rotate(i, 0.0f, 0.0f);
-                i += 0.05f;
-            }
-        }
-        
-        /*
-        if (go->m_tag != "weapon") {
-            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
-            if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
-                go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z - railWidth * (railCount - 1)));
-                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
-                go->m_transform.rotate(i, 0.0f, 0.0f);
-                i += 0.05f;
-            }
-        }
-        */
-    }
+    //railsForward();
+    railsTurn();
     
 }
 
