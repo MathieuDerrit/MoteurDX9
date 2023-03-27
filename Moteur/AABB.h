@@ -4,26 +4,16 @@
 class AABB
 {
 public:
-	AABB() : 
-		m_min(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
-		m_max(D3DXVECTOR3(0.0f, 0.0f, 0.0f)) {}
+    AABB(float x, float y, float z, float halfWidth, float halfHeight, float halfDepth);
 
-	AABB(D3DXVECTOR3 min, D3DXVECTOR3 max) : 
-		m_min(min), 
-		m_max(max) {}
+    D3DXVECTOR3 GetPosition() const { return m_position; }
+    void SetPosition(float x, float y, float z);
+    D3DXVECTOR3 GetHalfSize() const { return m_halfSize; }
+    void SetHalfSize(float halfWidth, float halfHeight, float halfDepth);
 
-	D3DXVECTOR3 GetMin() const { return m_min; }
-	D3DXVECTOR3 GetMax() const { return m_max; }
+    bool IsCollidingWith(const AABB& other) const;
+private:
+    D3DXVECTOR3 m_position;
+    D3DXVECTOR3 m_halfSize;
 
-	bool Intersects(const AABB& other) const
-	{
-		if (m_min.x > other.m_max.x || m_max.x < other.m_min.x) return false; // Check x-axis overlap
-		if (m_min.y > other.m_max.y || m_max.y < other.m_min.y) return false; // Check y-axis overlap
-		if (m_min.z > other.m_max.z || m_max.z < other.m_min.z) return false; // Check z-axis overlap
-
-		return true; // Boxes overlap
-	}
-
-	D3DXVECTOR3 m_min;
-	D3DXVECTOR3 m_max;
 };

@@ -5,6 +5,7 @@ GameObject* go;
 GameObject* go2;
 Target* target;
 Mesh* mesh;
+Collider* collider;
 
 int railCount = 30;
 int railWidth = 3;
