@@ -42,7 +42,6 @@ void Engine::Init(HINSTANCE hInstance,
 	initD3D(&hWnd);
 	initInput();
 	ShowWindow(hWnd, nCmdShow);
-
 }
 
 
@@ -76,6 +75,7 @@ void Engine::initD3D(HWND* hWnd)
 	d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 }
 
+
 void Engine::initInput(){
 	keyboard.EnableAutoRepeatChars();
 }
@@ -106,7 +106,6 @@ void Engine::Update()
 	STimer::UpdateDeltaTime();
 	Input::ReadInputs();
 	render_frame();
-
 	if (gameobjectlist.size() > 0)
 	{
 		for (auto go : gameobjectlist)
@@ -118,39 +117,63 @@ void Engine::Update()
 		}
 	}
 	
+	while (!keyboard.CharBufferIsEmpty())
+	{
+		unsigned char ch = keyboard.ReadChar();		
+		std::string outmsg = "Char: ";
+		outmsg += ch;
+		outmsg += "\n";
+		OutputDebugStringA(outmsg.c_str());
+	}
+
+	while (!keyboard.KeyBufferIsEmpty())
+	{
+		KeyboardEvent kbe = keyboard.ReadKey();
+		unsigned char keycode = kbe.GetKeyCode();
+	}
+	
+	while (!mouse.EventBufferIsEmpty())
+	{		
+		MouseEvent me = mouse.ReadEvent();
+		std::string outmsg = "X: ";
+		outmsg += std::to_string(me.GetPosX());
+		outmsg += ", Y: ";
+		outmsg += std::to_string(me.GetPosY());
+		outmsg += "\n";
+		OutputDebugStringA(outmsg.c_str());
+	}
 }
 
 void Engine::render_frame(void)
 {
+	camera = new Camera();
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(200, 200, 200), 1.0f, 0);
 	d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-
+	ShowCursor(false);
 	d3ddev->BeginScene();
 
 	d3ddev->SetFVF(CUSTOMFVF);
 
 	D3DXMATRIX matView;
 	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f); 
-	D3DXVECTOR3 v2(Input::GetMouseX() / 70, Input::GetMouseY() / 70, 0.0f);
-	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f);    
+	D3DXVECTOR3 v2(-(Input::GetMouseX()) / 70, -(Input::GetMouseY()) / 70, 0.0f);
+	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f); 
+
 
 	D3DXMatrixLookAtLH(&matView,
 		&v1,    
 		&v2,      
 		&v3);    
 	d3ddev->SetTransform(D3DTS_VIEW, &matView);
-
-	D3DXMATRIX matProjection;
+	D3DXMATRIX matProjection;	
 	D3DXMatrixPerspectiveFovLH(&matProjection,
 		D3DXToRadian(45),
 		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
 		1.0f,    
 		100.0f);    
 	d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
-
-
+	
 	//DRAW gameobjet
-
 
 	d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 	d3ddev->SetIndices(i_buffer);
@@ -164,7 +187,13 @@ void Engine::render_frame(void)
 			if (go->GetComponent<Mesh>()) 
 			{
 				go->GetComponent<Mesh>()->Update();
-				go->GetComponent<Mesh>()->draw(d3ddev);
+				if (go->GetComponent<Shader>() != nullptr) {
+					go->GetComponent<Shader>()->CreateShader(d3ddev);
+				}
+				else
+				{
+					go->GetComponent<Mesh>()->draw(d3ddev);
+				}
 			}
 		}
 	}

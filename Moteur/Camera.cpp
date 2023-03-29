@@ -61,7 +61,7 @@ void Camera::SetPosition(float x, float y, float z)
 
 void Camera::AdjustPosition(const XMVECTOR& pos)
 {
-	this->posVector += pos;
+	this->posVector +=pos;
 	XMStoreFloat3(&this->pos, this->posVector);
 	this->UpdateViewMatrix();
 }
