@@ -27,8 +27,8 @@ public:
 	void SetRotation(float x, float y, float z);
 	void AdjustRotation(const XMVECTOR& rot);
 	void AdjustRotation(float x, float y, float z);
-private:
 	void UpdateViewMatrix();
+private:
 	XMVECTOR posVector;
 	XMVECTOR rotVector;
 	XMFLOAT3 pos;

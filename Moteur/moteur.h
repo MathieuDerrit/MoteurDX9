@@ -64,7 +64,6 @@ class Input;
 class STimer;
 
 
-
 #include "Component.h"
 #include "Transform.h"
 #include "StringConverter.h"

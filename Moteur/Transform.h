@@ -10,6 +10,8 @@ public:
 
     void rotate(float yaw, float pitch, float roll);
 
+    void rotate(D3DXMATRIX rotation);
+
     void setScale(D3DXVECTOR3 scale);
 
     void updateMatrix();
