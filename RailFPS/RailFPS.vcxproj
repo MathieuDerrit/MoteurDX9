@@ -150,6 +150,11 @@
     <Image Include="RailFPS.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Moteur\MoteurDX10.vcxproj">
+      <Project>{508edb8f-e339-4842-b47d-ee53a2f2d370}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -30,7 +30,7 @@ void Update() {
 
     if (collider->IsCollidingWith(collider2))  {
         go->GetComponent<Mesh>()->m_material->Diffuse.r = 10.f;
-        printf("EXPLOSION");
+        OutputDebugStringA("My output string.");
     }
 }
 
