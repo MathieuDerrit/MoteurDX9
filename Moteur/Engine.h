@@ -28,5 +28,3 @@ public:
 	list<GameObject*> gameobjectlist;
 	LPDIRECT3DDEVICE9 d3ddev;
 };
-
-
