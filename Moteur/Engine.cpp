@@ -131,7 +131,7 @@ void Engine::render_frame(void)
 
 	D3DXMATRIX matView;
 	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f); 
-	D3DXVECTOR3 v2(0.0f,0.0f, 0.0f);
+	D3DXVECTOR3 v2(Input::GetMouseX() / 70, Input::GetMouseY() / 70, 0.0f);
 	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f);    
 
 	D3DXMatrixLookAtLH(&matView,

@@ -19,15 +19,9 @@ void Input::ReadInputs()
     POINT newMousePos;
     if (GetCursorPos(&newMousePos)) {
         rawX = static_cast<float>((newMousePos.x - x)) * STimer::s_deltaTime;
-        rawY = static_cast<float>((newMousePos.y - y)) * STimer::s_deltaTime;       
+        rawY = static_cast<float>((newMousePos.y - y)) * STimer::s_deltaTime;      
         x = newMousePos.x;
-        y = newMousePos.y;
-
-        OutputDebugStringA("x:");
-        OutputDebugStringA(std::to_string(x).append("\n").c_str());
-        OutputDebugStringA("y:");
-        OutputDebugStringA(std::to_string(y).append("\n").c_str());
-        
+        y = newMousePos.y;        
     }
 }
 
