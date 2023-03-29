@@ -159,17 +159,13 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     }
 
     Eng->cleanD3D();
-
+    #ifdef _DEBUG
+        _CrtMemState memStateEnd, memStateDiff;
+        _CrtMemCheckpoint(&memStateEnd);
+        if (_CrtMemDifference(&memStateDiff, &memStateInit, &memStateEnd))
+        {
+            MessageBoxA(NULL, "MEMORY LEAKS", "DISCLAIMER", 0);
+        }
+    #endif 
     return msg.wParam;
-
-#ifdef _DEBUG
-    _CrtMemState memStateEnd, memStateDiff;
-    _CrtMemCheckpoint(&memStateEnd);
-    if (_CrtMemDifference(&memStateDiff, &memStateInit, &memStateEnd))
-    {
-        MessageBoxA(NULL, "MEMORY LEAKS", "DISCLAIMER", 0);
-    }
-#endif 
-
-    return 0;
 }
