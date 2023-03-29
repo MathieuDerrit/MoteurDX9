@@ -1,5 +1,13 @@
-#include "STimer.h"
-#include <timeapi.h>
+#include "moteur.h"
+
+ float STimer::s_initTime = 0.0f;
+ bool STimer::s_isPerformanceTimer = false;
+ float STimer::s_frequency = 0.0f;
+ int STimer::s_performTime = 0;
+ float STimer::s_deltaTime = 0.0f;
+ float STimer::s_timeUpdate = 0.0f;
+ float STimer::s_timeScale = 0.0f;
+ float STimer::s_SystemScaledTimeEx = 0.0f;
 
 void STimer::InitSystemTime()
 {
@@ -29,6 +37,13 @@ float STimer::GetSystemTimeEx()
 	}
 
 	// Classic
-	timeGetTime() / 1000.0f - s_initTime;
-	return s_deltaTime = timeGetTime();
+	return timeGetTime() / 1000.0f - s_initTime;
+}
+
+void STimer::UpdateDeltaTime()
+{
+	float tempTime = GetSystemTimeEx();
+	s_deltaTime = (tempTime - s_timeUpdate) * s_timeScale;
+	s_timeUpdate = tempTime;
+	s_SystemScaledTimeEx += s_deltaTime;
 }

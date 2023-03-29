@@ -1,8 +1,6 @@
 #pragma once
-#include <Windows.h>
-#include "STimer.h"
 
-enum KeyType {
+ enum KeyType {
     Z,
     Q,
     S,
@@ -15,18 +13,18 @@ enum KeyType {
 
 class Input {
 public:
-    void ReadInputs();
-    bool IsPressed(KeyType InputType);
-    int GetMouseX() { return x; }
-    int GetMouseY() { return y; }
-    int GetRawX() { return rawX; }
-    int GetRawY() { return rawY; }
+      static void ReadInputs();
+      static bool IsPressed(KeyType InputType);
+      static int GetMouseX() { return x; }
+      static int GetMouseY() { return y; }
+      static int GetRawX() { return rawX; }
+      static int GetRawY() { return rawY; }
+      static void UpdateInput(KeyType InputType, int vKey);
 private:
-    void UpdateInput(KeyType InputType, int vKey);
-    bool InputPressed[KEYTYPE_ITEM_NBR];
-    int x = 0;
-    int y = 0;
-    float rawX = 0;
-    float rawY = 0;
-    STimer timer;
+    static bool InputPressed[KEYTYPE_ITEM_NBR];
+    static int x ;
+    static int y ;
+    static float rawX ;
+    static float rawY ;
+   
 };

@@ -1,3 +1,4 @@
+#pragma once
 #include <Windows.h>
 #include <winnt.h>
 #include <profileapi.h>
@@ -6,13 +7,17 @@
 class STimer
 {
 private:
-    float s_initTime;
-    bool s_isPerformanceTimer;
-    float s_frequency;
-    int s_performTime;
-
+    static float s_initTime;
+    static bool s_isPerformanceTimer;
+    static float s_frequency;
+    static int s_performTime; 
 public:
-    void InitSystemTime();
-    float GetSystemTimeEx();
-    float s_deltaTime;
+    static void InitSystemTime();
+    static float GetSystemTimeEx();
+    static void UpdateDeltaTime();
+
+    static float s_deltaTime;
+    static float s_timeUpdate;
+    static float s_timeScale;
+    static float s_SystemScaledTimeEx;
 };

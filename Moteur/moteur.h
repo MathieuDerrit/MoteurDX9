@@ -19,9 +19,12 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <DirectXMath.h>
+
 
 #pragma comment (lib, "d3d9.lib")
 #pragma comment (lib, "d3dx9.lib")
+#pragma comment (lib, "winmm.lib")
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -40,6 +43,8 @@ class StringConverter;
 class MouseEvent;
 class MouseClass;
 class Mesh;
+class Collider;
+class BoxCollider;
 class KeyboardEvent;
 class KeyboardClass;
 class GameObject;
@@ -53,13 +58,19 @@ class DXInput;
 class DXGraphics;
 class DXEngine;
 class DXCamera;
+<<<<<<< HEAD
+<<<<<<< HEAD
 class AABB;
+class Camera;
+class Input;
+class STimer;
+=======
+
 
 
 #include "Component.h"
 #include "Transform.h"
 #include "StringConverter.h"
-#include "AABB.h"
 #include "Mesh.h"
 #include "Collider.h"
 #include "Mouse/MouseEvent.h"
@@ -77,6 +88,9 @@ class AABB;
 #include "DXGraphics.h"
 #include "DXEngine.h"
 #include "DXCamera.h"
+#include "Camera.h"
+#include "Input.h"
+#include "STimer.h"
 
 
 

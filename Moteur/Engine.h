@@ -9,9 +9,7 @@ private:
 
 	KeyboardClass keyboard;
 	MouseClass mouse;
-
 	
-
 public:
 	Engine() {}
 
