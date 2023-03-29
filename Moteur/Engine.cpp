@@ -187,5 +187,3 @@ void Engine::cleanD3D(void)
 	if (d3d)
 		d3d->Release();
 }
-
-
