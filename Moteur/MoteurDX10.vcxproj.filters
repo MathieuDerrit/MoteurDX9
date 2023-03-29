@@ -93,6 +93,9 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -182,6 +185,9 @@
     <ClInclude Include="Collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MoteurDX10.rc">
@@ -191,5 +197,10 @@
   <ItemGroup>
     <None Include="RCa01440" />
     <None Include="RCb01440" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\RailFPS\Color.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

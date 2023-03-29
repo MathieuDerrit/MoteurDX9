@@ -34,7 +34,6 @@
 
 struct CUSTOMVERTEX { FLOAT X, Y, Z; D3DVECTOR NORMAL; };
 
-
 using namespace std;
 
 class Component;
@@ -62,7 +61,7 @@ class AABB;
 class Camera;
 class Input;
 class STimer;
-
+class Shader;
 
 
 #include "Component.h"
@@ -88,6 +87,7 @@ class STimer;
 #include "Camera.h"
 #include "Input.h"
 #include "STimer.h"
+#include "Shader.h"
 
 
 

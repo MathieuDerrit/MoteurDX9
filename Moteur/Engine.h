@@ -15,6 +15,7 @@ public:
 
 	void Init(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow);
 	void initD3D(HWND* hWnd);
+	void initShader();
 	void initInput();
 	void init_light(void);
 
@@ -28,3 +29,5 @@ public:
 	list<GameObject*> gameobjectlist;
 	LPDIRECT3DDEVICE9 d3ddev;
 };
+
+

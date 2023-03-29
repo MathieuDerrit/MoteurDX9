@@ -76,6 +76,7 @@ void Engine::initD3D(HWND* hWnd)
 	d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));
 }
 
+
 void Engine::initInput(){
 	keyboard.EnableAutoRepeatChars();
 }
@@ -118,6 +119,31 @@ void Engine::Update()
 		}
 	}
 	
+	while (!keyboard.CharBufferIsEmpty())
+	{
+		unsigned char ch = keyboard.ReadChar();		
+		std::string outmsg = "Char: ";
+		outmsg += ch;
+		outmsg += "\n";
+		OutputDebugStringA(outmsg.c_str());
+	}
+
+	while (!keyboard.KeyBufferIsEmpty())
+	{
+		KeyboardEvent kbe = keyboard.ReadKey();
+		unsigned char keycode = kbe.GetKeyCode();
+	}
+	
+	while (!mouse.EventBufferIsEmpty())
+	{		
+		MouseEvent me = mouse.ReadEvent();
+		std::string outmsg = "X: ";
+		outmsg += std::to_string(me.GetPosX());
+		outmsg += ", Y: ";
+		outmsg += std::to_string(me.GetPosY());
+		outmsg += "\n";
+		OutputDebugStringA(outmsg.c_str());
+	}
 }
 
 void Engine::render_frame(void)
@@ -164,7 +190,13 @@ void Engine::render_frame(void)
 			if (go->GetComponent<Mesh>()) 
 			{
 				go->GetComponent<Mesh>()->Update();
-				go->GetComponent<Mesh>()->draw(d3ddev);
+				if (go->GetComponent<Shader>() != nullptr) {
+					go->GetComponent<Shader>()->CreateShader(d3ddev);
+				}
+				else
+				{
+					go->GetComponent<Mesh>()->draw(d3ddev);
+				}
 			}
 		}
 	}
