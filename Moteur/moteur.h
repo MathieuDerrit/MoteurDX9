@@ -31,6 +31,7 @@
 #pragma comment (lib, "d3dx9.lib")
 #pragma comment (lib, "winmm.lib")
 #pragma comment(lib, "dmoguids.lib")
+#pragma comment(lib, "dxerr.lib")
 
 #define SCREEN_WIDTH 1200
 #define SCREEN_HEIGHT 900

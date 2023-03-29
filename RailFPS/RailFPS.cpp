@@ -4,6 +4,8 @@
 GameObject* go;
 GameObject* go2;
 
+GameObject* textCanvas;
+
 Shader* shader;
 
 Target* target;
@@ -22,6 +24,8 @@ float i = 0.0f;
 void Update() {
 
     D3DXVECTOR3 pos = target->m_transform.m_position;
+
+    
 
     if (goTop) {
         pos.y += 0.05f;
@@ -103,8 +107,14 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     collider2->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
     Eng->gameobjectlist.push_back(go2);
 
-
-
+    // UI ERREUR DE DXERR.H
+    //textCanvas = new GameObject();
+    //auto text = textCanvas->AddComponent<FieldText>();
+    //text->text = L"ALOOOOOOOOOO";
+    //text->fontHeight = 100;
+    //text->textColor = D3DCOLOR_ARGB(120, 120, 255, 60);
+    //text->size = D3DXVECTOR2(300, 100);
+    //Eng->gameobjectlist.push_back(textCanvas);
     
     for (int i = 0; i < railCount; i++)
     {

@@ -1,6 +1,7 @@
 #pragma once
-class FieldText
+class FieldText : public Component
 {
+public:
 	FieldText();
 	~FieldText();
 
