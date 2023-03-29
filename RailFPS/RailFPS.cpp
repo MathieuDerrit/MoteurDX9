@@ -159,6 +159,13 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     }
 
     Eng->cleanD3D();
+    delete go;
+    delete go2;
+    delete Eng;
+    delete target;
+    delete weapon;
+
+
     #ifdef _DEBUG
         _CrtMemState memStateEnd, memStateDiff;
         _CrtMemCheckpoint(&memStateEnd);
