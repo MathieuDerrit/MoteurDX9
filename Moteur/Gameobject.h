@@ -10,8 +10,10 @@ public:
     //Faire des component à ajouter (ex: mesh renderer, collider, etc...)
     template<typename T>
     T* AddComponent();
+
     template<typename T>
     T* GetComponent();
+
     template<typename T>
     list<T*>& GetComponents();
 

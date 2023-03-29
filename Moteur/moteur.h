@@ -19,20 +19,36 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <tchar.h>
+#include <sstream>
+#include <cstring>
+
 #include <DirectXMath.h>
+#include <DxErr.h>
 
 
 #pragma comment (lib, "d3d9.lib")
 #pragma comment (lib, "d3dx9.lib")
 #pragma comment (lib, "winmm.lib")
+#pragma comment(lib, "dmoguids.lib")
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1200
+#define SCREEN_HEIGHT 900
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL)
 #define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
+#define HR(x)										\
+{													\
+	HRESULT hr = x;									\
+	if (FAILED(hr))									\
+	{												\
+		DXTraceA(__FILE__, __LINE__, hr, #x, FALSE);\
+	}												\
+}
+
 struct CUSTOMVERTEX { FLOAT X, Y, Z; D3DVECTOR NORMAL; };
+
 
 using namespace std;
 
@@ -69,6 +85,7 @@ class Shader;
 #include "StringConverter.h"
 #include "Mesh.h"
 #include "Collider.h"
+#include "Fieldtext.h"
 #include "Mouse/MouseEvent.h"
 #include "Mouse/MouseClass.h"
 #include "Keyboard/KeyboardEvent.h"
