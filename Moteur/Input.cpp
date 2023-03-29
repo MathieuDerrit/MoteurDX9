@@ -1,6 +1,5 @@
 #include "moteur.h"
 
-
  bool Input::InputPressed[KEYTYPE_ITEM_NBR];
  int Input::x = 0;
  int Input::y = 0;
@@ -19,9 +18,9 @@ void Input::ReadInputs()
     POINT newMousePos;
     if (GetCursorPos(&newMousePos)) {
         rawX = static_cast<float>((newMousePos.x - x)) * STimer::s_deltaTime;
-        rawY = static_cast<float>((newMousePos.y - y)) * STimer::s_deltaTime;      
+        rawY = static_cast<float>((newMousePos.y - y)) * STimer::s_deltaTime; 
         x = newMousePos.x;
-        y = newMousePos.y;        
+        y = newMousePos.y;
     }
 }
 
