@@ -156,6 +156,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mouse\MouseClass.cpp" />
     <ClCompile Include="Mouse\MouseEvent.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="StringConverter.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Mouse\MouseClass.h" />
     <ClInclude Include="Mouse\MouseEvent.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="StringConverter.h" />
     <ClInclude Include="test.h" />
@@ -199,6 +201,9 @@
   <ItemGroup>
     <None Include="RCa01440" />
     <None Include="RCb01440" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\RailFPS\Color.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

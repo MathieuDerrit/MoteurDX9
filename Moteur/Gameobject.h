@@ -43,6 +43,7 @@ T* GameObject::GetComponent()
             return dynamic_cast<T*>(m_components[i]);
         }
     }
+    return nullptr;
 }
 
 template <typename T>
