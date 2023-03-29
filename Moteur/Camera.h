@@ -1,9 +1,13 @@
 #pragma once
-#include <DirectXMath.h>
+
 using namespace DirectX;
-class Camera
+class Camera : public GameObject
 {
 public:
+
+	void Init(IDirect3DDevice9* device) {
+		
+	}
 	Camera();
 	void SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ);
 

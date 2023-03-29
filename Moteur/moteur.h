@@ -19,9 +19,12 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <DirectXMath.h>
+
 
 #pragma comment (lib, "d3d9.lib")
 #pragma comment (lib, "d3dx9.lib")
+#pragma comment (lib, "winmm.lib")
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -55,6 +58,11 @@ class DXInput;
 class DXGraphics;
 class DXEngine;
 class DXCamera;
+class AABB;
+class Camera;
+class Input;
+class STimer;
+
 
 
 #include "Component.h"
@@ -77,6 +85,9 @@ class DXCamera;
 #include "DXGraphics.h"
 #include "DXEngine.h"
 #include "DXCamera.h"
+#include "Camera.h"
+#include "Input.h"
+#include "STimer.h"
 
 
 

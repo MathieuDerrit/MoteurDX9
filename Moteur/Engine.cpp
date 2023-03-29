@@ -26,7 +26,6 @@ void Engine::Init(HINSTANCE hInstance,
 
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 
-
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = WindowProc;
@@ -102,37 +101,11 @@ void Engine::init_light(void)
 	d3ddev->SetMaterial(&material);
 }
 
-
-
 void Engine::Update()
 {
+	STimer::UpdateDeltaTime();
+	Input::ReadInputs();
 	render_frame();
-
-	while (!keyboard.CharBufferIsEmpty())
-	{
-		unsigned char ch = keyboard.ReadChar();		
-		std::string outmsg = "Char: ";
-		outmsg += ch;
-		outmsg += "\n";
-		OutputDebugStringA(outmsg.c_str());
-	}
-
-	while (!keyboard.KeyBufferIsEmpty())
-	{
-		KeyboardEvent kbe = keyboard.ReadKey();
-		unsigned char keycode = kbe.GetKeyCode();
-	}
-	
-	while (!mouse.EventBufferIsEmpty())
-	{		
-		MouseEvent me = mouse.ReadEvent();
-		std::string outmsg = "X: ";
-		outmsg += std::to_string(me.GetPosX());
-		outmsg += ", Y: ";
-		outmsg += std::to_string(me.GetPosY());
-		outmsg += "\n";
-		OutputDebugStringA(outmsg.c_str());
-	}
 
 	if (gameobjectlist.size() > 0)
 	{
@@ -144,9 +117,8 @@ void Engine::Update()
 			}
 		}
 	}
+	
 }
-
-
 
 void Engine::render_frame(void)
 {
@@ -158,8 +130,8 @@ void Engine::render_frame(void)
 	d3ddev->SetFVF(CUSTOMFVF);
 
 	D3DXMATRIX matView;
-	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f);    
-	D3DXVECTOR3 v2(0.0f, 0.0f, 0.0f);     
+	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f); 
+	D3DXVECTOR3 v2(0.0f,0.0f, 0.0f);
 	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f);    
 
 	D3DXMatrixLookAtLH(&matView,
