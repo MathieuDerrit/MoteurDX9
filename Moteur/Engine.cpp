@@ -1,6 +1,5 @@
 #include "moteur.h"
 
-
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -216,5 +215,3 @@ void Engine::cleanD3D(void)
 	if (d3d)
 		d3d->Release();
 }
-
-
