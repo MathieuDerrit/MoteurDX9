@@ -33,17 +33,21 @@ void railsForward() {
     }
 }
 
-void railsTurn() {
+void railsTurn(bool isRightDirection) {
     int u = 0;
+    int direction = -1;
+    if (isRightDirection) {
+        direction = 1;
+    }
     for (auto go : Eng->gameobjectlist)
     {
         u++;
         if (go->m_tag != "weapon") {
             go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
             if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
-                go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x - (u * xRotate), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - ( xRotate)));
+                go->m_transform.setPosition(D3DXVECTOR3(direction *(go->m_transform.m_position.x - (u * xRotate)), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - (-u * xRotate)));
                 go->m_transform.rotate(0.0f, 0.0f, 0.0f);
-                go->m_transform.rotate(xRotate, 0.0f, 0.0f);
+                go->m_transform.rotate(direction * xRotate, 0.0f, 0.0f);
                 xRotate += 0.05f;
             }
         }
@@ -76,8 +80,35 @@ void Update() {
     target->m_transform.setPosition(pos);
 
     //railsForward();
-    railsTurn();
-    
+    railsTurn(true);
+
+
+
+    // Créez une instance de l'interface ID3DXLine
+    ID3DXLine* pLine;
+    D3DXCreateLine(Eng->d3ddev, &pLine);
+
+    // Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
+    D3DXVECTOR3 vOrigin = D3DXVECTOR3(0.0f,0.0f,0.0f);
+    D3DXVECTOR3 vDirection = D3DXVECTOR3(0.0f, 0.0f, 30.0f);
+
+    // Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
+    D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection * 15) };
+
+    // Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
+    D3DCOLOR color = D3DCOLOR_RGBA(255, 255, 0, 255); // Jaune
+
+    //D3DXMATRIX tempFinal = vOrigin * vDirection;
+
+    // Appelez la fonction DrawLine pour dessiner la ligne de rayon
+    pLine->SetWidth(1.0f); // Définissez la largeur de la ligne
+    pLine->Begin();
+    //pLine->DrawTransform(points, 2, &tempFinal, color);
+    pLine->End();
+
+    // Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
+    pLine->Release();
+  
 }
 
 int WINAPI WinMain(HINSTANCE hInstance,
