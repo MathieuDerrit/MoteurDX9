@@ -20,7 +20,7 @@ float xRotate = 0.0f;
 
 void railsForward() {
 
-    for (auto go : Eng->gameobjectlist)
+   /* for (auto go : Eng->gameobjectlist)
     {
         if (go->m_tag != "weapon") {
             go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
@@ -30,7 +30,7 @@ void railsForward() {
                 go->m_transform.rotate(0.0f, 0.0f, 0.0f);
             }
         }
-    }
+    }*/
 }
 
 void railsTurn(bool isRightDirection) {
@@ -39,7 +39,7 @@ void railsTurn(bool isRightDirection) {
     if (isRightDirection) {
         direction = 1;
     }
-    for (auto go : Eng->gameobjectlist)
+    /*for (auto go : Eng->gameobjectlist)
     {
         u++;
         if (go->m_tag != "weapon") {
@@ -51,7 +51,7 @@ void railsTurn(bool isRightDirection) {
                 xRotate += 0.05f;
             }
         }
-    }
+    }*/
     if (xRotate >= 15.0f)
         xRotate = 0.0f;
 }
@@ -131,7 +131,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
     LPSTR lpCmdLine,
     int nCmdShow)
 {
-
     Eng = new Engine();
     Eng->Init(hInstance,
         hPrevInstance,

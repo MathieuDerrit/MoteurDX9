@@ -1,6 +1,8 @@
 #include "moteur.h"
 Input input;
 Camera cam;
+Time* time;
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -42,9 +44,9 @@ void Engine::Init(HINSTANCE hInstance,
 
 	initD3D(&hWnd);
 	initInput();
-	cam.m_transform.setPosition(D3DXVECTOR3(5, -1, 0));
-	cam.m_transform.rotate(1.0f, 1.0f, 1.0f);
-	cam.m_transform.rotate(0.0f, 0.0f, 0.0f);
+	time->InitSystemTime();
+	cam.m_transform.setPosition(D3DXVECTOR3(0, -5, 0));
+	cam.m_transform.rotate(-90.0f, 0.0f, 0.0f);
 	input.cam = &cam;
 	ShowWindow(hWnd, nCmdShow);
 
@@ -105,14 +107,15 @@ void Engine::init_light(void)
 
 	d3ddev->SetMaterial(&material);
 }
+
 int a = 0;
 void Engine::Update()
 {
+	time->UpdateTime();
 	a += 50;
 	//cam->m_transform.setPosition(D3DXVECTOR3(a, a, 0.0f));
 
-	STimer::UpdateDeltaTime();
-	OutputDebugStringA(std::to_string(STimer::s_deltaTime).append("\n").c_str());
+	OutputDebugStringA(std::to_string(time->deltaTime).append("\n").c_str());
 	input.ReadInputs();
 	render_frame();
 

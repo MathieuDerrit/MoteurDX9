@@ -20,6 +20,8 @@
 #include <vector>
 #include <string>
 #include <DirectXMath.h>
+#include <timeapi.h>
+
 
 
 #pragma comment (lib, "d3d9.lib")
@@ -61,7 +63,7 @@ class DXCamera;
 class AABB;
 class Camera;
 class Input;
-class STimer;
+class Time;
 
 
 #include "Component.h"
@@ -86,7 +88,7 @@ class STimer;
 #include "DXCamera.h"
 #include "Camera.h"
 #include "Input.h"
-#include "STimer.h"
+#include "Time.h"
 
 
 
