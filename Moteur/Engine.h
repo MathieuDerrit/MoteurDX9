@@ -10,8 +10,9 @@ private:
 	KeyboardClass keyboard;
 	MouseClass mouse;
 	Camera* camera;
+
 public:
-	Engine() {}
+	Engine();
 
 	void Init(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow);
 	void initD3D(HWND* hWnd);
@@ -28,6 +29,7 @@ public:
 	void cleanD3D(void);
 	list<GameObject*> gameobjectlist;
 	LPDIRECT3DDEVICE9 d3ddev;
+
 };
 
 

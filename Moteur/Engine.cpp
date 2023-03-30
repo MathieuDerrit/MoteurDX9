@@ -1,5 +1,11 @@
 #include "moteur.h"
 
+Engine::Engine(){
+
+}
+
+
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -199,6 +205,10 @@ void Engine::render_frame(void)
 				go->GetComponent<FieldText>()->Draw();
 				go->GetComponent<FieldText>()->Update();
 
+			}
+			if (go->GetComponent<Button>()) {
+				go->GetComponent<Button>()->Draw();
+				go->GetComponent<Button>()->Update();
 			}
 		}
 	}

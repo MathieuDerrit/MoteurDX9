@@ -18,6 +18,7 @@
 #include <queue>
 #include <list>
 #include <vector>
+#include <functional>
 #include <string>
 #include <tchar.h>
 #include <sstream>
@@ -87,6 +88,7 @@ class Shader;
 #include "Mesh.h"
 #include "Collider.h"
 #include "Fieldtext.h"
+#include "Button.h"
 #include "Mouse/MouseEvent.h"
 #include "Mouse/MouseClass.h"
 #include "Keyboard/KeyboardEvent.h"

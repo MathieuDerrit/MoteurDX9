@@ -5,6 +5,7 @@ GameObject* go;
 GameObject* go2;
 
 GameObject* textCanvas;
+GameObject* buttonParent;
 
 Shader* shader;
 
@@ -84,9 +85,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     go->m_transform.setPosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
     go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
     go->AddComponent<Mesh>();
-
     BoxCollider* collider = go->AddComponent<BoxCollider>();
-
     Mesh* mesh = go->GetComponent<Mesh>();
     mesh->Init(Eng->d3ddev, Box);
     collider->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
@@ -96,16 +95,12 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     go2->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.5f, 0.0f));
     go2->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
     go2->AddComponent<Mesh>();
-
     BoxCollider* collider2 = go2->AddComponent<BoxCollider>();
-
     Mesh* mesh2 = go2->GetComponent<Mesh>();
     mesh2->Init(Eng->d3ddev, Box);
-
     collider2->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
     Eng->gameobjectlist.push_back(go2);
 
-    // UI ERREUR DE DXERR.H
     textCanvas = new GameObject();
     auto text = textCanvas->AddComponent<FieldText>();
     text->Init(Eng->d3ddev);
@@ -114,8 +109,15 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     text->textColor = D3DCOLOR_ARGB(120, 120, 255, 60);
     text->size = D3DXVECTOR2(300, 100);
     text->Draw();
-    
     Eng->gameobjectlist.push_back(textCanvas);
+
+    buttonParent = new GameObject();
+    auto buttonTest = buttonParent->AddComponent<Button>();
+    buttonTest->Init(Eng->d3ddev);
+    buttonTest->message = "PLAY";
+    buttonTest->Draw();
+    Eng->gameobjectlist.push_back(buttonParent);
+
     
     for (int i = 0; i < railCount; i++)
     {
