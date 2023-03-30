@@ -9,6 +9,7 @@ private:
 
 	KeyboardClass keyboard;
 	MouseClass mouse;
+	LPD3DXMESH mm;
 	
 public:
 	Engine() {}

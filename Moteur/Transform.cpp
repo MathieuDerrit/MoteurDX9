@@ -76,7 +76,8 @@ void Transform::setScale(D3DXVECTOR3 scale)
 
 void Transform::updateMatrix()
 {
+    D3DXMatrixTransformation(&m_matrix, NULL, NULL, &m_scale, NULL, &m_quat, &m_position);
+    /*m_matrix *= m_mRot;
     m_matrix = m_mSca;
-    m_matrix *= m_mRot;
-    m_matrix *= m_mPos;
+    m_matrix *= m_mPos;*/
 }
