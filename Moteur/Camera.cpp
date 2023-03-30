@@ -141,12 +141,17 @@ void Camera::UpdateViewMatrix() //Updates view matrix and also updates the movem
 
 	D3DXVECTOR3 upDir;
 	D3DXVec3TransformCoord(&upDir, &DEFAULT_UP_VECTOR, &m_transform.m_mRot);
-
+	D3DXMATRIX matRot;
+	D3DXQUATERNION quad = m_transform.m_quat;
+	D3DXMatrixRotationQuaternion(&matRot, &quad);
+	D3DXVECTOR3 vectLookAt = { matRot._31, matRot._32, matRot._33 };
+	vectLookAt += m_transform.m_position;
+	D3DXVECTOR3 vectUpDir = { matRot._21, matRot._22, matRot._23 };
 	//D3DXMatrixLookAtLH(&m_matView, &m_transform.m_position, &camTarget, &upDir);
-
+	D3DXVECTOR3 pos = m_transform.m_position;
 	D3DXVECTOR3 forward = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_matView = D3DXMATRIX();
-	D3DXMatrixLookAtLH(&m_matView, &this->m_transform.m_position, &forward, &up);
+	D3DXMatrixLookAtLH(&m_matView, &pos, &vectLookAt, &vectUpDir);
 
 }
