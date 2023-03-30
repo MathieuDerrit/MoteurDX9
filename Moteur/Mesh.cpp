@@ -8,9 +8,12 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {
     if (m_mesh)
-    {
         m_mesh->Release();
-    }
+    if (m_material)
+        delete m_material;
+    if (m_texture)
+        delete m_texture;
+
 }
 
 void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string texturePath)
@@ -39,7 +42,7 @@ void Mesh::Init(IDirect3DDevice9* device, EMesh mesh, string customPath, string 
         break;   
     case Custom: {
         //Conversion du string en LPCWSTR
-        std::wstring pathTemp = std::wstring(customPath.begin(), customPath.end());
+        wstring pathTemp = wstring(customPath.begin(), customPath.end());
         LPCWSTR path = pathTemp.c_str();
 
         //Load mesh

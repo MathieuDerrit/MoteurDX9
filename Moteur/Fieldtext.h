@@ -5,13 +5,17 @@ public:
 	FieldText();
 	~FieldText();
 
+	void Init(LPDIRECT3DDEVICE9 d3ddev);
+	void Update();
+	void Draw();
+
 	INT fontHeight = 25;
 	UINT fontWidth = 0;
 	UINT fontWeight = FW_NORMAL;
 	BOOL fontItalic = false;
-	LPCWSTR textFont = L"Arial";
+	LPCWSTR font = L"Arial";
 
-	wstring text = L"Default text!";
+	string text;
 	DWORD textFormat = DT_CENTER | DT_VCENTER;
 
 	LPCWSTR boxFilepath = L"Assets\\the_rock.jpg";
@@ -29,16 +33,9 @@ public:
 	bool drawBorder = false;
 
 private:
-	void Render();
 
-	D3DXVECTOR2 _rectTopLeft;
-	D3DXVECTOR2 _rectBottomRight;
-
-	ID3DXLine* _pLine = nullptr;
-	LPDIRECT3DTEXTURE9 _texture;
-	LPD3DXSPRITE _sprite = nullptr;
-	RECT _textRect;
-	ID3DXFont* _pFont = nullptr;
+	RECT textRect;
+	ID3DXFont* textFont = nullptr;
 
 	LPDIRECT3DDEVICE9 d3ddev;
 };

@@ -195,6 +195,11 @@ void Engine::render_frame(void)
 					go->GetComponent<Mesh>()->draw(d3ddev);
 				}
 			}
+			if (go->GetComponent<FieldText>()) {
+				go->GetComponent<FieldText>()->Draw();
+				go->GetComponent<FieldText>()->Update();
+
+			}
 		}
 	}
 
@@ -215,4 +220,6 @@ void Engine::cleanD3D(void)
 		d3ddev->Release();
 	if (d3d)
 		d3d->Release();
+	if (camera)
+		delete camera;
 }

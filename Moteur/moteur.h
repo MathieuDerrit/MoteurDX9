@@ -42,10 +42,10 @@
 #define HR(x)										\
 {													\
 	HRESULT hr = x;									\
-	if (FAILED(hr))									\
+/*	if (FAILED(hr))									\
 	{												\
 		DXTraceA(__FILE__, __LINE__, hr, #x, FALSE);\
-	}												\
+	}	*/											\
 }
 
 struct CUSTOMVERTEX { FLOAT X, Y, Z; D3DVECTOR NORMAL; };
