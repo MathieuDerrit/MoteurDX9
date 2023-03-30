@@ -56,7 +56,8 @@ void Engine::Init(HINSTANCE hInstance,
 		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
 		1.0f,
 		1000.0f);
-	camera->m_transform.rotate(45.0f, 0.0f, 0.0f);
+	camera->m_transform.rotate(60.0f, 0.0f, 0.0f);
+
 	input.cam = camera;
 
 
