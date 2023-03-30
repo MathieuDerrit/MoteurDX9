@@ -21,6 +21,7 @@
 #include <string>
 #include <DirectXMath.h>
 #include <timeapi.h>
+#include <iterator>
 
 
 
