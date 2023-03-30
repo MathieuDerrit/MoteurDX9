@@ -57,7 +57,9 @@ void Update() {
                 i += 0.05f;
             }
         }
-      
+
+        if (buttonParent->GetComponent<Button>()->isClick() == true)
+            textCanvas->GetComponent<FieldText>()->text = "PUUUUUUUUUUUTEEEE";
     }
  
 }

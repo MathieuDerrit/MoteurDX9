@@ -24,30 +24,30 @@ void Button::Init(LPDIRECT3DDEVICE9 d3ddev)
 		font,
 		&buttonFont));
 
-	//D3DXIMAGE_INFO info;
-	//HR(D3DXGetImageInfoFromFile(boxFilepath, &info))
+	D3DXIMAGE_INFO info;
+	HR(D3DXGetImageInfoFromFile(boxFilepath, &info))
 
-	//	if (size.x <= 0 || size.y <= 0)
-	//	{
-	//		drawBox = false;
-	//	}
+		if (size.x <= 0 || size.y <= 0)
+		{
+			drawBox = false;
+		}
 
-	//HR(D3DXCreateTextureFromFileEx(d3ddev,
-	//	boxFilepath,
-	//	size.x,
-	//	size.y,
-	//	info.MipLevels,
-	//	0,
-	//	info.Format,
-	//	D3DPOOL_DEFAULT,
-	//	D3DX_DEFAULT,
-	//	D3DX_DEFAULT,
-	//	0xFF000000,
-	//	&info,
-	//	NULL,
-	//	&_texture))
+	HR(D3DXCreateTextureFromFileEx(d3ddev,
+		boxFilepath,
+		size.x,
+		size.y,
+		info.MipLevels,
+		0,
+		info.Format,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		0xFF000000,
+		&info,
+		NULL,
+		&_texture))
 
-	//HR(D3DXCreateSprite(d3ddev, &_sprite));
+	HR(D3DXCreateSprite(d3ddev, &_sprite));
 	SetRect(&buttonRect, 0, 0, 300, 300);
 }
 
@@ -57,9 +57,32 @@ void Button::Update()
 
 	if (isMouseOn() && !isDisabled) {
 		if (Input::IsPressed(LMB))
-			OnClick();
+			isClick();
 		else
 			OnHover();
+	}
+}
+
+void Button::Update2(std::string action)
+{
+	mousePos.x = Input::GetMouseX();
+	mousePos.y = Input::GetMouseY();
+
+	ScreenToClient(window, &mousePos);
+
+	if (Input::IsPressed(LMB))
+	{
+		if (mousePos.x > buttonRect.left && mousePos.x < buttonRect.right &&
+			mousePos.y > buttonRect.top && mousePos.y < buttonRect.bottom)
+		{
+			if (action == "Play") {
+				OutputDebugStringA("Play");
+			}
+			else if (action == "Quit")
+			{
+				OutputDebugStringA("Quit");
+			}
+		}
 	}
 }
 
@@ -70,21 +93,23 @@ void Button::Draw()
 
 	auto result = SetRect(&buttonRect, _rectOrigin.x, _rectOrigin.y, _rectSize.x, _rectSize.y);
 
-	//if (drawBox)
-	//{
-	//	HR(_sprite->Begin(D3DXSPRITE_ALPHABLEND));
-	//	auto spritePostion = D3DXVECTOR3(_rectOrigin.x, _rectOrigin.y, 0);
-	//	HR(_sprite->Draw(_texture, NULL, NULL, &spritePostion, boxColor))
-	//	HR(_sprite->End())
-	//}
+	if (drawBox)
+	{
+		HR(_sprite->Begin(D3DXSPRITE_ALPHABLEND));
+		auto spritePostion = D3DXVECTOR3(_rectOrigin.x, _rectOrigin.y, 0);
+		HR(_sprite->Draw(_texture, NULL, NULL, &spritePostion, boxColor))
+		HR(_sprite->End())
+	}
 
 	if (buttonFont)
 		buttonFont->DrawTextA(NULL, message.c_str(), message.length(), &buttonRect, buttonFormat, textColor);
 }
 
-void Button::OnClick() {
+bool Button::isClick() {
 	if (onClick != nullptr && Input::IsPressed(LMB)) {
 		onClick();
+		return true;
+
 	}
 }
 
@@ -99,6 +124,7 @@ bool Button::UpdateMousepos()
 {
 	if (GetCursorPos(&mousePos)) {
 		if (ScreenToClient(window, &mousePos)) {
+
 			return true;
 		}
 	}
@@ -107,5 +133,12 @@ bool Button::UpdateMousepos()
 
 bool Button::isMouseOn()
 {
+	if (mousePos.x <= buttonRect.right && mousePos.x >= buttonRect.left)
+	{
+		if (mousePos.y <= buttonRect.bottom && mousePos.y >= buttonRect.top)
+		{
+			return true;
+		}
+	}
 	return false;
 }

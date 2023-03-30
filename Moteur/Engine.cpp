@@ -126,7 +126,7 @@ void Engine::Update()
 	while (!keyboard.CharBufferIsEmpty())
 	{
 		unsigned char ch = keyboard.ReadChar();		
-		std::string outmsg = "Char: ";
+		string outmsg = "Char: ";
 		outmsg += ch;
 		outmsg += "\n";
 		OutputDebugStringA(outmsg.c_str());
@@ -141,7 +141,7 @@ void Engine::Update()
 	while (!mouse.EventBufferIsEmpty())
 	{		
 		MouseEvent me = mouse.ReadEvent();
-		std::string outmsg = "X: ";
+		string outmsg = "X: ";
 		outmsg += std::to_string(me.GetPosX());
 		outmsg += ", Y: ";
 		outmsg += std::to_string(me.GetPosY());
@@ -155,7 +155,9 @@ void Engine::render_frame(void)
 	camera = new Camera();
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(200, 200, 200), 1.0f, 0);
 	d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-	ShowCursor(false);
+
+	ShowCursor(true);
+
 	d3ddev->BeginScene();
 
 	d3ddev->SetFVF(CUSTOMFVF);
@@ -208,7 +210,7 @@ void Engine::render_frame(void)
 			}
 			if (go->GetComponent<Button>()) {
 				go->GetComponent<Button>()->Draw();
-				go->GetComponent<Button>()->Update();
+				go->GetComponent<Button>()->Update2("Play");
 			}
 		}
 	}
