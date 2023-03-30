@@ -1,8 +1,8 @@
 #include "moteur.h"
 
  bool Input::InputPressed[KEYTYPE_ITEM_NBR];
- int Input::x = 0;
- int Input::y = 0;
+ float Input::x = 0;
+ float Input::y = 0;
  float Input::rawX = 0.0f;
  float Input::rawY = 0.0f;
 
