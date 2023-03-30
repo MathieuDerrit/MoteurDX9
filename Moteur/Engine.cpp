@@ -1,6 +1,6 @@
 #include "moteur.h"
 Input input;
-
+Camera cam;
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -42,10 +42,10 @@ void Engine::Init(HINSTANCE hInstance,
 
 	initD3D(&hWnd);
 	initInput();
-	cam->m_transform.setPosition(D3DXVECTOR3(5, -1, 0));
-	cam->m_transform.rotate(1.0f, 1.0f, 1.0f);
-	cam->m_transform.rotate(0.0f, 0.0f, 0.0f);
-	input.cam = cam;
+	cam.m_transform.setPosition(D3DXVECTOR3(5, -1, 0));
+	cam.m_transform.rotate(1.0f, 1.0f, 1.0f);
+	cam.m_transform.rotate(0.0f, 0.0f, 0.0f);
+	input.cam = &cam;
 	ShowWindow(hWnd, nCmdShow);
 
 }
@@ -151,7 +151,7 @@ void Engine::render_frame(void)
 
 	//cam->ra.m_transform.rotate(input.GetMouseX(), 0.0f, 0.0f);
 
-	d3ddev->SetTransform(D3DTS_VIEW, &cam->m_transform.m_matrix);
+	d3ddev->SetTransform(D3DTS_VIEW, &cam.m_transform.m_matrix);
 
 	D3DXMATRIX matProjection;
 	D3DXMatrixPerspectiveFovLH(&matProjection,
