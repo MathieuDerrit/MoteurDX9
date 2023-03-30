@@ -9,12 +9,17 @@ Camera::Camera()
 	this->UpdateViewMatrix();
 }
 
+
 void Camera::SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ)
 {
 	float fovRadians = (fovDegrees / 360.0f) * XM_2PI;
 	this->projectionMatrix = XMMatrixPerspectiveFovLH(fovRadians, aspectRatio, nearZ, farZ);
-}
 
+
+	D3DXMatrixPerspectiveFovLH(&m_matProjection, fovDegrees, aspectRatio, nearZ, farZ);
+	this->UpdateViewMatrix();
+}
+/*
 const XMMATRIX& Camera::GetViewMatrix() const
 {
 	return this->viewMatrix;
@@ -23,6 +28,17 @@ const XMMATRIX& Camera::GetViewMatrix() const
 const XMMATRIX& Camera::GetProjectionMatrix() const
 {
 	return this->projectionMatrix;
+}
+*/
+
+const D3DXMATRIX& Camera::GetViewMatrix() const
+{
+	return this->m_matView;
+}
+
+const D3DXMATRIX& Camera::GetProjectionMatrix() const
+{
+	return this->m_matProjection;
 }
 
 const XMVECTOR& Camera::GetPositionVector() const
@@ -107,6 +123,7 @@ void Camera::AdjustRotation(float x, float y, float z)
 
 void Camera::UpdateViewMatrix() //Updates view matrix and also updates the movement vectors
 {
+	/*
 	//Calculate camera rotation matrix
 	XMMATRIX camRotationMatrix = XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z);
 	//Calculate unit vector of cam target based off camera forward value transformed by cam rotation matrix
@@ -117,4 +134,19 @@ void Camera::UpdateViewMatrix() //Updates view matrix and also updates the movem
 	XMVECTOR upDir = XMVector3TransformCoord(this->DEFAULT_UP_VECTOR, camRotationMatrix);
 	//Rebuild view matrix
 	this->viewMatrix = XMMatrixLookAtLH(this->posVector, camTarget, upDir);
+	*/
+
+	D3DXVECTOR3 camTarget;
+	D3DXVec3TransformCoord(&camTarget, &DEFAULT_FORWARD_VECTOR, &m_transform.m_mRot);
+
+	D3DXVECTOR3 upDir;
+	D3DXVec3TransformCoord(&upDir, &DEFAULT_UP_VECTOR, &m_transform.m_mRot);
+
+	//D3DXMatrixLookAtLH(&m_matView, &m_transform.m_position, &camTarget, &upDir);
+
+	D3DXVECTOR3 forward = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	m_matView = D3DXMATRIX();
+	D3DXMatrixLookAtLH(&m_matView, &this->m_transform.m_position, &forward, &up);
+
 }

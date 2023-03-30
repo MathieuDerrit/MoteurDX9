@@ -6,13 +6,15 @@ class Camera : public GameObject
 public:
 
 	void Init(IDirect3DDevice9* device) {
-		
+
 	}
 	Camera();
 	void SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ);
 
-	const XMMATRIX& GetViewMatrix() const;
-	const XMMATRIX& GetProjectionMatrix() const;
+	//const XMMATRIX& GetViewMatrix() const;
+	//const XMMATRIX& GetProjectionMatrix() const;
+	const D3DXMATRIX& GetViewMatrix() const;
+	const D3DXMATRIX& GetProjectionMatrix() const;
 
 	const XMVECTOR& GetPositionVector() const;
 	const XMFLOAT3& GetPositionFloat3() const;
@@ -27,6 +29,7 @@ public:
 	void SetRotation(float x, float y, float z);
 	void AdjustRotation(const XMVECTOR& rot);
 	void AdjustRotation(float x, float y, float z);
+
 	void UpdateViewMatrix();
 private:
 	XMVECTOR posVector;
@@ -36,7 +39,13 @@ private:
 	XMMATRIX viewMatrix;
 	XMMATRIX projectionMatrix;
 
-	const XMVECTOR DEFAULT_FORWARD_VECTOR = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
-	const XMVECTOR DEFAULT_UP_VECTOR = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-};
+	D3DXMATRIX m_matProjection;
+	D3DXMATRIX m_matView;
 
+	//const XMVECTOR DEFAULT_FORWARD_VECTOR = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+	//const XMVECTOR DEFAULT_UP_VECTOR = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	const D3DXVECTOR3 DEFAULT_FORWARD_VECTOR = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	const D3DXVECTOR3 DEFAULT_UP_VECTOR = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+
+};

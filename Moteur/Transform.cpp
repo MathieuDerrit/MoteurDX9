@@ -42,6 +42,7 @@ void Transform::rotate(float yaw, float pitch, float roll)
 {
     D3DXQUATERNION quat;
     D3DXQUATERNION quatRot;
+
     D3DXQuaternionRotationAxis(&quat, &m_up, yaw);
     quatRot = quat;
     D3DXQuaternionRotationAxis(&quat, &m_right, pitch);

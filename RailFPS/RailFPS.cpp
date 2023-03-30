@@ -83,47 +83,6 @@ void Update() {
     //railsForward();
     railsTurn(true);
 
-
-
-    // Créez une instance de l'interface ID3DXLine
-    ID3DXLine* pLine;
-    D3DXCreateLine(Eng->d3ddev, &pLine);
-
-    // Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
-    D3DXVECTOR3 vOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 vDirection = D3DXVECTOR3(.0f, .0f, -5.0f);
-
-    // Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
-    D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection * 1500) };
-
-    // Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
-    D3DCOLOR color = D3DCOLOR_RGBA(255, 255, 0, 255); // Jaune
-
-    Camera camera;
-    camera.SetProjectionValues(
-        D3DXToRadian(45),
-        (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
-        1.0f,
-        100.0f);
-    camera.UpdateViewMatrix();
-    XMMATRIX view = camera.GetViewMatrix();
-
-
-    XMMATRIX proj = camera.GetProjectionMatrix();
-    D3DXMATRIX matView = *reinterpret_cast<D3DXMATRIX*>(&view);
-    D3DXMATRIX matProj = *reinterpret_cast<D3DXMATRIX*>(&proj);
-
-    D3DXMATRIX tempFinal = matView * matProj;
-
-    // Appelez la fonction DrawLine pour dessiner la ligne de rayon
-    pLine->SetWidth(15.0f); // Définissez la largeur de la ligne
-    pLine->Begin();
-    pLine->DrawTransform(points, 2, &tempFinal, color);
-    pLine->End();
-
-    // Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
-    pLine->Release();
-
 }
 
 int WINAPI WinMain(HINSTANCE hInstance,

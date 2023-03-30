@@ -1,6 +1,6 @@
 #include "moteur.h"
 
-Engine Eng;
+
 
 void Input::ReadInputs()
 {
@@ -18,13 +18,12 @@ void Input::ReadInputs()
         x += (150 - newMousePos.x);
         y += (150 - newMousePos.y);
         if (newMousePos.x != 150) {
-            cam->m_transform.rotate(x * 0.01, 0.0f, 0.0f);
+            cam->m_transform.rotate(x * 0.01f, 0.0f, 0.0f);
         }
         
-        OutputDebugStringA(std::to_string(newMousePos.x).append("\n").c_str()); 
+        //OutputDebugStringA(std::to_string(newMousePos.x).append("\n").c_str()); 
 
         //OutputDebugStringA(std::to_string(y).append("\n").c_str()); 
-
 
         SetCursorPos(150, 150);
     }

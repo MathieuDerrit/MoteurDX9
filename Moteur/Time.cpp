@@ -1,16 +1,19 @@
 #include "moteur.h"
 void Time::InitSystemTime()
 {
+    /*
     previousFrame = timeGetTime();
     timeScale = 1.0f;
     gameTime = 0.0f;
     deltaTime = 0.0f;
     minFrame = 1 / 30.0f;
     maxFrame = 1 / 144.0f;
+    */
 }
 
 void Time::UpdateTime()
 {
+    /*
     DWORD cur = timeGetTime();
     DWORD dt = cur - previousFrame;
     previousFrame = cur;
@@ -21,4 +24,5 @@ void Time::UpdateTime()
     }
     deltaTime *= timeScale;
     gameTime += deltaTime;
+    */
 }

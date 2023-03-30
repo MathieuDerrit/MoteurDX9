@@ -1,6 +1,6 @@
 #include "moteur.h"
 Input input;
-Camera cam;
+
 Time* time;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -45,9 +45,21 @@ void Engine::Init(HINSTANCE hInstance,
 	initD3D(&hWnd);
 	initInput();
 	time->InitSystemTime();
+	/*
 	cam.m_transform.setPosition(D3DXVECTOR3(0, -5, 0));
 	cam.m_transform.rotate(-90.0f, 0.0f, 0.0f);
 	input.cam = &cam;
+	*/
+	camera = new Camera();
+	camera->m_transform.setPosition(D3DXVECTOR3(0.0f, -2.0f, 0.0f));
+	camera->SetProjectionValues(D3DXToRadian(45),
+		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
+		1.0f,
+		1000.0f);
+	camera->m_transform.rotate(45.0f, 0.0f, 0.0f);
+	input.cam = camera;
+
+
 	ShowWindow(hWnd, nCmdShow);
 
 }
@@ -115,8 +127,11 @@ void Engine::Update()
 	a += 50;
 	//cam->m_transform.setPosition(D3DXVECTOR3(a, a, 0.0f));
 
-	OutputDebugStringA(std::to_string(time->deltaTime).append("\n").c_str());
+	//OutputDebugStringA(std::to_string(time->deltaTime).append("\n").c_str());
 	input.ReadInputs();
+
+	//camera->m_transform.rotate(0.01, 0.0f, 0.0f);
+	camera->UpdateViewMatrix();
 	render_frame();
 
 	if (gameobjectlist.size() > 0)
@@ -131,38 +146,67 @@ void Engine::Update()
 	}
 	
 }
-
+float test = 0.0f;
 void Engine::render_frame(void)
 {
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(200, 200, 200), 1.0f, 0);
 	d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	d3ddev->BeginScene();
-
+	test++;
+	//camera->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, test));
 	d3ddev->SetFVF(CUSTOMFVF);
 
-	D3DXMATRIX matView;
-	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f); 
-	D3DXVECTOR3 v2(input.GetMouseX() / 70, input.GetMouseY() / 70, 0.0f);
-	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f);    
+	D3DXMATRIX matProj = camera->GetProjectionMatrix();
+	D3DXMATRIX matView = camera->GetViewMatrix();
 
-	D3DXMatrixLookAtLH(&matView,
-		&v1,    
-		&v2,      
-		&v3);   
+	//D3DXMATRIX matView;
+	D3DXVECTOR3 forward = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	//D3DXMatrixLookAtLH(&matView, &camera->m_transform.m_position, &forward, &up);
+
+	d3ddev->SetTransform(D3DTS_VIEW, &camera->m_transform.m_matrix);
+	d3ddev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 
-	//cam->ra.m_transform.rotate(input.GetMouseX(), 0.0f, 0.0f);
 
-	d3ddev->SetTransform(D3DTS_VIEW, &cam.m_transform.m_matrix);
 
-	D3DXMATRIX matProjection;
-	D3DXMatrixPerspectiveFovLH(&matProjection,
-		D3DXToRadian(45),
-		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
-		1.0f,    
-		100.0f);    
-	d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
+
+
+	//RAYCAST TESTING
+
+// Créez une instance de l'interface ID3DXLine
+	ID3DXLine* pLine;
+	D3DXCreateLine(d3ddev, &pLine);
+
+	// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
+	D3DXVECTOR3 vOrigin = camera->m_transform.m_position;
+	D3DXVECTOR3 vDirection = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+
+	// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
+	D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection * 1500) };
+
+	// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
+	D3DCOLOR color = D3DCOLOR_RGBA(255, 255, 0, 255); // Jaune
+
+	//D3DXMATRIX matProj = camera->GetProjectionMatrix();
+	//D3DXMATRIX matView = camera->GetViewMatrix();
+
+	D3DXMATRIX tempFinal = camera->m_transform.m_matrix * matProj;
+
+	// Appelez la fonction DrawLine pour dessiner la ligne de rayon
+	pLine->SetWidth(100.0f); // Définissez la largeur de la ligne
+	pLine->Begin();
+	pLine->DrawTransform(points, 2, &tempFinal, color);
+	pLine->End();
+
+	// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
+	pLine->Release();
+
+
+
+
+
 
 
 	//DRAW gameobjet
