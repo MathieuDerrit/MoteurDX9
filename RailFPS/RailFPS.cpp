@@ -150,7 +150,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     Eng->camera->m_transform = railList[actualRail]->m_transform;
     Eng->camera->m_transform.setPosition(Eng->camera->m_transform.m_position);
-    Eng->camera->m_transform.rotate(D3DX_PI, 0.0f, 0.0f);
+    Eng->camera->m_transform.rotate(D3DX_PI, 0.0f, D3DX_PI);
 
     target = new Target();
     target->Init(Eng->d3ddev, Balloon);
