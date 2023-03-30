@@ -100,10 +100,15 @@ void Update() {
     if (t >= 1) {
         actualRail++;
         offset = 0;
-        //TODO Supprimer les anciens rails.
-        //TODO creer un nouveau rail
+
+        railList[actualRail - 1]->m_transform.m_position = railList.back()->m_transform.m_position + (railList.back()->m_transform.m_dir * -3);
+        railList[actualRail - 1]->m_transform.setPosition(railList[actualRail - 1]->m_transform.m_position);
+        railList.push_back(railList[actualRail - 1]);
+        railList.erase(railList.begin() + (actualRail - 1));
+        actualRail--;
     }
 
+    //railList[j]->m_transform.setPosition(railList[-1]->m_transform.m_dir * -3);
 
     target->m_transform.setPosition(pos);
 
@@ -133,7 +138,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     for (int i = 0; i < railCount; i++)
     {
         go = new GameObject();
-        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.x + goOutScreen - railWidth * i));
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + goOutScreen - railWidth * i));
         go->AddComponent<Mesh>();
         go->m_tag = "rail";
         mesh = go->GetComponent<Mesh>();
