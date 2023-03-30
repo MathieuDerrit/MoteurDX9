@@ -26,7 +26,7 @@ public:
 	//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 
 	void cleanD3D(void);
-	list<GameObject*> gameobjectlist;
+	vector<GameObject*> gameobjectlist;
 	LPDIRECT3DDEVICE9 d3ddev;
 	Camera* camera = NULL;
 };

@@ -11,7 +11,14 @@ Collider* collider;
 int railCount = 30;
 int railWidth = 3;
 int goOutScreen = 14;
+float offset = 0.0f;
 float cameraSpeed = 0.1f;
+int actualRail = 0;
+float t;
+
+D3DXVECTOR3 camPosUpdate;
+
+vector<GameObject*> railList;
 
 boolean goTop = true;
 
@@ -78,6 +85,26 @@ void Update() {
         }
     }
 
+    offset += cameraSpeed;//* time.deladime;
+
+    t = offset / railWidth;
+    if (t < 0.0f)
+        t = 0.0f;
+    if (t > 1.0f)
+        t = 1.0f;
+    
+
+    D3DXVec3Lerp(&camPosUpdate, &railList[actualRail]->m_transform.m_position, &railList[actualRail+1]->m_transform.m_position, t);
+    camPosUpdate += railList[actualRail]->m_transform.m_up * -4.0f;
+    Eng->camera->m_transform.setPosition(camPosUpdate);
+
+    if (t >= 1) {
+        actualRail++;
+        offset = 0;
+        //TODO Supprimer les anciens rails.
+        //TODO creer un nouveau rail
+    }
+
 
     target->m_transform.setPosition(pos);
 
@@ -112,8 +139,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
         go->m_tag = "rail";
         mesh = go->GetComponent<Mesh>();
         mesh->Init(Eng->d3ddev, Custom, "rail.x");
+        railList.push_back(go);
         Eng->gameobjectlist.push_back(go);
     }
+
+    Eng->camera->m_transform = railList[actualRail]->m_transform;
+    Eng->camera->m_transform.setPosition(Eng->camera->m_transform.m_position);
+    Eng->camera->m_transform.rotate(D3DX_PI, 0.0f, 0.0f);
 
     target = new Target();
     target->Init(Eng->d3ddev, Balloon);
