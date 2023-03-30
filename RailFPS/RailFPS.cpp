@@ -46,6 +46,24 @@ void railsTurn(bool isRightDirection) {
     if (isRightDirection) {
         direction = 1;
     }
+    for (int i = 0; i < railCount; i++)
+    {
+        go = new GameObject();
+        go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + goOutScreen - railWidth * i + cameraSpeed));
+        go->m_transform.setPosition(D3DXVECTOR3(direction * (go->m_transform.m_position.x - (u * xRotate)), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - (-u * xRotate)));
+        go->m_transform.rotate(0.0f, 0.0f, 0.0f);
+        go->m_transform.rotate(direction * xRotate, 0.0f, 0.0f);
+        xRotate += 0.05f;
+        go->AddComponent<Mesh>();
+        go->m_tag = "rail";
+        mesh = go->GetComponent<Mesh>();
+        mesh->Init(Eng->d3ddev, Custom, "rail.x");
+        railList.push_back(go);
+        Eng->gameobjectlist.push_back(go);
+        if (xRotate >= 15.0f)
+            break;
+    }
+    
     /*for (auto go : Eng->gameobjectlist)
     {
         u++;
@@ -59,8 +77,7 @@ void railsTurn(bool isRightDirection) {
             }
         }
     }*/
-    if (xRotate >= 15.0f)
-        xRotate = 0.0f;
+    
 }
 
 void Update() {
@@ -114,7 +131,7 @@ void Update() {
     target->m_transform.setPosition(pos);
 
     //railsForward();
-    railsTurn(true);
+    //railsTurn(true);
 
 }
 
@@ -147,6 +164,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         railList.push_back(go);
         Eng->gameobjectlist.push_back(go);
     }
+    railsTurn(true);
 
     Eng->camera->m_transform = railList[actualRail]->m_transform;
     Eng->camera->m_transform.setPosition(Eng->camera->m_transform.m_position);

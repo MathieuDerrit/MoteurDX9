@@ -16,6 +16,8 @@ public:
 
     void updateMatrix();
 
+
+
     D3DXVECTOR3 m_position;
     D3DXMATRIX m_mPos;
 
