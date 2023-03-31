@@ -45,7 +45,9 @@ void Update() {
     }
 
     if (buttonParent->GetComponent<Button>()->ClickAction("Quit")) {}
-    if (buttonPlay->GetComponent<Button>()->ClickAction("Play")) {}
+    if (buttonPlay->GetComponent<Button>()->ClickAction("Play")) {
+
+    }
 
     target->m_transform.setPosition(pos);
 
