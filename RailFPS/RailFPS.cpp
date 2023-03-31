@@ -67,10 +67,11 @@ void railsTurn(bool isRightDirection) {
 }
 
 void Update() {
-
-    weapon->m_transform.rotate(0.001f, 0.0f, 0.0f);
-    //weapon->m_transform.setPosition(Eng->cam->m_transform->m_position);
-    //weapon->m_transform.rotate(.01f, 0.0f, 0.0f);
+    D3DXVECTOR3 posWeapon = Eng->camera->m_transform.m_position;
+    posWeapon.x += 3;
+    posWeapon.z -= 4;
+    posWeapon.y += 2;
+    weapon->m_transform.setPosition(posWeapon);
     D3DXVECTOR3 pos = target->m_transform.m_position;
 
     if (goTop) {
@@ -147,9 +148,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     target = new Target();
     target->Init(Eng->d3ddev, Balloon);
-    target->m_transform.setPosition(D3DXVECTOR3(-5.0f, 0.0f, 10.0f));
+    target->m_transform.setPosition(D3DXVECTOR3(-5.0f, 0.0f, -10.0f));
     target->m_transform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-    target->m_transform.rotate(0.0f, 0.0f, 0.0f);
+    target->m_transform.rotate(0.0f, 0.0f, 66.0f);
     target->m_tag = "target";
 
     Eng->gameobjectlist.push_back(target);
@@ -158,8 +159,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     weapon->Init(Eng->d3ddev, Pistol);
     weapon->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
     weapon->m_transform.setScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-    weapon->m_transform.rotate(0.0f, 0.0f, 0.0f);
-    weapon->m_transform.rotate(0.0f, 0.0f, 0.0f);
+    weapon->m_transform.rotate(66.0f, 0.0f, 66.0f);
     weapon->m_tag = "weapon";
 
 
