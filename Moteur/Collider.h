@@ -5,20 +5,19 @@ class Collider : public Component
 {
 public:
     Collider();
-    ~Collider();
+    Collider(D3DXVECTOR3 pos, float radius);
+    virtual ~Collider();
+    void SetPositionCenter(D3DXVECTOR3 posCenter);
+    void SetRadius(float xradius);
 
-    bool IsCollidingWith(Collider* other);
+    bool CollidesWith(Collider* other);
+    D3DXVECTOR3 GetPositionCenter();
+    float GetRadius();
+    Collider* getCollideWith();
 
-    D3DXVECTOR3 m_min;
-    D3DXVECTOR3 m_max;
-};
+    Collider* collidewith;
 
-class BoxCollider : public Collider {
-public:
-    BoxCollider() {}
-
-    void SetBounds(D3DXVECTOR3 min, D3DXVECTOR3 max) {
-        m_min = min;
-        m_max = max;
-    }
+protected:
+    D3DXVECTOR3 m_positionCenter;
+    float m_radius;
 };

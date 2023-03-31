@@ -43,10 +43,25 @@ void Update() {
 
 
     }
+    //COLLIDER
+    //Collider* box1 = go->GetComponent<Collider>();
+    //Collider* box2 = go2->GetComponent<Collider>();
 
+    //if (box1->CollidesWith(box2) == true) {
+    //    box1->collidewith;
+    //    OutputDebugStringA("explosion");
+    //}
+    //else
+    //{
+    //    OutputDebugStringA("MEURS");
+    //}
+
+
+
+    //Button
     if (buttonParent->GetComponent<Button>()->ClickAction("Quit")) {}
     if (buttonPlay->GetComponent<Button>()->ClickAction("Play")) {
-
+        buttonParent->GetComponent<Button>()->drawBox = false;
     }
 
     target->m_transform.setPosition(pos);
@@ -86,23 +101,25 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 
     go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
+   go->m_transform.setPosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
     go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+    go->AddComponent<Collider>();
     go->AddComponent<Mesh>();
-    BoxCollider* collider = go->AddComponent<BoxCollider>();
     Mesh* mesh = go->GetComponent<Mesh>();
-    mesh->Init(Eng->d3ddev, Box);
-    collider->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+    Collider* co = go->GetComponent<Collider>();
+
+    mesh->Init(Eng->d3ddev, Sphere);
     Eng->gameobjectlist.push_back(go);
 
     go2 = new GameObject();
     go2->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.5f, 0.0f));
     go2->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
+    go2->AddComponent<Collider>();
     go2->AddComponent<Mesh>();
-    BoxCollider* collider2 = go2->AddComponent<BoxCollider>();
     Mesh* mesh2 = go2->GetComponent<Mesh>();
-    mesh2->Init(Eng->d3ddev, Box);
-    collider2->SetBounds(D3DXVECTOR3(-0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+    Collider* co2 = go2->GetComponent<Collider>();
+
+    mesh2->Init(Eng->d3ddev, Sphere);
     Eng->gameobjectlist.push_back(go2);
 
     textCanvas = new GameObject();
@@ -119,6 +136,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     auto buttonTest = buttonParent->AddComponent<Button>();
     buttonTest->Init(Eng->d3ddev);
     buttonTest->message = "QUIT";
+    //buttonTest->buttonFormat = DT_RIGHT;
     buttonTest->Draw();
     Eng->gameobjectlist.push_back(buttonParent);  
     
@@ -126,7 +144,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     auto Play = buttonPlay->AddComponent<Button>();
     Play->Init(Eng->d3ddev);
     Play->message = "PLAY";
-    Play->buttonFormat = DT_BOTTOM;
+    //Play->buttonFormat = DT_BOTTOM;
+    Play->position = D3DXVECTOR2(200, 50);
     Play->Draw();
     Eng->gameobjectlist.push_back(buttonPlay);
 

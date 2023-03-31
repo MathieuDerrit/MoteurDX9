@@ -61,7 +61,7 @@ class MouseEvent;
 class MouseClass;
 class Mesh;
 class Collider;
-class BoxCollider;
+class AABB;
 class KeyboardEvent;
 class KeyboardClass;
 class GameObject;
@@ -77,6 +77,7 @@ class Shader;
 #include "Transform.h"
 #include "StringConverter.h"
 #include "Mesh.h"
+#include "AABB.h"
 #include "Collider.h"
 #include "Fieldtext.h"
 #include "Button.h"

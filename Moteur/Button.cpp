@@ -77,7 +77,7 @@ bool Button::ClickAction(string action)
 		{
 			if (action == "Play") {
 				OutputDebugStringA("Play");
-				_sprite->Flush();
+				HR(_sprite->End());
 			}
 			else if (action == "Quit")
 			{

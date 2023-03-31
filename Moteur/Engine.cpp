@@ -210,7 +210,7 @@ void Engine::render_frame(void)
 			}
 			if (go->GetComponent<Button>()) {
 				go->GetComponent<Button>()->Draw();
-				//go->GetComponent<Button>()->Update();
+				go->GetComponent<Button>()->Update();
 			}
 		}
 	}
