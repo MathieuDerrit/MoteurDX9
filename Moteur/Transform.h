@@ -16,7 +16,9 @@ public:
 
     void updateMatrix();
 
-
+    float goYaw = 0.0f;
+    float goPitch = 0.0f;
+    float goRoll = 0.0f;
 
     D3DXVECTOR3 m_position;
     D3DXMATRIX m_mPos;

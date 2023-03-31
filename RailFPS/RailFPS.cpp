@@ -41,7 +41,9 @@ void railsForward() {
 }
 
 void railsTurn(bool isRightDirection) {
-    int u = 0;
+    /*
+    int u = 1;*/
+    xRotate = 0;
     int direction = -1;
     if (isRightDirection) {
         direction = 1;
@@ -50,8 +52,7 @@ void railsTurn(bool isRightDirection) {
     {
         go = new GameObject();
         go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + goOutScreen - railWidth * i + cameraSpeed));
-        go->m_transform.setPosition(D3DXVECTOR3(direction * (go->m_transform.m_position.x - (u * xRotate)), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - (-u * xRotate)));
-        go->m_transform.rotate(0.0f, 0.0f, 0.0f);
+        go->m_transform.setPosition(D3DXVECTOR3(direction * (go->m_transform.m_position.x - (i * xRotate)), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - (-i * xRotate)));
         go->m_transform.rotate(direction * xRotate, 0.0f, 0.0f);
         xRotate += 0.05f;
         go->AddComponent<Mesh>();
@@ -63,21 +64,6 @@ void railsTurn(bool isRightDirection) {
         if (xRotate >= 15.0f)
             break;
     }
-    
-    /*for (auto go : Eng->gameobjectlist)
-    {
-        u++;
-        if (go->m_tag != "weapon") {
-            go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
-            if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
-                go->m_transform.setPosition(D3DXVECTOR3(direction * (go->m_transform.m_position.x - (u * xRotate)), go->m_transform.m_position.y, (go->m_transform.m_position.z - railWidth * (railCount - 1)) - (-u * xRotate)));
-                go->m_transform.rotate(0.0f, 0.0f, 0.0f);
-                go->m_transform.rotate(direction * xRotate, 0.0f, 0.0f);
-                xRotate += 0.05f;
-            }
-        }
-    }*/
-    
 }
 
 void Update() {
@@ -126,12 +112,7 @@ void Update() {
         actualRail--;
     }
 
-    //railList[j]->m_transform.setPosition(railList[-1]->m_transform.m_dir * -3);
-
     target->m_transform.setPosition(pos);
-
-    //railsForward();
-    //railsTurn(true);
 
 }
 
@@ -145,14 +126,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
         hPrevInstance,
         lpCmdLine,
         nCmdShow);
-    /*
-    go = new GameObject();
-    go->m_transform.setPosition(D3DXVECTOR3(6.0f, 2.0f, 4.0f));
-    go->m_transform.setScale(D3DXVECTOR3(10, 5, 2));
-    go->AddComponent<Mesh>();
-    Mesh* mesh = go->GetComponent<Mesh>();
-    mesh->Init(Eng->d3ddev, Box);
-    */
+
+
     for (int i = 0; i < railCount; i++)
     {
         go = new GameObject();
@@ -164,7 +139,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         railList.push_back(go);
         Eng->gameobjectlist.push_back(go);
     }
-    railsTurn(true);
+    //railsTurn(false);
 
     Eng->camera->m_transform = railList[actualRail]->m_transform;
     Eng->camera->m_transform.setPosition(Eng->camera->m_transform.m_position);
@@ -172,7 +147,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     target = new Target();
     target->Init(Eng->d3ddev, Balloon);
-    //target->m_transform.setPosition(D3DXVECTOR3(5.0f, 0.0f, 0.0f));
     target->m_transform.setPosition(D3DXVECTOR3(-5.0f, 0.0f, 10.0f));
     target->m_transform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
     target->m_transform.rotate(0.0f, 0.0f, 0.0f);
@@ -182,7 +156,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     weapon = new Weapon();
     weapon->Init(Eng->d3ddev, Pistol);
-    //weapon->m_transform.setPosition(D3DXVECTOR3(10.0f, 0.0f, 0.0f));
     weapon->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
     weapon->m_transform.setScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
     weapon->m_transform.rotate(0.0f, 0.0f, 0.0f);
@@ -190,13 +163,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
     weapon->m_tag = "weapon";
 
 
-    //target->Draw(Eng->d3ddev);
     Eng->gameobjectlist.push_back(weapon);
 
-    //for (int i = 0; i < 50; i++)
-    //target->Draw(Eng->d3ddev);
-    //Eng->gameobjectlist.push_back(target);
 
+    railsTurn(true);
 
     MSG msg;
 

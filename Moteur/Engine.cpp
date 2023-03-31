@@ -131,7 +131,7 @@ void Engine::Update()
 	//cam->m_transform.setPosition(D3DXVECTOR3(a, a, 0.0f));
 
 	//OutputDebugStringA(std::to_string(time->deltaTime).append("\n").c_str());
-	//input.ReadInputs();
+	input.ReadInputs();
 
 	//camera->m_transform.rotate(0.01, 0.0f, 0.0f);
 	camera->UpdateViewMatrix();
