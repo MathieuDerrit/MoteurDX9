@@ -207,7 +207,7 @@ void Engine::render_frame(void)
 			// Appelez la fonction DrawLine pour dessiner la ligne de rayon
 			pLine->SetWidth(10.0f); // Définissez la largeur de la ligne
 			pLine->Begin();
-			pLine->DrawTransform(points, 2, &tempFinal, color);
+			//pLine->DrawTransform(points, 2, &tempFinal, color);
 			pLine->End();
 
 			// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
@@ -322,7 +322,7 @@ void Engine::render_frame(void)
 									// Appelez la fonction DrawLine pour dessiner la ligne de rayon
 									pLine->SetWidth(10.0f); // Définissez la largeur de la ligne
 									pLine->Begin();
-									pLine->DrawTransform(points, 2, &tempFinal, color);
+									//pLine->DrawTransform(points, 2, &tempFinal, color);
 									pLine->End();
 
 									// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin

@@ -16,6 +16,8 @@ float cameraSpeed = 0.1f;
 int actualRail = 0;
 float t;
 
+vector<GameObject*> targetList;
+
 D3DXVECTOR3 camPosUpdate;
 
 vector<GameObject*> railList;
@@ -73,19 +75,40 @@ void Update() {
     posWeapon.y += 2;
     weapon->m_transform.setPosition(posWeapon);
     D3DXVECTOR3 pos = target->m_transform.m_position;
+    int j = 10;
+    for (auto go : Eng->gameobjectlist) {
+        if (go->m_tag == "target") {
+            j += 2;
+            float y = go->m_transform.m_position.y;
+            D3DXVECTOR3 pos = Eng->gameobjectlist[j]->m_transform.m_position;
+   
+            if (j%6 == 0) {
+                pos.x += 4;
+            }
+            else {
+                pos.x -= 4;
+            }
+            pos.y = y;
 
-    if (goTop) {
-        pos.y += 0.05f;
+            if (goTop) {
+                pos.y += 0.05f;
 
-        if (target->m_transform.m_position.y >= 3.0f) {
-            goTop = false;
-        }
+                if (go->m_transform.m_position.y >= 3.0f) {
+                    goTop = false;
+                }
 
-    }
-    else {
-        pos.y -= 0.05f;
-        if (target->m_transform.m_position.y <= -3.0f) {
-            goTop = true;
+            }
+            else {
+                pos.y -= 0.05f;
+                if (go->m_transform.m_position.y <= -3.0f) {
+                    goTop = true;
+                }
+            }
+
+
+            go->m_transform.setPosition(pos);
+
+
         }
     }
 
@@ -146,14 +169,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
     Eng->camera->m_transform.setPosition(Eng->camera->m_transform.m_position);
     Eng->camera->m_transform.rotate(D3DX_PI, 0.0f, D3DX_PI);
 
-    target = new Target();
-    target->Init(Eng->d3ddev, Balloon);
-    target->m_transform.setPosition(D3DXVECTOR3(-5.0f, 0.0f, -10.0f));
-    target->m_transform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-    target->m_transform.rotate(0.0f, 0.0f, 66.0f);
-    target->m_tag = "target";
 
-    Eng->gameobjectlist.push_back(target);
+    for (int i = 0; i < 6; i++) {
+        target = new Target();
+        target->Init(Eng->d3ddev, Balloon);
+        target->m_transform.setPosition(D3DXVECTOR3(-5.0f, 0.0f, -10.0f));
+        target->m_transform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+        target->m_transform.rotate(0.0f, 0.0f, 66.0f);
+        target->m_tag = "target";
+
+        Eng->gameobjectlist.push_back(target);
+    }
 
     weapon = new Weapon();
     weapon->Init(Eng->d3ddev, Pistol);
