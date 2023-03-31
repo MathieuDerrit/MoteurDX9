@@ -54,7 +54,6 @@ void Button::Init(LPDIRECT3DDEVICE9 d3ddev)
 void Button::Update()
 {
 	Draw();
-
 	if (isMouseOn() && !isDisabled) {
 		if (Input::IsPressed(LMB))
 			isClick();
@@ -63,8 +62,9 @@ void Button::Update()
 	}
 }
 
-void Button::Update2(std::string action)
+bool Button::ClickAction(string action)
 {
+	Draw();
 	mousePos.x = Input::GetMouseX();
 	mousePos.y = Input::GetMouseY();
 
@@ -77,12 +77,15 @@ void Button::Update2(std::string action)
 		{
 			if (action == "Play") {
 				OutputDebugStringA("Play");
+				buttonFont->Release();
 			}
 			else if (action == "Quit")
 			{
 				OutputDebugStringA("Quit");
+				exit(0);
 			}
 		}
+		return false;
 	}
 }
 
@@ -103,6 +106,8 @@ void Button::Draw()
 
 	if (buttonFont)
 		buttonFont->DrawTextA(NULL, message.c_str(), message.length(), &buttonRect, buttonFormat, textColor);
+
+	
 }
 
 bool Button::isClick() {
@@ -111,6 +116,7 @@ bool Button::isClick() {
 		return true;
 
 	}
+	return false;
 }
 
 

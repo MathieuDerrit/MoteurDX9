@@ -9,7 +9,7 @@ public:
 
 	void Init(LPDIRECT3DDEVICE9 device);
 	void Update();
-	void Update2(std::string action);
+	bool ClickAction(string action);
 	bool isClick();
 	void Draw();
 	void OnHover();

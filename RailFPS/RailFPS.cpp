@@ -6,6 +6,7 @@ GameObject* go2;
 
 GameObject* textCanvas;
 GameObject* buttonParent;
+GameObject* buttonPlay;
 
 Shader* shader;
 
@@ -43,11 +44,14 @@ void Update() {
 
     }
 
+    if (buttonParent->GetComponent<Button>()->ClickAction("Quit")) {}
+    if (buttonPlay->GetComponent<Button>()->ClickAction("Play")) {}
+
     target->m_transform.setPosition(pos);
 
-    for (auto go : Eng->gameobjectlist) 
+    for (auto go : Eng->gameobjectlist)
     {
-        
+
         if (go->m_tag != "weapon") {
             go->m_transform.setPosition(D3DXVECTOR3(go->m_transform.m_position.x, go->m_transform.m_position.y, go->m_transform.m_position.z + cameraSpeed));
             if (go->m_transform.m_position.z > goOutScreen + railWidth && go->m_tag == "rail") {
@@ -57,11 +61,7 @@ void Update() {
                 i += 0.05f;
             }
         }
-
-        if (buttonParent->GetComponent<Button>()->isClick() == true)
-            textCanvas->GetComponent<FieldText>()->text = "PUUUUUUUUUUUTEEEE";
     }
- 
 }
 
 
@@ -106,7 +106,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     textCanvas = new GameObject();
     auto text = textCanvas->AddComponent<FieldText>();
     text->Init(Eng->d3ddev);
-    text->text = "ALOOOOOOOOOO";
+    text->text = "RailFPS";
     text->fontHeight = 100;
     text->textColor = D3DCOLOR_ARGB(120, 120, 255, 60);
     text->size = D3DXVECTOR2(300, 100);
@@ -116,9 +116,17 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     buttonParent = new GameObject();
     auto buttonTest = buttonParent->AddComponent<Button>();
     buttonTest->Init(Eng->d3ddev);
-    buttonTest->message = "PLAY";
+    buttonTest->message = "QUIT";
     buttonTest->Draw();
-    Eng->gameobjectlist.push_back(buttonParent);
+    Eng->gameobjectlist.push_back(buttonParent);  
+    
+    buttonPlay = new GameObject();
+    auto Play = buttonPlay->AddComponent<Button>();
+    Play->Init(Eng->d3ddev);
+    Play->message = "PLAY";
+    Play->buttonFormat = DT_BOTTOM;
+    Play->Draw();
+    Eng->gameobjectlist.push_back(buttonPlay);
 
     
     for (int i = 0; i < railCount; i++)
