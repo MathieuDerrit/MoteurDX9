@@ -13,7 +13,7 @@ public:
 
 	//const XMMATRIX& GetViewMatrix() const;
 	//const XMMATRIX& GetProjectionMatrix() const;
-	const D3DXMATRIX& GetViewMatrix() const;
+	D3DXMATRIX& GetViewMatrix();
 	const D3DXMATRIX& GetProjectionMatrix() const;
 
 	const XMVECTOR& GetPositionVector() const;

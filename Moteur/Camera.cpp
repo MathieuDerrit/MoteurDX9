@@ -31,8 +31,9 @@ const XMMATRIX& Camera::GetProjectionMatrix() const
 }
 */
 
-const D3DXMATRIX& Camera::GetViewMatrix() const
+D3DXMATRIX& Camera::GetViewMatrix()
 {
+	this->UpdateViewMatrix();
 	return this->m_matView;
 }
 
@@ -153,5 +154,17 @@ void Camera::UpdateViewMatrix() //Updates view matrix and also updates the movem
 	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_matView = D3DXMATRIX();
 	D3DXMatrixLookAtLH(&m_matView, &pos, &vectLookAt, &vectUpDir);
+
+	OutputDebugStringA(std::to_string(matRot._31).append("\n").c_str());
+
+	OutputDebugStringA(std::to_string(matRot._32).append("\n").c_str());
+
+	OutputDebugStringA(std::to_string(matRot._33).append("\n").c_str());
+
+	OutputDebugStringA(std::to_string(matRot._21).append("\n").c_str());
+
+	OutputDebugStringA(std::to_string(matRot._22).append("\n").c_str());
+
+	OutputDebugStringA(std::to_string(matRot._23).append("\n").c_str());
 
 }

@@ -3,25 +3,10 @@
 
 Transform::Transform()
 {
-    m_position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-
     D3DXQuaternionIdentity(&m_quat);
     D3DXMatrixIdentity(&m_mPos);
     D3DXMatrixIdentity(&m_mSca);
     D3DXMatrixIdentity(&m_mRot);
-
-    m_dir.x = 0.0f;
-    m_dir.y = 0.0f;
-    m_dir.z = 1.0f;
-
-    m_up.x = 0.0f;
-    m_up.y = 1.0f;
-    m_up.z = 0.0f;
-
-    m_right.x = 1.0f;
-    m_right.y = 0.0f;
-    m_right.z = 0.0f;
 
     updateMatrix();
 }

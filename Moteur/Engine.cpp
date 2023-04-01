@@ -183,35 +183,36 @@ void Engine::render_frame(void)
 	{
 		for (auto go : gameobjectlist)
 		{
+			if (go->m_tag == "weapon") {
+				// Créez une instance de l'interface ID3DXLine
+				ID3DXLine* pLine;
+				D3DXCreateLine(d3ddev, &pLine);
 
-			// Créez une instance de l'interface ID3DXLine
-			ID3DXLine* pLine;
-			D3DXCreateLine(d3ddev, &pLine);
+				// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
+				D3DXVECTOR3 vOrigin = go->m_transform.m_position;
 
-			// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
-			D3DXVECTOR3 vOrigin = camera->m_transform.m_position;
+				D3DXVECTOR3 vDirection2 = camera->m_transform.m_dir;
 
-			D3DXVECTOR3 vDirection2 = camera->m_transform.m_dir;
+				// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
+				D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection2 * 150) };
 
-			// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
-			D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection2 * 15) };
+				// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
+				D3DCOLOR color = D3DCOLOR_RGBA(255, 0, 0, 255); // Jaune
 
-			// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
-			D3DCOLOR color = D3DCOLOR_RGBA(255, 0, 0, 255); // Jaune
+				//D3DXMATRIX matProj = camera->GetProjectionMatrix();
+				//D3DXMATRIX matView = camera->GetViewMatrix();
 
-			//D3DXMATRIX matProj = camera->GetProjectionMatrix();
-			//D3DXMATRIX matView = camera->GetViewMatrix();
+				D3DXMATRIX tempFinal = matView * matProj;
 
-			D3DXMATRIX tempFinal = camera->m_transform.m_matrix * matProj;
+				// Appelez la fonction DrawLine pour dessiner la ligne de rayon
+				pLine->SetWidth(1.0f); // Définissez la largeur de la ligne
+				pLine->Begin();
+				pLine->DrawTransform(points, 2, &tempFinal, color);
+				pLine->End();
 
-			// Appelez la fonction DrawLine pour dessiner la ligne de rayon
-			pLine->SetWidth(10.0f); // Définissez la largeur de la ligne
-			pLine->Begin();
-			//pLine->DrawTransform(points, 2, &tempFinal, color);
-			pLine->End();
-
-			// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
-			pLine->Release();
+				// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
+				pLine->Release();
+			}
 
 
 
@@ -242,7 +243,7 @@ void Engine::render_frame(void)
 					
 					Mesh* testMesh = new Mesh();
 					testMesh->Init(d3ddev, Box);
-					testMesh->meshTransform.setPosition(D3DXVECTOR3(0.0f, 2.0f, 2.0f));
+					testMesh->meshTransform.setPosition(D3DXVECTOR3(0.0f, 2.0f, -5.0f));
 					testMesh->meshTransform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 					testMesh->draw(d3ddev);
 
@@ -271,6 +272,9 @@ void Engine::render_frame(void)
 
 					if (isCollide) {
 						OutputDebugStringA("CCCCCOOOOLLLLIIIIDDDDEEEEE");
+					}
+					else {
+						OutputDebugStringA(" no ");
 					}
 
 
@@ -305,11 +309,12 @@ void Engine::render_frame(void)
 									D3DXCreateLine(d3ddev, &pLine);
 
 									// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
-									D3DXVECTOR3 vOrigin = vStart;
-
+									//D3DXVECTOR3 vOrigin = camera->m_transform.m_position;
+									D3DXVECTOR3 vOrigin = go->m_transform.m_position;
+									D3DXVECTOR3 vDir = camera->m_transform.m_dir;
 
 									// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
-									D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection * 100000) };
+									D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDir * 100000) };
 
 									// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
 									D3DCOLOR color = D3DCOLOR_RGBA(255, 255, 0, 255); // Jaune
@@ -322,7 +327,7 @@ void Engine::render_frame(void)
 									// Appelez la fonction DrawLine pour dessiner la ligne de rayon
 									pLine->SetWidth(10.0f); // Définissez la largeur de la ligne
 									pLine->Begin();
-									//pLine->DrawTransform(points, 2, &tempFinal, color);
+									pLine->DrawTransform(points, 2, &tempFinal, color);
 									pLine->End();
 
 									// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
