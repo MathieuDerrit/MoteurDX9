@@ -20,8 +20,12 @@ public:
 
 	void Init(IDirect3DDevice9* device, EMesh mesh, string customPath = "", string texturePath = "");
 	void Update();
-	bool draw(IDirect3DDevice9* device = NULL);
+	bool draw(IDirect3DDevice9* device);
 
+	ID3DXMesh* getMesh() { return m_mesh; };
+	void setMesh(ID3DXMesh* mesh) { m_mesh = mesh; };
+
+private:
 	Transform meshTransform;
 	ID3DXMesh* m_mesh;
 

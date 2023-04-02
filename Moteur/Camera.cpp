@@ -155,16 +155,4 @@ void Camera::UpdateViewMatrix() //Updates view matrix and also updates the movem
 	m_matView = D3DXMATRIX();
 	D3DXMatrixLookAtLH(&m_matView, &pos, &vectLookAt, &vectUpDir);
 
-	OutputDebugStringA(std::to_string(matRot._31).append("\n").c_str());
-
-	OutputDebugStringA(std::to_string(matRot._32).append("\n").c_str());
-
-	OutputDebugStringA(std::to_string(matRot._33).append("\n").c_str());
-
-	OutputDebugStringA(std::to_string(matRot._21).append("\n").c_str());
-
-	OutputDebugStringA(std::to_string(matRot._22).append("\n").c_str());
-
-	OutputDebugStringA(std::to_string(matRot._23).append("\n").c_str());
-
 }

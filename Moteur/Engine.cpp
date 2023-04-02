@@ -1,6 +1,4 @@
 #include "moteur.h"
-Input input;
-
 Time* time;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -149,31 +147,22 @@ void Engine::Update()
 	}
 	
 }
-float test = 0.0f;
 void Engine::render_frame(void)
 {
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(200, 200, 200), 1.0f, 0);
 	d3ddev->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	d3ddev->BeginScene();
-	test++;
-	//camera->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.0f, test));
+
 	d3ddev->SetFVF(CUSTOMFVF);
 
 	D3DXMATRIX matProj = camera->GetProjectionMatrix();
 	D3DXMATRIX matView = camera->GetViewMatrix();
 
-	//D3DXMATRIX matView;
-	D3DXVECTOR3 forward = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
-	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	//D3DXMatrixLookAtLH(&matView, &camera->m_transform.m_position, &forward, &up);
-
 	d3ddev->SetTransform(D3DTS_VIEW, &matView);
 	d3ddev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	//DRAW gameobjet
-
-
 	d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 	d3ddev->SetIndices(i_buffer);
 
@@ -183,177 +172,20 @@ void Engine::render_frame(void)
 	{
 		for (auto go : gameobjectlist)
 		{
-			if (go->m_tag == "weapon") {
-				// Créez une instance de l'interface ID3DXLine
-				ID3DXLine* pLine;
-				D3DXCreateLine(d3ddev, &pLine);
-
-				// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
-				D3DXVECTOR3 vOrigin = go->m_transform.m_position;
-
-				D3DXVECTOR3 vDirection2 = camera->m_transform.m_dir;
-
-				// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
-				D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDirection2 * 150) };
-
-				// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
-				D3DCOLOR color = D3DCOLOR_RGBA(255, 0, 0, 255); // Jaune
-
-				//D3DXMATRIX matProj = camera->GetProjectionMatrix();
-				//D3DXMATRIX matView = camera->GetViewMatrix();
-
-				D3DXMATRIX tempFinal = matView * matProj;
-
-				// Appelez la fonction DrawLine pour dessiner la ligne de rayon
-				pLine->SetWidth(1.0f); // Définissez la largeur de la ligne
-				pLine->Begin();
-				pLine->DrawTransform(points, 2, &tempFinal, color);
-				pLine->End();
-
-				// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
-				pLine->Release();
-			}
-
-
-
-
 			if (go->GetComponent<Mesh>()) 
 			{
 				go->GetComponent<Mesh>()->Update();
 				go->GetComponent<Mesh>()->draw(d3ddev);
-
-				if (go->m_tag == "weapon") {
-
-					D3DXVECTOR3 vDirection = camera->m_transform.m_dir;
-
-					// Récupération des coordonnées de début et de fin de la ligne
-					D3DXVECTOR3 vStart = camera->m_transform.m_position;
-					//D3DXVECTOR3 vStart = go->m_transform.m_position;
-					//vStart.z -= 4.0f;
-
-					D3DXVECTOR3 ah = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
-					//D3DXVec3Normalize(&vDirection, &vDirection);
-
-					// Test d'intersection entre la ligne et le mesh
-					DWORD dwFaceIndex;
-					float fU, fV, fDistance;
-
-					// Boucle sur tous les meshes de la scène pour tester l'intersection
-					BOOL isCollide = false;
-					
-					Mesh* testMesh = new Mesh();
-					testMesh->Init(d3ddev, Box);
-					testMesh->meshTransform.setPosition(D3DXVECTOR3(0.0f, 2.0f, -5.0f));
-					testMesh->meshTransform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-					testMesh->draw(d3ddev);
-
-					D3DXVECTOR3 meshWorld = testMesh->meshTransform.m_position;
-					
-					/*
-					vStart -= meshWorld;
-					meshWorld = testMesh->meshTransform.m_scale;
-					vStart.x = 1.0f / meshWorld.x;
-					vStart.y = 1.0f / meshWorld.y;
-					vStart.z = 1.0f / meshWorld.z;
-
-
-*/
-
-					//D3DXMATRIX matRotateY;
-		
-					//d3ddev->SetTransform(D3DTS_WORLD, &matRotateY);
-					//mm->DrawSubset(0);
-
-
-
-					D3DXIntersect(testMesh->m_mesh, &vStart, &camera->m_transform.m_dir, &isCollide, NULL, NULL, NULL, NULL, NULL, NULL);
-
-					// OutputDebugStringA(std::to_string(vDirection.x).c_str());
-
-					if (isCollide) {
-						OutputDebugStringA("CCCCCOOOOLLLLIIIIDDDDEEEEE");
-					}
-					else {
-						OutputDebugStringA(" no ");
-					}
-
-
-					for (auto go2 : gameobjectlist) {
-						LPD3DXMESH pMesh = go2->GetComponent<Mesh>()->m_mesh;
-
-						BOOL test = false;
-
-						// Test d'intersection entre la ligne et le mesh
-
-						//IF A SUPPR
-						if (go->m_tag == "target") {
-
-							//D3DXVECTOR3 meshWorld = go2->GetComponent<Mesh>()->meshTransform.m_position;
-							//vStart -= meshWorld;
-							//meshWorld = go2->GetComponent<Mesh>()->meshTransform.m_scale;
-							//vStart.x = 1.0f / meshWorld.x;
-							//vStart.y = 1.0f / meshWorld.y;
-							//vStart.z = 1.0f / meshWorld.z;
-
-							if (SUCCEEDED(D3DXIntersect(pMesh, &vStart, &vDirection, &test, &dwFaceIndex, &fU, &fV, &fDistance, NULL, NULL))) {
-
-
-
-
-								if (test) {
-									OutputDebugStringA("TOUCHER :::");
-									OutputDebugStringA((go2->m_tag).c_str());
-
-									// Créez une instance de l'interface ID3DXLine
-									ID3DXLine* pLine;
-									D3DXCreateLine(d3ddev, &pLine);
-
-									// Calculez la direction du rayon en soustrayant la position de la souris de la position de la caméra
-									//D3DXVECTOR3 vOrigin = camera->m_transform.m_position;
-									D3DXVECTOR3 vOrigin = go->m_transform.m_position;
-									D3DXVECTOR3 vDir = camera->m_transform.m_dir;
-
-									// Créez un tableau de deux points qui représentent l'origine et l'extrémité du rayon
-									D3DXVECTOR3 points[2] = { vOrigin, vOrigin + (vDir * 100000) };
-
-									// Définissez la couleur de la ligne en utilisant un vecteur de couleur RGBA
-									D3DCOLOR color = D3DCOLOR_RGBA(255, 255, 0, 255); // Jaune
-
-									//D3DXMATRIX matProj = camera->GetProjectionMatrix();
-									//D3DXMATRIX matView = camera->GetViewMatrix();
-
-									D3DXMATRIX tempFinal = camera->m_transform.m_matrix * matProj;
-
-									// Appelez la fonction DrawLine pour dessiner la ligne de rayon
-									pLine->SetWidth(10.0f); // Définissez la largeur de la ligne
-									pLine->Begin();
-									pLine->DrawTransform(points, 2, &tempFinal, color);
-									pLine->End();
-
-									// Ne pas oublier de libérer l'interface ID3DXLine lorsque vous n'en avez plus besoin
-									pLine->Release();
-
-								}
-								else if (go2->m_tag == "target") {
-									//OutputDebugStringA("NON :::");
-
-								}
-							}
-
-
-
-						}
-					}
-
-
-				}
 			}
 		}
 	}
 
+	for (auto raycast : raycastlist)
+	{
+		raycast->DrawLine(d3ddev, *camera);
+	}
 
 	d3ddev->EndScene();
-
 	d3ddev->Present(NULL, NULL, NULL, NULL);
 }
 

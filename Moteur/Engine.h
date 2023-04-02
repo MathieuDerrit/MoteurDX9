@@ -27,6 +27,8 @@ public:
 
 	void cleanD3D(void);
 	vector<GameObject*> gameobjectlist;
+	vector<Raycast*> raycastlist;
 	LPDIRECT3DDEVICE9 d3ddev;
 	Camera* camera = NULL;
+	Input input;
 };

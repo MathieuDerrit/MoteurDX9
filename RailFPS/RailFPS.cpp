@@ -5,6 +5,7 @@ GameObject* go;
 GameObject* go2;
 Target* target;
 Weapon* weapon;
+Raycast* shootRay;
 Mesh* mesh;
 Collider* collider;
 
@@ -69,6 +70,9 @@ void railsTurn(bool isRightDirection) {
 }
 
 void Update() {
+    D3DXVECTOR3 vOrigin;
+    D3DXVECTOR3 vDirection = Eng->camera->m_transform.m_dir;
+
     D3DXVECTOR3 posWeapon = Eng->camera->m_transform.m_position;
     posWeapon.x += 3;
     posWeapon.z -= 4;
@@ -77,6 +81,10 @@ void Update() {
     D3DXVECTOR3 pos = target->m_transform.m_position;
     int j = 10;
     for (auto go : Eng->gameobjectlist) {
+        if (go->m_tag == "weapon") {
+            vOrigin = go->m_transform.m_position;
+            shootRay->Init(vOrigin, vDirection, 150.0f);
+        }
         if (go->m_tag == "target") {
             j += 2;
             float y = go->m_transform.m_position.y;
@@ -138,6 +146,21 @@ void Update() {
 
     target->m_transform.setPosition(pos);
 
+
+    if (Eng->input.IsPressed(LMB)) {
+        for (auto go : Eng->gameobjectlist) {
+            if (go->m_tag == "target") {
+                BOOL isCollide = false;
+                shootRay->CreateRaycast(go->GetComponent<Mesh>()->getMesh(), vOrigin, vDirection, &isCollide);
+                if (isCollide) {
+                    //Destroy target and add points
+                    //
+                    //
+                }
+            }
+        }
+    }
+
 }
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -187,9 +210,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
     weapon->m_transform.setScale(D3DXVECTOR3(10.0f, 10.0f, 10.0f));
     weapon->m_transform.rotate(66.0f, 0.0f, 66.0f);
     weapon->m_tag = "weapon";
-
-
     Eng->gameobjectlist.push_back(weapon);
+
+    shootRay = new Raycast();
+    Eng->raycastlist.push_back(shootRay);
 
 
     railsTurn(true);
