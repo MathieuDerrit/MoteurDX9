@@ -13,6 +13,5 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-#pragma comment (lib, "d3dx9.lib")
 
 #include "../Moteur/moteur.h"
