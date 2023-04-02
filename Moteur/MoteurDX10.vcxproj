@@ -137,15 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DXEngine.cpp" />
-    <ClCompile Include="DXGraphics.cpp" />
-    <ClCompile Include="DXInput.cpp" />
-    <ClCompile Include="DXLights.cpp" />
-    <ClCompile Include="DXManager.cpp" />
-    <ClCompile Include="DXModels.cpp" />
-    <ClCompile Include="DXTexture.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -167,15 +159,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CreateCube.h" />
-    <ClInclude Include="DXCamera.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="DXEngine.h" />
-    <ClInclude Include="DXGraphics.h" />
-    <ClInclude Include="DXInput.h" />
-    <ClInclude Include="DXLights.h" />
-    <ClInclude Include="DXManager.h" />
-    <ClInclude Include="DXModels.h" />
-    <ClInclude Include="DXTexture.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="framework.h" />
