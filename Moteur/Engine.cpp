@@ -1,4 +1,5 @@
 #include "moteur.h"
+Time* time;
 
 Engine::Engine(){
 
@@ -47,6 +48,25 @@ void Engine::Init(HINSTANCE hInstance,
 
 	initD3D(&hWnd);
 	initInput();
+	time->InitSystemTime();
+	/*
+	cam.m_transform.setPosition(D3DXVECTOR3(0, -5, 0));
+	cam.m_transform.rotate(-90.0f, 0.0f, 0.0f);
+	input.cam = &cam;
+	*/
+	camera = new Camera();
+	camera->m_transform.setPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
+	camera->SetProjectionValues(D3DXToRadian(60),
+		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
+		1.0f,
+		1000.0f);
+	camera->m_transform.rotate(0.0f, 0.0f, 0.0f);
+
+	input.cam = camera;
+
+	D3DXCreateBox(d3ddev, 1.0f, 1.0f, 1.0f, &mm, 0);
+
+
 	ShowWindow(hWnd, nCmdShow);
 }
 
@@ -102,10 +122,18 @@ void Engine::init_light(void)
 	d3ddev->SetMaterial(&material);
 }
 
+int a = 0;
 void Engine::Update()
 {
-	STimer::UpdateDeltaTime();
-	Input::ReadInputs();
+	time->UpdateTime();
+	a += 50;
+	//cam->m_transform.setPosition(D3DXVECTOR3(a, a, 0.0f));
+
+	//OutputDebugStringA(std::to_string(time->deltaTime).append("\n").c_str());
+	input.ReadInputs();
+
+	//camera->m_transform.rotate(0.01, 0.0f, 0.0f);
+	camera->UpdateViewMatrix();
 	render_frame();
 	if (gameobjectlist.size() > 0)
 	{
@@ -119,7 +147,6 @@ void Engine::Update()
 	}
 
 }
-
 void Engine::render_frame(void)
 {
 	camera = new Camera();
@@ -132,27 +159,13 @@ void Engine::render_frame(void)
 
 	d3ddev->SetFVF(CUSTOMFVF);
 
-	D3DXMATRIX matView;
-	D3DXVECTOR3 v1(0.0f, 8.0f, 25.0f); 
-	D3DXVECTOR3 v2(-(Input::GetMouseX()) / 70, -(Input::GetMouseY()) / 70, 0.0f);
-	D3DXVECTOR3 v3(0.0f, 1.0f, 0.0f); 
+	D3DXMATRIX matProj = camera->GetProjectionMatrix();
+	D3DXMATRIX matView = camera->GetViewMatrix();
 
-
-	D3DXMatrixLookAtLH(&matView,
-		&v1,    
-		&v2,      
-		&v3);    
 	d3ddev->SetTransform(D3DTS_VIEW, &matView);
-	D3DXMATRIX matProjection;	
-	D3DXMatrixPerspectiveFovLH(&matProjection,
-		D3DXToRadian(45),
-		(FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT,
-		1.0f,    
-		100.0f);    
-	d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);
-	
-	//DRAW gameobjet
+	d3ddev->SetTransform(D3DTS_PROJECTION, &matProj);
 
+	//DRAW gameobjet
 	d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
 	d3ddev->SetIndices(i_buffer);
 
@@ -188,9 +201,12 @@ void Engine::render_frame(void)
 		}
 	}
 
+	for (auto raycast : raycastlist)
+	{
+		raycast->DrawLine(d3ddev, *camera);
+	}
 
 	d3ddev->EndScene();
-
 	d3ddev->Present(NULL, NULL, NULL, NULL);
 }
 

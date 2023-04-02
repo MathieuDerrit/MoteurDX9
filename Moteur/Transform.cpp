@@ -3,9 +3,6 @@
 
 Transform::Transform()
 {
-    m_position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-
     D3DXQuaternionIdentity(&m_quat);
     D3DXMatrixIdentity(&m_mPos);
     D3DXMatrixIdentity(&m_mSca);
@@ -42,6 +39,14 @@ void Transform::rotate(float yaw, float pitch, float roll)
 {
     D3DXQUATERNION quat;
     D3DXQUATERNION quatRot;
+<<<<<<< HEAD
+=======
+
+    goYaw = yaw;
+    goPitch = pitch;
+    goRoll = roll;
+
+>>>>>>> fix
     D3DXQuaternionRotationAxis(&quat, &m_up, yaw);
     quatRot = quat;
     D3DXQuaternionRotationAxis(&quat, &m_right, pitch);
@@ -75,7 +80,8 @@ void Transform::setScale(D3DXVECTOR3 scale)
 
 void Transform::updateMatrix()
 {
+    D3DXMatrixTransformation(&m_matrix, NULL, NULL, &m_scale, NULL, &m_quat, &m_position);
+    /*m_matrix *= m_mRot;
     m_matrix = m_mSca;
-    m_matrix *= m_mRot;
-    m_matrix *= m_mPos;
+    m_matrix *= m_mPos;*/
 }

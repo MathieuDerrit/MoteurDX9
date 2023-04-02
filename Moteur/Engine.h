@@ -9,6 +9,10 @@ private:
 
 	Camera* camera;
 
+	KeyboardClass keyboard;
+	MouseClass mouse;
+	LPD3DXMESH mm;
+	
 public:
 	Engine();
 
@@ -24,9 +28,9 @@ public:
 	//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 
 	void cleanD3D(void);
-	list<GameObject*> gameobjectlist;
+	vector<GameObject*> gameobjectlist;
+	vector<Raycast*> raycastlist;
 	LPDIRECT3DDEVICE9 d3ddev;
-
+	Camera* camera = NULL;
+	Input input;
 };
-
-

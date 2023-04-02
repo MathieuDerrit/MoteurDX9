@@ -14,6 +14,7 @@
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <d3dx9math.h>
 #include <memory>
 #include <queue>
 #include <list>
@@ -26,6 +27,9 @@
 
 #include <DirectXMath.h>
 #include <DxErr.h>
+#include <timeapi.h>
+#include <iterator>
+
 
 
 #pragma comment (lib, "d3d9.lib")
@@ -59,6 +63,8 @@ class Transform;
 class Mesh;
 class Collider;
 class AABB;
+class KeyboardEvent;
+class KeyboardClass;
 class GameObject;
 class ErrorLogger;
 class Engine;
@@ -66,6 +72,7 @@ class Camera;
 class Input;
 class STimer;
 class Shader;
+class Time;
 
 
 #include "Component.h"
@@ -82,5 +89,25 @@ class Shader;
 #include "STimer.h"
 #include "Shader.h"
 
+//#include "AABB.h"
+#include "Mouse/MouseEvent.h"
+#include "Mouse/MouseClass.h"
+#include "Keyboard/KeyboardEvent.h"
+#include "Keyboard/KeyboardClass.h"
+#include "GameObject.h"
+#include "ErrorLogger.h"
+#include "DXTexture.h"
+#include "DXModels.h"
+#include "DXManager.h"
+#include "DXLights.h"
+#include "DXInput.h"
+#include "DXGraphics.h"
+#include "DXEngine.h"
+#include "DXCamera.h"
+#include "Camera.h"
+#include "Input.h"
+#include "Time.h"
+#include "Raycast.h"
+#include "Engine.h"
 
 
