@@ -56,14 +56,9 @@ using namespace std;
 
 class Component;
 class Transform;
-class StringConverter;
-class MouseEvent;
-class MouseClass;
 class Mesh;
 class Collider;
 class AABB;
-class KeyboardEvent;
-class KeyboardClass;
 class GameObject;
 class ErrorLogger;
 class Engine;
@@ -75,18 +70,12 @@ class Shader;
 
 #include "Component.h"
 #include "Transform.h"
-#include "StringConverter.h"
 #include "Mesh.h"
 #include "AABB.h"
 #include "Collider.h"
 #include "Fieldtext.h"
 #include "Button.h"
-#include "Mouse/MouseEvent.h"
-#include "Mouse/MouseClass.h"
-#include "Keyboard/KeyboardEvent.h"
-#include "Keyboard/KeyboardClass.h"
 #include "GameObject.h"
-#include "ErrorLogger.h"
 #include "Engine.h"
 #include "Camera.h"
 #include "Input.h"

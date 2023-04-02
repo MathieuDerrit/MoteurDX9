@@ -15,12 +15,8 @@ class Input {
 public:
       static void ReadInputs();
       static bool IsPressed(KeyType InputType);
-      static float GetMouseX() {
-          OutputDebugStringA("x:");
-          OutputDebugStringA(std::to_string(x).append("\n").c_str()); return x; }
-      static float GetMouseY() {
-          OutputDebugStringA("y:");
-          OutputDebugStringA(std::to_string(y).append("\n").c_str()); return y; }
+      static float GetMouseX() { return x; }
+      static float GetMouseY() { return y; }
       static float GetRawX() { return rawX; }
       static float GetRawY() { return rawY; }
       static void UpdateInput(KeyType InputType, int vKey);

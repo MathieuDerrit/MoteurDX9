@@ -7,8 +7,6 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
 	LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
 
-	KeyboardClass keyboard;
-	MouseClass mouse;
 	Camera* camera;
 
 public:
@@ -17,7 +15,6 @@ public:
 	void Init(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow);
 	void initD3D(HWND* hWnd);
 	void initShader();
-	void initInput();
 	void init_light(void);
 
 
