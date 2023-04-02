@@ -212,6 +212,9 @@ void Engine::render_frame(void)
 				go->GetComponent<Button>()->Draw();
 				go->GetComponent<Button>()->Update();
 			}
+			if (go->GetComponent<Collider>()) {
+				go->GetComponent<Collider>()->GetPosition(go->m_transform.m_position);
+			}
 		}
 	}
 

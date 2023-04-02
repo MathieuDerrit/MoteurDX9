@@ -43,12 +43,12 @@ void Update() {
 
 
     }
-    //COLLIDER
-    //Collider* box1 = go->GetComponent<Collider>();
-    //Collider* box2 = go2->GetComponent<Collider>();
+    
+    //AABB* box1 = go->GetComponent<AABB>();
+    //AABB* box2 = go2->GetComponent<AABB>();
 
-    //if (box1->CollidesWith(box2) == true) {
-    //    box1->collidewith;
+    //if (AABB::Get()->AABBvsAABB(go->GetComponent<AABB>(), go2->GetComponent<AABB>())) {
+    //    
     //    OutputDebugStringA("explosion");
     //}
     //else
@@ -101,25 +101,31 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 
     go = new GameObject();
-   go->m_transform.setPosition(D3DXVECTOR3(2.0f, 2.0f, 0.0f));
+    auto pos = D3DXVECTOR3(2.0f, 2.0f, 0.0f);
+    go->m_transform.setPosition(pos);
     go->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
-    go->AddComponent<Collider>();
+    go->AddComponent<AABB>();
     go->AddComponent<Mesh>();
+    go->AddComponent<Collider>();
     Mesh* mesh = go->GetComponent<Mesh>();
-    Collider* co = go->GetComponent<Collider>();
-
-    mesh->Init(Eng->d3ddev, Sphere);
+    AABB* co = go->GetComponent<AABB>();
+    co->GetPosition(pos);
+    pos = go->GetComponent<Collider>()->m_pos;
+    mesh->Init(Eng->d3ddev, Box);
     Eng->gameobjectlist.push_back(go);
 
     go2 = new GameObject();
-    go2->m_transform.setPosition(D3DXVECTOR3(0.0f, 0.5f, 0.0f));
+    auto pos2 = D3DXVECTOR3(2.0f, 1.0f, 0.0f);
+    go2->m_transform.setPosition(pos2);
     go2->m_transform.setScale(D3DXVECTOR3(1, 1, 1));
-    go2->AddComponent<Collider>();
+    go2->AddComponent<AABB>();
     go2->AddComponent<Mesh>();
+    go2->AddComponent<Collider>();
     Mesh* mesh2 = go2->GetComponent<Mesh>();
-    Collider* co2 = go2->GetComponent<Collider>();
-
-    mesh2->Init(Eng->d3ddev, Sphere);
+    AABB* co2 = go2->GetComponent<AABB>();
+    co2->GetPosition(pos2);
+    pos2 = go2->GetComponent<Collider>()->m_pos;
+    mesh2->Init(Eng->d3ddev, Box);
     Eng->gameobjectlist.push_back(go2);
 
     textCanvas = new GameObject();
@@ -170,7 +176,6 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     target->m_transform.setPosition(D3DXVECTOR3(5.0f, 0.0f, 0.0f));
     target->m_transform.setScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));
     target->m_transform.rotate(0.0f, 0.0f, 0.0f);
-
     Eng->gameobjectlist.push_back(target);
 
     weapon = new Weapon();

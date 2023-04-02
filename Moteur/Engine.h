@@ -4,8 +4,8 @@ class Engine
 {
 private:
 	LPDIRECT3D9 d3d;
-	LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;
-	LPDIRECT3DINDEXBUFFER9 i_buffer = NULL;
+	LPDIRECT3DVERTEXBUFFER9 v_buffer;
+	LPDIRECT3DINDEXBUFFER9 i_buffer;
 
 	KeyboardClass keyboard;
 	MouseClass mouse;
